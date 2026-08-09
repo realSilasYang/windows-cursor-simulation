@@ -56,6 +56,13 @@ for (const [locale, route, canonical] of pages) {
   new vm.Script(appScript, { filename: `${label}/index.html` });
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
 
+  const analyticsScripts = [...document.querySelectorAll('script[src="https://static.cloudflareinsights.com/beacon.min.js"]')];
+  if (analyticsScripts.length !== 1) throw new Error(`${label}: expected exactly one Cloudflare Web Analytics beacon`);
+  const analyticsScript = analyticsScripts[0];
+  if (analyticsScript.type !== "module") throw new Error(`${label}: Cloudflare beacon must use the provided module loader`);
+  const analyticsConfig = JSON.parse(analyticsScript.dataset.cfBeacon || "{}");
+  if (analyticsConfig.token !== "fe49643173e74721b452221aafe7d9be") throw new Error(`${label}: incorrect Cloudflare beacon token`);
+
   if (locale.startsWith("zh-")) {
     const walker = document.createTreeWalker(document.body, dom.window.NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
