@@ -221,17 +221,16 @@
       align-items: center;
       justify-content: center;
       padding: 0;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--surface);
-      color: var(--text);
+      border: 0;
+      background: transparent;
+      color: var(--teal);
       cursor: pointer;
     }
 
     .preference-button:hover,
     .preference-button[aria-expanded="true"] {
-      border-color: var(--border-strong);
-      background: var(--surface-raised);
+      background: transparent;
+      color: var(--text);
     }
 
     .preference-button:focus-visible,
@@ -243,7 +242,7 @@
     .preference-icon {
       width: 21px;
       height: 21px;
-      color: var(--teal);
+      color: currentColor;
     }
 
     .preference-menu,
@@ -741,6 +740,20 @@
         <p class="subtitle" id="appSubtitle">Cấu hình hệ thống hiện tại · Kết xuất trực tiếp trong trình duyệt</p>
       </div>
       <div class="header-actions">
+        <div class="header-status" id="headerStatus" aria-label="Trạng thái tài nguyên">
+          <div class="status-item">
+            <span class="status-label" id="systemRolesLabel">Vai trò hệ thống</span>
+            <span class="status-value" id="systemRoles">13</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label" id="cssStatesLabel">Trạng thái CSS</span>
+            <span class="status-value" id="cssStates">23</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label" id="platformLabel">Nền tảng</span>
+            <span class="status-value" id="platformValue">Windows</span>
+          </div>
+        </div>
         <div class="preference-controls">
           <div class="language-control">
             <button class="preference-button language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="languageMenu" aria-label="Chọn ngôn ngữ" title="Chọn ngôn ngữ">
@@ -812,20 +825,6 @@
         <button class="menu-option theme-option" type="button" role="menuitemradio" data-theme="light" aria-checked="false" tabindex="-1">
           Sáng
         </button></div>
-          </div>
-        </div>
-        <div class="header-status" id="headerStatus" aria-label="Trạng thái tài nguyên">
-          <div class="status-item">
-            <span class="status-label" id="systemRolesLabel">Vai trò hệ thống</span>
-            <span class="status-value" id="systemRoles">13</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label" id="cssStatesLabel">Trạng thái CSS</span>
-            <span class="status-value" id="cssStates">23</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label" id="platformLabel">Nền tảng</span>
-            <span class="status-value" id="platformValue">Windows</span>
           </div>
         </div>
       </div>
@@ -1368,8 +1367,8 @@
   <footer class="app-footer">
     <div class="footer-inner">
       <span id="footerSpec">Các từ khóa con trỏ tuân theo đặc tả <strong>CSS Basic User Interface Module Level 4</strong></span>
-      <span class="footer-visits" id="footerVisits" aria-live="polite" hidden="">Tổng lượt truy cập: 0</span>
       <span id="footerCounts">13 vai trò hệ thống · 23 trạng thái CSS</span>
+      <span class="footer-visits" id="footerVisits" aria-live="polite" hidden="">Tổng lượt truy cập: 0</span>
     </div>
   </footer>
 

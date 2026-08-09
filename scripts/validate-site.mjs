@@ -35,12 +35,24 @@ for (const [locale, route, canonical] of pages) {
   if (languageButton?.querySelectorAll("svg").length !== 1 || languageButton.textContent.trim()) {
     throw new Error(`${label}: language button must contain exactly one icon and no visible text`);
   }
+  const themeButton = document.getElementById("themeButton");
+  if (themeButton?.querySelectorAll("svg").length !== 1 || themeButton.textContent.trim()) {
+    throw new Error(`${label}: theme button must contain exactly one icon and no visible text`);
+  }
+  const headerOrder = [...document.querySelector(".header-actions")?.children || []].map((element) => element.className);
+  if (headerOrder[0] !== "header-status" || headerOrder[1] !== "preference-controls") {
+    throw new Error(`${label}: preference controls must be the rightmost header group`);
+  }
   if (document.querySelectorAll("#themeMenu [data-theme]").length !== 3) throw new Error(`${label}: expected three theme choices`);
   if (!document.documentElement.dataset.theme || !document.documentElement.dataset.themePreference) {
     throw new Error(`${label}: missing initialized theme state`);
   }
   const footerVisits = document.getElementById("footerVisits");
   if (!footerVisits || !footerVisits.hidden) throw new Error(`${label}: visit counter must wait for live data`);
+  const footerOrder = [...document.querySelector(".footer-inner")?.children || []].map((element) => element.id);
+  if (footerOrder.join(",") !== "footerSpec,footerCounts,footerVisits") {
+    throw new Error(`${label}: visit counter must be the rightmost footer item`);
+  }
 
   const hreflangs = new Set([...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((link) => link.hreflang));
   if (hreflangs.size !== expectedHreflangs.size || [...expectedHreflangs].some((value) => !hreflangs.has(value))) {
