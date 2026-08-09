@@ -1,6 +1,29 @@
-# Windows Cursor Simulation
+<div align="center">
+  <a href="https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/">
+    <img src="./og-image.png" width="800" alt="Windows Cursor Simulation 界面预览">
+  </a>
 
-[简体中文](#zh-cn) · [繁體中文（香港）](#zh-hk) · [繁體中文（台灣）](#zh-tw) · [English](#en) · [日本語](#ja) · [Tiếng Việt](#vi) · [한국어](#ko) · [Español](#es) · [Français](#fr) · [Português (Brasil)](#pt-br) · [Português (Portugal)](#pt-pt) · [Русский](#ru) · [Deutsch](#de) · [Italiano](#it)
+  <p><strong>简体中文</strong> · <a href="#zh-hk">繁體中文（香港）</a> · <a href="#zh-tw">繁體中文（台灣）</a> · <a href="#en">English</a> · <a href="#ja">日本語</a> · <a href="#vi">Tiếng Việt</a> · <a href="#ko">한국어</a> · <a href="#es">Español</a> · <a href="#fr">Français</a> · <a href="#pt-br">Português (Brasil)</a> · <a href="#pt-pt">Português (Portugal)</a> · <a href="#ru">Русский</a> · <a href="#de">Deutsch</a> · <a href="#it">Italiano</a></p>
+
+  <h1>Windows Cursor Simulation</h1>
+
+  <p><strong>在浏览器中查看当前系统真实渲染的 36 种 CSS 鼠标指针样式</strong></p>
+
+  <p>
+    <a href="https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/"><img src="https://img.shields.io/website?url=https%3A%2F%2Frealsilasyang.github.io%2Fwindows-cursor-simulation%2F&amp;up_message=online&amp;down_message=offline&amp;style=flat-square&amp;label=site" alt="网站状态"></a>
+    <img src="https://img.shields.io/badge/CSS_cursor-36_keywords-0969da?style=flat-square" alt="36 种 CSS 光标关键字">
+    <img src="https://img.shields.io/badge/languages-14-1f883d?style=flat-square" alt="支持 14 种语言">
+    <a href="https://www.w3.org/TR/css-ui-4/#cursor"><img src="https://img.shields.io/badge/CSS_UI-Level_4-663399?style=flat-square" alt="CSS Basic User Interface Module Level 4"></a>
+  </p>
+
+  <p>
+    <a href="https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/">在线体验</a> ·
+    <a href="#zh-cn">功能说明</a> ·
+    <a href="https://www.w3.org/TR/css-ui-4/#cursor">CSS 规范</a> ·
+    <a href="https://realsilasyang.github.io/windows-cursor-simulation/sitemap.xml">网站地图</a> ·
+    <a href="https://github.com/realSilasYang/windows-cursor-simulation/issues">问题反馈</a>
+  </p>
+</div>
 
 <a id="zh-cn"></a>
 
