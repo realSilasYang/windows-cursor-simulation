@@ -39,6 +39,8 @@ for (const [locale, route, canonical] of pages) {
   if (!document.documentElement.dataset.theme || !document.documentElement.dataset.themePreference) {
     throw new Error(`${label}: missing initialized theme state`);
   }
+  const footerVisits = document.getElementById("footerVisits");
+  if (!footerVisits || !footerVisits.hidden) throw new Error(`${label}: visit counter must wait for live data`);
 
   const hreflangs = new Set([...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((link) => link.hreflang));
   if (hreflangs.size !== expectedHreflangs.size || [...expectedHreflangs].some((value) => !hreflangs.has(value))) {
@@ -54,6 +56,9 @@ for (const [locale, route, canonical] of pages) {
   const appScript = document.getElementById("applicationScript")?.textContent;
   if (!appScript) throw new Error(`${label}: missing application script`);
   new vm.Script(appScript, { filename: `${label}/index.html` });
+  if (!appScript.includes("https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats")) {
+    throw new Error(`${label}: missing public statistics endpoint`);
+  }
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
 
   const analyticsScripts = [...document.querySelectorAll('script[src="https://static.cloudflareinsights.com/beacon.min.js"]')];

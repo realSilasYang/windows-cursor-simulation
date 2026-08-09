@@ -628,22 +628,28 @@
     }
 
     .footer-inner {
-      display: flex;
+      display: grid;
       height: 100%;
       align-items: center;
-      justify-content: space-between;
+      grid-template-columns: minmax(0, 1fr) auto auto;
       gap: 20px;
       font-size: 12px;
     }
 
+    .footer-visits {
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
     @media (max-width: 760px) {
       :root {
-        --footer-height: 88px;
+        --footer-height: 108px;
       }
 
       .footer-inner {
         align-items: flex-start;
-        flex-direction: column;
+        grid-template-columns: 1fr;
         justify-content: center;
         gap: 4px;
         padding-block: 12px;
@@ -1362,6 +1368,7 @@
   <footer class="app-footer">
     <div class="footer-inner">
       <span id="footerSpec">游標關鍵字依據 <strong>CSS Basic User Interface Module Level 4</strong> 規範</span>
+      <span class="footer-visits" id="footerVisits" aria-live="polite" hidden="">總造訪次數：0</span>
       <span id="footerCounts">13 種系統角色 · 23 種 CSS 狀態</span>
     </div>
   </footer>
@@ -1455,6 +1462,7 @@
           systemBadge: "系统",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "光标关键字依据 {spec} 规范",
+          totalVisits: "总访问量：{count}",
           footerCounts: "{system} 种系统角色 · {css} 种 CSS 状态"
         },
         cursors: [
@@ -1524,6 +1532,7 @@
           systemBadge: "系統",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "指標關鍵字依據 {spec} 規範",
+          totalVisits: "總瀏覽次數：{count}",
           footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
         },
         cursors: [
@@ -1593,6 +1602,7 @@
           systemBadge: "系統",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "游標關鍵字依據 {spec} 規範",
+          totalVisits: "總造訪次數：{count}",
           footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
         },
         cursors: [
@@ -1662,6 +1672,7 @@
           systemBadge: "SYSTEM",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Cursor keywords follow the {spec} specification",
+          totalVisits: "Total visits: {count}",
           footerCounts: "{system} system roles · {css} CSS states"
         },
         cursors: [
@@ -1731,6 +1742,7 @@
           systemBadge: "システム",
           cardAria: "{name}、cursor: {css}",
           footerSpec: "カーソルキーワードは {spec} 仕様に準拠",
+          totalVisits: "総訪問数：{count}",
           footerCounts: "システムの役割 {system} 種類 · CSS 状態 {css} 種類"
         },
         cursors: [
@@ -1800,6 +1812,7 @@
           systemBadge: "HỆ THỐNG",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Các từ khóa con trỏ tuân theo đặc tả {spec}",
+          totalVisits: "Tổng lượt truy cập: {count}",
           footerCounts: "{system} vai trò hệ thống · {css} trạng thái CSS"
         },
         cursors: [
@@ -1869,6 +1882,7 @@
           systemBadge: "시스템",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "커서 키워드는 {spec} 사양을 따릅니다",
+          totalVisits: "총 방문 수: {count}",
           footerCounts: "시스템 역할 {system}개 · CSS 상태 {css}개"
         },
         cursors: [
@@ -1938,6 +1952,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Las palabras clave de cursor siguen la especificación {spec}",
+          totalVisits: "Visitas totales: {count}",
           footerCounts: "{system} roles del sistema · {css} estados CSS"
         },
         cursors: [
@@ -2007,6 +2022,7 @@
           systemBadge: "SYSTÈME",
           cardAria: "{name}, cursor : {css}",
           footerSpec: "Les mots-clés cursor suivent la spécification {spec}",
+          totalVisits: "Nombre total de visites : {count}",
           footerCounts: "{system} rôles système · {css} états CSS"
         },
         cursors: [
@@ -2076,6 +2092,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
+          totalVisits: "Total de visitas: {count}",
           footerCounts: "{system} funções do sistema · {css} estados CSS"
         },
         cursors: [
@@ -2145,6 +2162,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
+          totalVisits: "Total de visitas: {count}",
           footerCounts: "{system} funções do sistema · {css} estados CSS"
         },
         cursors: [
@@ -2214,6 +2232,7 @@
           systemBadge: "СИСТЕМА",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Ключевые слова cursor соответствуют спецификации {spec}",
+          totalVisits: "Всего посещений: {count}",
           footerCounts: "Системных ролей: {system} · состояний CSS: {css}"
         },
         cursors: [
@@ -2283,6 +2302,7 @@
           systemBadge: "SYSTEM",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Die cursor-Schlüsselwörter entsprechen der Spezifikation {spec}",
+          totalVisits: "Besuche insgesamt: {count}",
           footerCounts: "{system} Systemrollen · {css} CSS-Zustände"
         },
         cursors: [
@@ -2352,6 +2372,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Le parole chiave cursor seguono la specifica {spec}",
+          totalVisits: "Visite totali: {count}",
           footerCounts: "{system} ruoli di sistema · {css} stati CSS"
         },
         cursors: [
@@ -2398,6 +2419,7 @@
     const STORAGE_KEY = "windows-cursor-simulation.locale";
     const THEME_STORAGE_KEY = "windows-cursor-simulation.theme";
     const SITE_URL = "https://realsilasyang.github.io/windows-cursor-simulation/";
+    const STATS_ENDPOINT = "https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats";
     const SOURCE_URL = "https://github.com/realSilasYang/windows-cursor-simulation";
     const SPEC_URL = "https://www.w3.org/TR/css-ui-4/#cursor";
     const LAST_MODIFIED = "2026-08-09";
@@ -2444,7 +2466,8 @@
       query: "",
       preference: "auto",
       locale: "zh-CN",
-      themePreference: document.documentElement.dataset.themePreference || "auto"
+      themePreference: document.documentElement.dataset.themePreference || "auto",
+      totalVisits: null
     };
 
     const elements = {
@@ -2472,6 +2495,7 @@
       emptyMessage: document.getElementById("emptyMessage"),
       clear: document.getElementById("clearFilters"),
       footerSpec: document.getElementById("footerSpec"),
+      footerVisits: document.getElementById("footerVisits"),
       footerCounts: document.getElementById("footerCounts")
     };
 
@@ -2676,6 +2700,41 @@
       );
     }
 
+    function updateVisitText() {
+      if (!Number.isFinite(state.totalVisits)) {
+        elements.footerVisits.textContent = format(currentMessages().ui.totalVisits, { count: "0" });
+        elements.footerVisits.hidden = true;
+        return;
+      }
+      const count = new Intl.NumberFormat(state.locale).format(state.totalVisits);
+      elements.footerVisits.textContent = format(currentMessages().ui.totalVisits, { count });
+      elements.footerVisits.hidden = false;
+    }
+
+    async function loadTotalVisits() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      try {
+        const response = await fetch(STATS_ENDPOINT, {
+          headers: { Accept: "application/json" },
+          credentials: "omit",
+          signal: controller.signal
+        });
+        if (!response.ok) throw new Error(`Statistics returned HTTP ${response.status}`);
+        const payload = await response.json();
+        if (!Number.isInteger(payload.totalVisits) || payload.totalVisits < 0) {
+          throw new Error("Statistics returned an invalid total");
+        }
+        state.totalVisits = payload.totalVisits;
+        updateVisitText();
+      } catch {
+        state.totalVisits = null;
+        updateVisitText();
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
     function updateStaticText() {
       const { ui } = currentMessages();
       const pageUrl = canonicalUrl();
@@ -2718,6 +2777,7 @@
       elements.systemNote.textContent = format(ui.systemNote, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
       elements.footerCounts.textContent = format(ui.footerCounts, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
       updateSpecText(ui.footerSpec);
+      updateVisitText();
 
       elements.tabs.querySelectorAll("[data-category]").forEach((tab, index) => {
         tab.textContent = ui.tabs[index];
@@ -2981,6 +3041,7 @@
     const initialPreference = initialRouteLocale || readPreference();
     applyPreference(initialPreference, false);
     applyTheme(readThemePreference(), false);
+    loadTotalVisits();
     if (!initialRouteLocale && initialPreference !== "auto") syncLocaleUrl("replace");
   </script>
   <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;fe49643173e74721b452221aafe7d9be&quot;}"></script><!-- End Cloudflare Web Analytics -->
