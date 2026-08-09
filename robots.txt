@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://realsilasyang.github.io/windows-cursor-simulation/sitemap.xml
