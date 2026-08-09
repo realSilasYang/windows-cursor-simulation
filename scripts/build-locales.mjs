@@ -1,10 +1,13 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { JSDOM, VirtualConsole } from "jsdom";
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
-const rootPagePath = join(projectRoot, "index.html");
+const sourcePagePath = join(projectRoot, "src", "index.html");
+const publicDirectory = join(projectRoot, "public");
+const outputDirectory = join(projectRoot, "dist");
+const rootPagePath = join(outputDirectory, "index.html");
 const siteUrl = "https://realsilasyang.github.io/windows-cursor-simulation/";
 const lastModified = "2026-08-09";
 const locales = [
@@ -78,7 +81,11 @@ function sitemapEntry(url) {
   return `  <url>\n    <loc>${escapeXml(url)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n  </url>`;
 }
 
-const source = await readFile(rootPagePath, "utf8");
+await rm(outputDirectory, { recursive: true, force: true });
+await mkdir(outputDirectory, { recursive: true });
+await cp(publicDirectory, outputDirectory, { recursive: true });
+
+const source = await readFile(sourcePagePath, "utf8");
 const rootOutput = renderPage(source, "zh-CN", null);
 const localizedOutputs = locales.map(([locale, route]) => ({
   locale,
@@ -88,7 +95,7 @@ const localizedOutputs = locales.map(([locale, route]) => ({
 
 await writeFile(rootPagePath, rootOutput, "utf8");
 for (const { route, output } of localizedOutputs) {
-  const outputPath = join(projectRoot, route, "index.html");
+  const outputPath = join(outputDirectory, route, "index.html");
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, output, "utf8");
 }
@@ -99,6 +106,6 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 ${sitemapUrls.map(sitemapEntry).join("\n")}
 </urlset>
 `;
-await writeFile(join(projectRoot, "sitemap.xml"), sitemap, "utf8");
+await writeFile(join(outputDirectory, "sitemap.xml"), sitemap, "utf8");
 
-console.log(`Generated root page, ${localizedOutputs.length} localized pages, and sitemap.xml.`);
+console.log(`Generated root page, ${localizedOutputs.length} localized pages, and static resources in dist/.`);

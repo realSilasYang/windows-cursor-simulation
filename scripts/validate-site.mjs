@@ -5,6 +5,7 @@ import vm from "node:vm";
 import { JSDOM } from "jsdom";
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
+const siteRoot = join(projectRoot, "dist");
 const siteUrl = "https://realsilasyang.github.io/windows-cursor-simulation/";
 const locales = [
   ["zh-CN", "zh-cn"], ["zh-HK", "zh-hk"], ["zh-TW", "zh-tw"], ["en", "en"],
@@ -15,7 +16,7 @@ const pages = [["zh-CN", "", siteUrl], ...locales.map(([locale, route]) => [loca
 const expectedHreflangs = new Set(["x-default", ...locales.map(([locale]) => locale)]);
 
 for (const [locale, route, canonical] of pages) {
-  const html = await readFile(join(projectRoot, route, "index.html"), "utf8");
+  const html = await readFile(join(siteRoot, route, "index.html"), "utf8");
   const dom = new JSDOM(html);
   const { document } = dom.window;
   const label = route || "root";
@@ -103,13 +104,13 @@ for (const [locale, route, canonical] of pages) {
   dom.window.close();
 }
 
-const sitemap = await readFile(join(projectRoot, "sitemap.xml"), "utf8");
+const sitemap = await readFile(join(siteRoot, "sitemap.xml"), "utf8");
 const sitemapLocations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 if (sitemapLocations.length !== pages.length) throw new Error(`Sitemap contains ${sitemapLocations.length} URLs, expected ${pages.length}`);
 for (const [, , canonical] of pages) if (!sitemapLocations.includes(canonical)) throw new Error(`Sitemap is missing ${canonical}`);
 
 for (const requiredFile of ["robots.txt", "llms.txt", "llms-full.txt", "og-image.png"]) {
-  await readFile(join(projectRoot, requiredFile));
+  await readFile(join(siteRoot, requiredFile));
 }
 
 console.log(`Validated ${pages.length} pages, 36 cursor terms per page, hreflang clusters, schema, sitemap, and GEO files.`);

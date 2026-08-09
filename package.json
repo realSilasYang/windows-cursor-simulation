@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-locales.mjs",
-    "check": "node scripts/validate-site.mjs && npm --prefix worker test"
+    "check": "npm run build && node scripts/validate-site.mjs && npm --prefix worker test"
   },
   "devDependencies": {
     "jsdom": "29.1.1"
