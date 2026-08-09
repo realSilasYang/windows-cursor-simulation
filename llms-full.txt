@@ -1,0 +1,92 @@
+# Windows Cursor Simulation: full reference
+
+Canonical URL: https://realsilasyang.github.io/windows-cursor-simulation/
+Source: https://github.com/realSilasYang/windows-cursor-simulation
+Specification: CSS Basic User Interface Module Level 4, https://www.w3.org/TR/css-ui-4/#cursor
+Last updated: 2026-08-09
+
+## Purpose and observable behavior
+
+Windows Cursor Simulation is a free, static web application for inspecting the pointer produced by CSS `cursor` values. Each test card applies a standard CSS keyword to its own interactive area. The visible pointer therefore comes from the visitor's current browser, operating system, and configured system pointer scheme.
+
+The site does not fetch or apply cursor image resources. In particular, it does not reference `.cur` or `.ani` files from the author's local cursor collection. Results can differ across browsers, operating systems, themes, display scaling settings, and accessibility configurations.
+
+## Counts
+
+- Total predefined CSS cursor keywords tested: 36
+- Keywords mapped to standard Windows cursor-scheme roles: 13
+- CSS states without a dedicated standard Windows cursor-scheme role: 23
+- Interface languages: 14, plus an automatic browser-language mode
+- Use-case groups: 5
+
+## Windows role mapping
+
+| CSS keyword | Windows cursor-scheme role | Classification |
+| --- | --- | --- |
+| `auto` | none; browser chooses | CSS state |
+| `default` | `Arrow` | Windows system role |
+| `none` | none; pointer hidden | CSS state |
+| `context-menu` | no dedicated standard slot | CSS state |
+| `help` | `Help` | Windows system role |
+| `progress` | `AppStarting` | Windows system role |
+| `wait` | `Wait` | Windows system role |
+| `not-allowed` | `No` | Windows system role |
+| `no-drop` | no dedicated standard slot | CSS state |
+| `pointer` | `Hand` | Windows system role |
+| `text` | `IBeam` | Windows system role |
+| `vertical-text` | no dedicated standard slot | CSS state |
+| `crosshair` | `Crosshair` | Windows system role |
+| `cell` | no dedicated standard slot | CSS state |
+| `move` | `SizeAll` | Windows system role |
+| `grab` | no dedicated standard slot | CSS state |
+| `grabbing` | no dedicated standard slot | CSS state |
+| `alias` | no dedicated standard slot | CSS state |
+| `copy` | no dedicated standard slot | CSS state |
+| `all-scroll` | no dedicated standard slot | CSS state |
+| `col-resize` | no dedicated standard slot | CSS state |
+| `row-resize` | no dedicated standard slot | CSS state |
+| `n-resize` | no dedicated standard slot | CSS state |
+| `e-resize` | no dedicated standard slot | CSS state |
+| `s-resize` | no dedicated standard slot | CSS state |
+| `w-resize` | no dedicated standard slot | CSS state |
+| `ne-resize` | no dedicated standard slot | CSS state |
+| `nw-resize` | no dedicated standard slot | CSS state |
+| `se-resize` | no dedicated standard slot | CSS state |
+| `sw-resize` | no dedicated standard slot | CSS state |
+| `ns-resize` | `SizeNS` | Windows system role |
+| `ew-resize` | `SizeWE` | Windows system role |
+| `nwse-resize` | `SizeNWSE` | Windows system role |
+| `nesw-resize` | `SizeNESW` | Windows system role |
+| `zoom-in` | no dedicated standard slot | CSS state |
+| `zoom-out` | no dedicated standard slot | CSS state |
+
+The phrases “CSS state” and “no dedicated standard slot” mean that Windows does not expose a separate cursor-scheme entry for that exact CSS semantic role. They do not guarantee identical artwork across browsers or platforms.
+
+## Use-case groups
+
+1. General actions: `auto`, `default`, `none`, `context-menu`, `help`, `progress`, `wait`, `not-allowed`, `no-drop`, `pointer`.
+2. Text and precision selection: `text`, `vertical-text`, `crosshair`, `cell`.
+3. Movement and drag-and-drop: `move`, `grab`, `grabbing`, `alias`, `copy`, `all-scroll`.
+4. Resizing: `col-resize`, `row-resize`, `n-resize`, `e-resize`, `s-resize`, `w-resize`, `ne-resize`, `nw-resize`, `se-resize`, `sw-resize`, `ns-resize`, `ew-resize`, `nwse-resize`, `nesw-resize`.
+5. View zoom: `zoom-in`, `zoom-out`.
+
+## Localized canonical URLs
+
+| Language | BCP 47 tag | URL |
+| --- | --- | --- |
+| Simplified Chinese | `zh-CN` | https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/ |
+| Traditional Chinese (Hong Kong) | `zh-HK` | https://realsilasyang.github.io/windows-cursor-simulation/zh-hk/ |
+| Traditional Chinese (Taiwan) | `zh-TW` | https://realsilasyang.github.io/windows-cursor-simulation/zh-tw/ |
+| English | `en` | https://realsilasyang.github.io/windows-cursor-simulation/en/ |
+| Japanese | `ja` | https://realsilasyang.github.io/windows-cursor-simulation/ja/ |
+| Vietnamese | `vi` | https://realsilasyang.github.io/windows-cursor-simulation/vi/ |
+| Korean | `ko` | https://realsilasyang.github.io/windows-cursor-simulation/ko/ |
+| Spanish | `es` | https://realsilasyang.github.io/windows-cursor-simulation/es/ |
+| French | `fr` | https://realsilasyang.github.io/windows-cursor-simulation/fr/ |
+| Portuguese (Brazil) | `pt-BR` | https://realsilasyang.github.io/windows-cursor-simulation/pt-br/ |
+| Portuguese (Portugal) | `pt-PT` | https://realsilasyang.github.io/windows-cursor-simulation/pt-pt/ |
+| Russian | `ru` | https://realsilasyang.github.io/windows-cursor-simulation/ru/ |
+| German | `de` | https://realsilasyang.github.io/windows-cursor-simulation/de/ |
+| Italian | `it` | https://realsilasyang.github.io/windows-cursor-simulation/it/ |
+
+The root URL is the `x-default` entry and uses automatic browser-language detection.

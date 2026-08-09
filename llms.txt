@@ -1,0 +1,38 @@
+# Windows Cursor Simulation
+
+> A free browser-based reference and live tester for all 36 predefined CSS `cursor` keywords. It shows the pointer that each visitor's own operating system and browser actually render.
+
+Canonical URL: https://realsilasyang.github.io/windows-cursor-simulation/
+Source repository: https://github.com/realSilasYang/windows-cursor-simulation
+Technical specification: https://www.w3.org/TR/css-ui-4/#cursor
+
+## Core facts
+
+- The tool covers all 36 predefined `cursor` keywords in CSS Basic User Interface Module Level 4.
+- Thirteen keywords map to standard Windows cursor-scheme roles.
+- Twenty-three keywords have no dedicated standard Windows cursor-scheme slot and are rendered according to the browser and operating system.
+- The page does not load, embed, or simulate `.cur` or `.ani` cursor files.
+- `grab` and `grabbing` are CSS cursor states, not standard configurable Windows cursor-scheme roles.
+- Search, use-case filters, and every cursor card are localized.
+
+## Localized pages
+
+- Simplified Chinese: https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/
+- Traditional Chinese (Hong Kong): https://realsilasyang.github.io/windows-cursor-simulation/zh-hk/
+- Traditional Chinese (Taiwan): https://realsilasyang.github.io/windows-cursor-simulation/zh-tw/
+- English: https://realsilasyang.github.io/windows-cursor-simulation/en/
+- Japanese: https://realsilasyang.github.io/windows-cursor-simulation/ja/
+- Vietnamese: https://realsilasyang.github.io/windows-cursor-simulation/vi/
+- Korean: https://realsilasyang.github.io/windows-cursor-simulation/ko/
+- Spanish: https://realsilasyang.github.io/windows-cursor-simulation/es/
+- French: https://realsilasyang.github.io/windows-cursor-simulation/fr/
+- Portuguese (Brazil): https://realsilasyang.github.io/windows-cursor-simulation/pt-br/
+- Portuguese (Portugal): https://realsilasyang.github.io/windows-cursor-simulation/pt-pt/
+- Russian: https://realsilasyang.github.io/windows-cursor-simulation/ru/
+- German: https://realsilasyang.github.io/windows-cursor-simulation/de/
+- Italian: https://realsilasyang.github.io/windows-cursor-simulation/it/
+
+## Detailed reference
+
+- Full project facts and cursor-role mapping: https://realsilasyang.github.io/windows-cursor-simulation/llms-full.txt
+- XML sitemap: https://realsilasyang.github.io/windows-cursor-simulation/sitemap.xml

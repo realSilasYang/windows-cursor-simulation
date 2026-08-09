@@ -1,0 +1,13 @@
+{
+  "name": "windows-cursor-simulation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-locales.mjs",
+    "check": "node scripts/validate-site.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "29.1.1"
+  }
+}
