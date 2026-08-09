@@ -120,6 +120,112 @@
       font-size: 13px;
     }
 
+    .header-actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-control {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .language-button {
+      display: inline-flex;
+      max-width: 220px;
+      min-height: 38px;
+      align-items: center;
+      gap: 7px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .language-button:hover,
+    .language-button[aria-expanded="true"] {
+      border-color: var(--border-strong);
+      background: var(--surface-raised);
+    }
+
+    .language-button:focus-visible,
+    .language-option:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .language-symbol,
+    .language-chevron {
+      flex: 0 0 auto;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .language-button-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .language-menu {
+      position: absolute;
+      z-index: 30;
+      top: calc(100% + 7px);
+      right: 0;
+      width: 250px;
+      max-width: calc(100vw - 24px);
+      max-height: min(480px, calc(100vh - 110px));
+      overflow-y: auto;
+      padding: 5px;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      background: var(--surface);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+    }
+
+    .language-menu[hidden] {
+      display: none;
+    }
+
+    .language-option {
+      display: flex;
+      width: 100%;
+      min-height: 34px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 9px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .language-option:hover {
+      background: var(--surface-raised);
+      color: var(--text);
+    }
+
+    .language-option[aria-checked="true"] {
+      background: var(--teal-soft);
+      color: #c7f3e8;
+    }
+
+    .language-option[aria-checked="true"]::after {
+      flex: 0 0 auto;
+      content: "✓";
+      color: var(--teal);
+      font-weight: 700;
+    }
+
     .header-status {
       display: grid;
       flex: 0 0 auto;
@@ -345,12 +451,11 @@
     }
 
     .card-title p {
-      overflow: hidden;
       margin: 4px 0 0;
       color: var(--muted);
       font-size: 12px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
     }
 
     .role-type {
@@ -482,6 +587,17 @@
         font-size: 20px;
       }
 
+      .header-actions {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .language-control {
+        align-self: flex-end;
+      }
+
       .header-status {
         width: 100%;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -532,21 +648,31 @@
   <header class="app-header">
     <div class="header-inner">
       <div class="title-block">
-        <h1>Windows 鼠标指针测试</h1>
-        <p class="subtitle">当前系统方案 · 浏览器实时渲染</p>
+        <h1 id="appTitle">Windows 鼠标指针测试</h1>
+        <p class="subtitle" id="appSubtitle">当前系统方案 · 浏览器实时渲染</p>
       </div>
-      <div class="header-status" aria-label="资源状态">
-        <div class="status-item">
-          <span class="status-label">系统角色</span>
-          <span class="status-value" id="systemRoles">0</span>
+      <div class="header-actions">
+        <div class="language-control">
+          <button class="language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="languageMenu" aria-label="选择语言">
+            <span class="language-symbol" aria-hidden="true">A/文</span>
+            <span class="language-button-label" id="languageButtonLabel">简体中文</span>
+            <span class="language-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="language-menu" id="languageMenu" role="menu" aria-label="语言" hidden></div>
         </div>
-        <div class="status-item">
-          <span class="status-label">CSS 状态</span>
-          <span class="status-value" id="cssStates">0</span>
-        </div>
-        <div class="status-item">
-          <span class="status-label">运行平台</span>
-          <span class="status-value" id="platformValue">Windows</span>
+        <div class="header-status" id="headerStatus" aria-label="资源状态">
+          <div class="status-item">
+            <span class="status-label" id="systemRolesLabel">系统角色</span>
+            <span class="status-value" id="systemRoles">0</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label" id="cssStatesLabel">CSS 状态</span>
+            <span class="status-value" id="cssStates">0</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label" id="platformLabel">运行平台</span>
+            <span class="status-value" id="platformValue">Windows</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1084,7 +1210,7 @@
       </section>
       <section class="empty-state" id="emptyState" aria-live="polite">
         <div>
-          <p>没有匹配的指针样式</p>
+          <p id="emptyMessage">没有匹配的指针样式</p>
           <button class="clear-button" id="clearFilters" type="button">清除筛选</button>
         </div>
       </section>
@@ -1093,87 +1219,1175 @@
 
   <footer class="app-footer">
     <div class="footer-inner">
-      <span>光标关键字依据 <strong>CSS Basic User Interface Module Level 4</strong> 规范</span>
-      <span>13 种系统角色 · 23 种 CSS 状态</span>
+      <span id="footerSpec">光标关键字依据 <strong>CSS Basic User Interface Module Level 4</strong> 规范</span>
+      <span id="footerCounts">13 种系统角色 · 23 种 CSS 状态</span>
     </div>
   </footer>
 
   <script>
-    const cursors = [
-      { name: "自动判定", description: "根据当前元素自动选择", role: "auto", css: "auto", category: "standard", source: "css" },
-      { name: "普通选择", description: "默认箭头指针", role: "Arrow", css: "default", category: "standard", source: "system" },
-      { name: "隐藏指针", description: "不显示鼠标指针", role: "none", css: "none", category: "standard", source: "css" },
-      { name: "上下文菜单", description: "可打开上下文菜单", role: "context-menu", css: "context-menu", category: "standard", source: "css" },
-      { name: "帮助选择", description: "可查看相关帮助", role: "Help", css: "help", category: "standard", source: "system" },
-      { name: "后台运行", description: "任务运行中，仍可继续操作", role: "AppStarting", css: "progress", category: "standard", source: "system" },
-      { name: "忙碌", description: "正在处理，暂不可操作", role: "Wait", css: "wait", category: "standard", source: "system" },
-      { name: "不可用", description: "当前操作不可执行", role: "No", css: "not-allowed", category: "standard", source: "system" },
-      { name: "禁止放置", description: "不能在此处放置对象", role: "no-drop", css: "no-drop", category: "standard", source: "css" },
-      { name: "链接选择", description: "可点击链接或控件", role: "Hand", css: "pointer", category: "standard", source: "system" },
-      { name: "文本选择", description: "可选择横排文本", role: "IBeam", css: "text", category: "text", source: "system" },
-      { name: "竖排文本选择", description: "可选择竖排文本", role: "vertical-text", css: "vertical-text", category: "text", source: "css" },
-      { name: "精确选择", description: "用于精确定位", role: "Crosshair", css: "crosshair", category: "text", source: "system" },
-      { name: "单元格选择", description: "可选择表格单元格", role: "cell", css: "cell", category: "text", source: "css" },
-      { name: "移动", description: "可移动当前对象", role: "SizeAll", css: "move", category: "move", source: "system" },
-      { name: "抓取", description: "当前对象可以抓取", role: "grab", css: "grab", category: "move", source: "css" },
-      { name: "正在抓取", description: "正在拖动已抓取的对象", role: "grabbing", css: "grabbing", category: "move", source: "css" },
-      { name: "创建引用", description: "将创建快捷方式或引用", role: "alias", css: "alias", category: "move", source: "css" },
-      { name: "复制", description: "将复制当前对象", role: "copy", css: "copy", category: "move", source: "css" },
-      { name: "全向滚动", description: "可向任意方向滚动", role: "all-scroll", css: "all-scroll", category: "move", source: "css" },
-      { name: "调整列宽", description: "可调整当前列的宽度", role: "col-resize", css: "col-resize", category: "resize", source: "css" },
-      { name: "调整行高", description: "可调整当前行的高度", role: "row-resize", css: "row-resize", category: "resize", source: "css" },
-      { name: "向上调整", description: "可向上调整边界", role: "n-resize", css: "n-resize", category: "resize", source: "css" },
-      { name: "向右调整", description: "可向右调整边界", role: "e-resize", css: "e-resize", category: "resize", source: "css" },
-      { name: "向下调整", description: "可向下调整边界", role: "s-resize", css: "s-resize", category: "resize", source: "css" },
-      { name: "向左调整", description: "可向左调整边界", role: "w-resize", css: "w-resize", category: "resize", source: "css" },
-      { name: "向右上调整", description: "可沿右上方向调整", role: "ne-resize", css: "ne-resize", category: "resize", source: "css" },
-      { name: "向左上调整", description: "可沿左上方向调整", role: "nw-resize", css: "nw-resize", category: "resize", source: "css" },
-      { name: "向右下调整", description: "可沿右下方向调整", role: "se-resize", css: "se-resize", category: "resize", source: "css" },
-      { name: "向左下调整", description: "可沿左下方向调整", role: "sw-resize", css: "sw-resize", category: "resize", source: "css" },
-      { name: "垂直双向调整", description: "可同时向上或向下调整", role: "SizeNS", css: "ns-resize", category: "resize", source: "system" },
-      { name: "水平双向调整", description: "可同时向左或向右调整", role: "SizeWE", css: "ew-resize", category: "resize", source: "system" },
-      { name: "左上至右下调整", description: "可沿左上至右下方向调整", role: "SizeNWSE", css: "nwse-resize", category: "resize", source: "system" },
-      { name: "右上至左下调整", description: "可沿右上至左下方向调整", role: "SizeNESW", css: "nesw-resize", category: "resize", source: "system" },
-      { name: "放大", description: "可放大当前内容", role: "zoom-in", css: "zoom-in", category: "extended", source: "css" },
-      { name: "缩小", description: "可缩小当前内容", role: "zoom-out", css: "zoom-out", category: "extended", source: "css" }
+    const cursorDefinitions = [
+      { id: "auto", role: "auto", css: "auto", category: "standard", source: "css" },
+      { id: "default", role: "Arrow", css: "default", category: "standard", source: "system" },
+      { id: "none", role: "none", css: "none", category: "standard", source: "css" },
+      { id: "contextMenu", role: "context-menu", css: "context-menu", category: "standard", source: "css" },
+      { id: "help", role: "Help", css: "help", category: "standard", source: "system" },
+      { id: "progress", role: "AppStarting", css: "progress", category: "standard", source: "system" },
+      { id: "wait", role: "Wait", css: "wait", category: "standard", source: "system" },
+      { id: "notAllowed", role: "No", css: "not-allowed", category: "standard", source: "system" },
+      { id: "noDrop", role: "no-drop", css: "no-drop", category: "standard", source: "css" },
+      { id: "pointer", role: "Hand", css: "pointer", category: "standard", source: "system" },
+      { id: "text", role: "IBeam", css: "text", category: "text", source: "system" },
+      { id: "verticalText", role: "vertical-text", css: "vertical-text", category: "text", source: "css" },
+      { id: "crosshair", role: "Crosshair", css: "crosshair", category: "text", source: "system" },
+      { id: "cell", role: "cell", css: "cell", category: "text", source: "css" },
+      { id: "move", role: "SizeAll", css: "move", category: "move", source: "system" },
+      { id: "grab", role: "grab", css: "grab", category: "move", source: "css" },
+      { id: "grabbing", role: "grabbing", css: "grabbing", category: "move", source: "css" },
+      { id: "alias", role: "alias", css: "alias", category: "move", source: "css" },
+      { id: "copy", role: "copy", css: "copy", category: "move", source: "css" },
+      { id: "allScroll", role: "all-scroll", css: "all-scroll", category: "move", source: "css" },
+      { id: "colResize", role: "col-resize", css: "col-resize", category: "resize", source: "css" },
+      { id: "rowResize", role: "row-resize", css: "row-resize", category: "resize", source: "css" },
+      { id: "nResize", role: "n-resize", css: "n-resize", category: "resize", source: "css" },
+      { id: "eResize", role: "e-resize", css: "e-resize", category: "resize", source: "css" },
+      { id: "sResize", role: "s-resize", css: "s-resize", category: "resize", source: "css" },
+      { id: "wResize", role: "w-resize", css: "w-resize", category: "resize", source: "css" },
+      { id: "neResize", role: "ne-resize", css: "ne-resize", category: "resize", source: "css" },
+      { id: "nwResize", role: "nw-resize", css: "nw-resize", category: "resize", source: "css" },
+      { id: "seResize", role: "se-resize", css: "se-resize", category: "resize", source: "css" },
+      { id: "swResize", role: "sw-resize", css: "sw-resize", category: "resize", source: "css" },
+      { id: "nsResize", role: "SizeNS", css: "ns-resize", category: "resize", source: "system" },
+      { id: "ewResize", role: "SizeWE", css: "ew-resize", category: "resize", source: "system" },
+      { id: "nwseResize", role: "SizeNWSE", css: "nwse-resize", category: "resize", source: "system" },
+      { id: "neswResize", role: "SizeNESW", css: "nesw-resize", category: "resize", source: "system" },
+      { id: "zoomIn", role: "zoom-in", css: "zoom-in", category: "extended", source: "css" },
+      { id: "zoomOut", role: "zoom-out", css: "zoom-out", category: "extended", source: "css" }
     ];
 
-    const categories = [
-      { id: "standard", label: "常规操作" },
-      { id: "text", label: "文本与精确选择" },
-      { id: "move", label: "移动与拖放" },
-      { id: "resize", label: "调整大小" },
-      { id: "extended", label: "视图缩放" }
+    const categoryIds = ["standard", "text", "move", "resize", "extended"];
+
+    const localeOptions = [
+      { value: "auto" },
+      { value: "zh-CN", nativeName: "简体中文" },
+      { value: "zh-HK", nativeName: "繁體中文（香港）" },
+      { value: "zh-TW", nativeName: "繁體中文（台灣）" },
+      { value: "en", nativeName: "English" },
+      { value: "ja", nativeName: "日本語" },
+      { value: "vi", nativeName: "Tiếng Việt" },
+      { value: "ko", nativeName: "한국어" },
+      { value: "es", nativeName: "Español" },
+      { value: "fr", nativeName: "Français" },
+      { value: "pt-BR", nativeName: "Português (Brasil)" },
+      { value: "pt-PT", nativeName: "Português (Portugal)" },
+      { value: "ru", nativeName: "Русский" },
+      { value: "de", nativeName: "Deutsch" },
+      { value: "it", nativeName: "Italiano" }
     ];
+
+    const localeMessages = {
+      "zh-CN": {
+        ui: {
+          pageTitle: "Windows 鼠标指针与 CSS cursor 样式测试",
+          metaDescription: "在线测试 Windows 当前鼠标指针方案与 CSS cursor 的 36 种预定义关键字。",
+          title: "Windows 鼠标指针测试",
+          subtitle: "当前系统方案 · 浏览器实时渲染",
+          language: "选择语言",
+          auto: "自动（跟随浏览器）",
+          statusAria: "资源状态",
+          status: ["系统角色", "CSS 状态", "运行平台"],
+          searchPlaceholder: "搜索名称、系统角色或 CSS 值",
+          searchAria: "搜索指针样式",
+          filtersAria: "指针样式分类",
+          tabs: ["全部", "常规", "文本", "移动", "调整大小", "视图缩放"],
+          results: "共 {count} 种指针样式",
+          systemNote: "{system} 种系统角色映射 · {css} 种 CSS 扩展状态",
+          groupsAria: "按场景分组的指针样式",
+          groups: ["常规操作", "文本与精确选择", "移动与拖放", "调整大小", "视图缩放"],
+          groupCount: "{count} 种",
+          empty: "没有匹配的指针样式",
+          clear: "清除筛选",
+          systemBadge: "系统",
+          cardAria: "{name}，cursor：{css}",
+          footerSpec: "光标关键字依据 {spec} 规范",
+          footerCounts: "{system} 种系统角色 · {css} 种 CSS 状态"
+        },
+        cursors: [
+          ["自动判定", "根据当前元素自动选择"],
+          ["普通选择", "默认箭头指针"],
+          ["隐藏指针", "不显示鼠标指针"],
+          ["上下文菜单", "可打开上下文菜单"],
+          ["帮助选择", "可查看相关帮助"],
+          ["后台运行", "任务运行中，仍可继续操作"],
+          ["忙碌", "正在处理，暂不可操作"],
+          ["不可用", "当前操作不可执行"],
+          ["禁止放置", "不能在此处放置对象"],
+          ["链接选择", "可点击链接或控件"],
+          ["文本选择", "可选择横排文本"],
+          ["竖排文本选择", "可选择竖排文本"],
+          ["精确选择", "用于精确定位"],
+          ["单元格选择", "可选择表格单元格"],
+          ["移动", "可移动当前对象"],
+          ["抓取", "当前对象可以抓取"],
+          ["正在抓取", "正在拖动已抓取的对象"],
+          ["创建引用", "将创建快捷方式或引用"],
+          ["复制", "将复制当前对象"],
+          ["全向滚动", "可向任意方向滚动"],
+          ["调整列宽", "可调整当前列的宽度"],
+          ["调整行高", "可调整当前行的高度"],
+          ["向上调整", "可向上调整边界"],
+          ["向右调整", "可向右调整边界"],
+          ["向下调整", "可向下调整边界"],
+          ["向左调整", "可向左调整边界"],
+          ["向右上调整", "可沿右上方向调整"],
+          ["向左上调整", "可沿左上方向调整"],
+          ["向右下调整", "可沿右下方向调整"],
+          ["向左下调整", "可沿左下方向调整"],
+          ["垂直双向调整", "可同时向上或向下调整"],
+          ["水平双向调整", "可同时向左或向右调整"],
+          ["左上至右下调整", "可沿左上至右下方向调整"],
+          ["右上至左下调整", "可沿右上至左下方向调整"],
+          ["放大", "可放大当前内容"],
+          ["缩小", "可缩小当前内容"]
+        ]
+      },
+      "zh-HK": {
+        ui: {
+          pageTitle: "Windows 滑鼠指標與 CSS cursor 樣式測試",
+          metaDescription: "線上測試 Windows 目前的滑鼠指標配置及 CSS cursor 的 36 個預設關鍵字。",
+          title: "Windows 滑鼠指標測試",
+          subtitle: "目前系統配置 · 瀏覽器即時呈現",
+          language: "選擇語言",
+          auto: "自動（跟隨瀏覽器）",
+          statusAria: "資源狀態",
+          status: ["系統角色", "CSS 狀態", "執行平台"],
+          searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
+          searchAria: "搜尋指標樣式",
+          filtersAria: "指標樣式分類",
+          tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
+          results: "共 {count} 種指標樣式",
+          systemNote: "{system} 種系統角色對應 · {css} 種 CSS 延伸狀態",
+          groupsAria: "按場景分組的指標樣式",
+          groups: ["一般操作", "文字與精確選擇", "移動與拖放", "調整大小", "檢視縮放"],
+          groupCount: "{count} 種",
+          empty: "找不到相符的指標樣式",
+          clear: "清除篩選",
+          systemBadge: "系統",
+          cardAria: "{name}，cursor：{css}",
+          footerSpec: "指標關鍵字依據 {spec} 規範",
+          footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
+        },
+        cursors: [
+          ["自動判斷", "按目前元素由瀏覽器自動選擇"],
+          ["一般選擇", "標準箭嘴指標"],
+          ["隱藏指標", "不顯示滑鼠指標"],
+          ["內容功能表", "可開啟內容功能表"],
+          ["說明選擇", "可查看相關說明"],
+          ["背景執行", "工作執行期間仍可繼續操作"],
+          ["忙碌", "正在處理，暫時無法操作"],
+          ["無法使用", "目前操作無法執行"],
+          ["禁止放置", "無法在此放置物件"],
+          ["連結選擇", "可按一下連結或控制項"],
+          ["文字選擇", "可選擇橫排文字"],
+          ["直書文字選擇", "可選擇直書文字"],
+          ["精確選擇", "用於精確定位"],
+          ["儲存格選擇", "可選擇表格儲存格"],
+          ["移動", "可移動目前物件"],
+          ["抓取", "可抓取目前物件"],
+          ["正在抓取", "正在拖曳已抓取的物件"],
+          ["建立別名", "將建立捷徑或參照"],
+          ["複製", "將複製目前物件"],
+          ["全向捲動", "可向任何方向捲動"],
+          ["調整欄寬", "可調整目前欄的寬度"],
+          ["調整列高", "可調整目前列的高度"],
+          ["向上調整", "可向上調整邊界"],
+          ["向右調整", "可向右調整邊界"],
+          ["向下調整", "可向下調整邊界"],
+          ["向左調整", "可向左調整邊界"],
+          ["向右上調整", "可沿右上方向調整"],
+          ["向左上調整", "可沿左上方向調整"],
+          ["向右下調整", "可沿右下方向調整"],
+          ["向左下調整", "可沿左下方向調整"],
+          ["垂直雙向調整", "可同時向上或向下調整"],
+          ["水平雙向調整", "可同時向左或向右調整"],
+          ["左上至右下調整", "可沿左上至右下方向調整"],
+          ["右上至左下調整", "可沿右上至左下方向調整"],
+          ["放大", "可放大目前內容"],
+          ["縮小", "可縮小目前內容"]
+        ]
+      },
+      "zh-TW": {
+        ui: {
+          pageTitle: "Windows 滑鼠游標與 CSS cursor 樣式測試",
+          metaDescription: "線上測試 Windows 目前的滑鼠游標配置與 CSS cursor 的 36 個預設關鍵字。",
+          title: "Windows 滑鼠游標測試",
+          subtitle: "目前系統配置 · 瀏覽器即時呈現",
+          language: "選擇語言",
+          auto: "自動（跟隨瀏覽器）",
+          statusAria: "資源狀態",
+          status: ["系統角色", "CSS 狀態", "執行平台"],
+          searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
+          searchAria: "搜尋游標樣式",
+          filtersAria: "游標樣式分類",
+          tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
+          results: "共 {count} 種游標樣式",
+          systemNote: "{system} 種系統角色對應 · {css} 種 CSS 延伸狀態",
+          groupsAria: "依情境分組的游標樣式",
+          groups: ["一般操作", "文字與精確選取", "移動與拖放", "調整大小", "檢視縮放"],
+          groupCount: "{count} 種",
+          empty: "找不到相符的游標樣式",
+          clear: "清除篩選",
+          systemBadge: "系統",
+          cardAria: "{name}，cursor：{css}",
+          footerSpec: "游標關鍵字依據 {spec} 規範",
+          footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
+        },
+        cursors: [
+          ["自動選擇", "依目前元素由瀏覽器自動選擇"],
+          ["一般選取", "標準箭頭游標"],
+          ["隱藏游標", "不顯示滑鼠游標"],
+          ["快顯功能表", "可開啟快顯功能表"],
+          ["說明選取", "可檢視相關說明"],
+          ["在背景工作", "工作執行期間仍可繼續操作"],
+          ["忙碌", "正在處理，暫時無法操作"],
+          ["無法使用", "目前操作無法執行"],
+          ["禁止放置", "無法在此放置物件"],
+          ["連結選取", "可按一下連結或控制項"],
+          ["文字選取", "可選取橫排文字"],
+          ["直書文字選取", "可選取直書文字"],
+          ["精確選取", "用於精確定位"],
+          ["儲存格選取", "可選取表格儲存格"],
+          ["移動", "可移動目前物件"],
+          ["抓取", "可抓取目前物件"],
+          ["正在抓取", "正在拖曳已抓取的物件"],
+          ["建立別名", "將建立捷徑或參照"],
+          ["複製", "將複製目前物件"],
+          ["全向捲動", "可向任何方向捲動"],
+          ["調整欄寬", "可調整目前欄的寬度"],
+          ["調整列高", "可調整目前列的高度"],
+          ["向上調整", "可向上調整邊界"],
+          ["向右調整", "可向右調整邊界"],
+          ["向下調整", "可向下調整邊界"],
+          ["向左調整", "可向左調整邊界"],
+          ["向右上調整", "可沿右上方向調整"],
+          ["向左上調整", "可沿左上方向調整"],
+          ["向右下調整", "可沿右下方向調整"],
+          ["向左下調整", "可沿左下方向調整"],
+          ["垂直雙向調整", "可同時向上或向下調整"],
+          ["水平雙向調整", "可同時向左或向右調整"],
+          ["左上至右下調整", "可沿左上至右下方向調整"],
+          ["右上至左下調整", "可沿右上至左下方向調整"],
+          ["放大", "可放大目前內容"],
+          ["縮小", "可縮小目前內容"]
+        ]
+      },
+      en: {
+        ui: {
+          pageTitle: "Windows Mouse Pointer and CSS Cursor Tester",
+          metaDescription: "Test the current Windows pointer scheme and all 36 predefined CSS cursor keywords online.",
+          title: "Windows Mouse Pointer Tester",
+          subtitle: "Current system scheme · Live browser rendering",
+          language: "Choose language",
+          auto: "Automatic (browser default)",
+          statusAria: "Resource status",
+          status: ["System roles", "CSS states", "Platform"],
+          searchPlaceholder: "Search by name, system role, or CSS value",
+          searchAria: "Search pointer styles",
+          filtersAria: "Pointer style categories",
+          tabs: ["All", "General", "Text", "Move", "Resize", "View zoom"],
+          results: "{count} pointer styles",
+          systemNote: "{system} system-role mappings · {css} extended CSS states",
+          groupsAria: "Pointer styles grouped by use case",
+          groups: ["General actions", "Text and precision selection", "Move and drag-and-drop", "Resize", "View zoom"],
+          groupCount: "{count} styles",
+          empty: "No matching pointer styles",
+          clear: "Clear filters",
+          systemBadge: "SYSTEM",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Cursor keywords follow the {spec} specification",
+          footerCounts: "{system} system roles · {css} CSS states"
+        },
+        cursors: [
+          ["Automatic", "Let the browser choose for the current element"],
+          ["Default pointer", "Standard arrow pointer"],
+          ["Hidden pointer", "Hide the mouse pointer"],
+          ["Context menu", "A context menu is available"],
+          ["Help", "Related help is available"],
+          ["Working in background", "A task is running; interaction remains available"],
+          ["Busy", "Processing; interaction is temporarily unavailable"],
+          ["Not allowed", "The current action is unavailable"],
+          ["No drop", "The object cannot be dropped here"],
+          ["Link pointer", "A link or control can be activated"],
+          ["Text selection", "Select horizontal text"],
+          ["Vertical text selection", "Select vertical text"],
+          ["Precision selection", "Pinpoint a location"],
+          ["Cell selection", "Select a table cell"],
+          ["Move", "Move the current object"],
+          ["Grab", "The current object can be grabbed"],
+          ["Grabbing", "A grabbed object is being dragged"],
+          ["Create alias", "Create a shortcut or reference"],
+          ["Copy", "Copy the current object"],
+          ["Pan in any direction", "Scroll in any direction"],
+          ["Resize column", "Adjust the current column width"],
+          ["Resize row", "Adjust the current row height"],
+          ["Resize upward", "Adjust the upper edge"],
+          ["Resize rightward", "Adjust the right edge"],
+          ["Resize downward", "Adjust the lower edge"],
+          ["Resize leftward", "Adjust the left edge"],
+          ["Resize toward upper right", "Adjust along the upper-right direction"],
+          ["Resize toward upper left", "Adjust along the upper-left direction"],
+          ["Resize toward lower right", "Adjust along the lower-right direction"],
+          ["Resize toward lower left", "Adjust along the lower-left direction"],
+          ["Vertical resize", "Adjust upward or downward"],
+          ["Horizontal resize", "Adjust leftward or rightward"],
+          ["Upper-left to lower-right resize", "Adjust along the upper-left to lower-right diagonal"],
+          ["Upper-right to lower-left resize", "Adjust along the upper-right to lower-left diagonal"],
+          ["Zoom in", "Enlarge the current content"],
+          ["Zoom out", "Reduce the current content"]
+        ]
+      },
+      ja: {
+        ui: {
+          pageTitle: "Windows マウスポインターと CSS cursor のテスト",
+          metaDescription: "Windows の現在のポインター設定と、CSS cursor で定義された 36 種類のキーワードをオンラインで確認できます。",
+          title: "Windows マウスポインターのテスト",
+          subtitle: "現在のシステム設定 · ブラウザーでリアルタイム表示",
+          language: "言語を選択",
+          auto: "自動（ブラウザーに合わせる）",
+          statusAria: "リソースの状態",
+          status: ["システムの役割", "CSS の状態", "実行環境"],
+          searchPlaceholder: "名前、システムの役割、CSS 値を検索",
+          searchAria: "ポインター形式を検索",
+          filtersAria: "ポインター形式の分類",
+          tabs: ["すべて", "一般", "テキスト", "移動", "サイズ変更", "表示倍率"],
+          results: "全 {count} 種類のポインター",
+          systemNote: "システムの役割 {system} 種類 · CSS 拡張状態 {css} 種類",
+          groupsAria: "用途別に分類したポインター形式",
+          groups: ["一般操作", "テキストと精密選択", "移動とドラッグ＆ドロップ", "サイズ変更", "表示倍率"],
+          groupCount: "{count} 種類",
+          empty: "該当するポインター形式はありません",
+          clear: "絞り込みを解除",
+          systemBadge: "システム",
+          cardAria: "{name}、cursor: {css}",
+          footerSpec: "カーソルキーワードは {spec} 仕様に準拠",
+          footerCounts: "システムの役割 {system} 種類 · CSS 状態 {css} 種類"
+        },
+        cursors: [
+          ["自動選択", "要素に応じてブラウザーが自動で選択"],
+          ["通常の選択", "標準の矢印ポインター"],
+          ["ポインターを非表示", "マウスポインターを表示しない"],
+          ["コンテキストメニュー", "コンテキストメニューを開ける"],
+          ["ヘルプ", "関連するヘルプを表示できる"],
+          ["バックグラウンドで処理中", "処理中でも操作を続けられる"],
+          ["待機中", "処理中のため一時的に操作できない"],
+          ["操作不可", "現在の操作は実行できない"],
+          ["ドロップ不可", "ここにはオブジェクトをドロップできない"],
+          ["リンクの選択", "リンクまたはコントロールをクリックできる"],
+          ["テキストの選択", "横書きテキストを選択できる"],
+          ["縦書きテキストの選択", "縦書きテキストを選択できる"],
+          ["精密選択", "位置を正確に指定する"],
+          ["セルの選択", "表のセルを選択できる"],
+          ["移動", "現在のオブジェクトを移動できる"],
+          ["つかむ", "現在のオブジェクトをつかめる"],
+          ["つかんで移動中", "つかんだオブジェクトをドラッグ中"],
+          ["エイリアスを作成", "ショートカットまたは参照を作成する"],
+          ["コピー", "現在のオブジェクトをコピーする"],
+          ["全方向スクロール", "任意の方向へスクロールできる"],
+          ["列幅を変更", "現在の列幅を変更できる"],
+          ["行の高さを変更", "現在の行の高さを変更できる"],
+          ["上方向にサイズ変更", "上端を調整できる"],
+          ["右方向にサイズ変更", "右端を調整できる"],
+          ["下方向にサイズ変更", "下端を調整できる"],
+          ["左方向にサイズ変更", "左端を調整できる"],
+          ["右上方向にサイズ変更", "右上方向へ調整できる"],
+          ["左上方向にサイズ変更", "左上方向へ調整できる"],
+          ["右下方向にサイズ変更", "右下方向へ調整できる"],
+          ["左下方向にサイズ変更", "左下方向へ調整できる"],
+          ["垂直方向にサイズ変更", "上下方向に調整できる"],
+          ["水平方向にサイズ変更", "左右方向に調整できる"],
+          ["左上・右下方向にサイズ変更", "左上から右下の方向に調整できる"],
+          ["右上・左下方向にサイズ変更", "右上から左下の方向に調整できる"],
+          ["拡大", "現在の内容を拡大できる"],
+          ["縮小", "現在の内容を縮小できる"]
+        ]
+      },
+      vi: {
+        ui: {
+          pageTitle: "Kiểm tra con trỏ chuột Windows và CSS cursor",
+          metaDescription: "Kiểm tra trực tuyến cấu hình con trỏ Windows hiện tại và 36 từ khóa định sẵn của CSS cursor.",
+          title: "Kiểm tra con trỏ chuột Windows",
+          subtitle: "Cấu hình hệ thống hiện tại · Kết xuất trực tiếp trong trình duyệt",
+          language: "Chọn ngôn ngữ",
+          auto: "Tự động (theo trình duyệt)",
+          statusAria: "Trạng thái tài nguyên",
+          status: ["Vai trò hệ thống", "Trạng thái CSS", "Nền tảng"],
+          searchPlaceholder: "Tìm theo tên, vai trò hệ thống hoặc giá trị CSS",
+          searchAria: "Tìm kiểu con trỏ",
+          filtersAria: "Danh mục kiểu con trỏ",
+          tabs: ["Tất cả", "Chung", "Văn bản", "Di chuyển", "Đổi kích thước", "Thu phóng"],
+          results: "Có {count} kiểu con trỏ",
+          systemNote: "{system} ánh xạ vai trò hệ thống · {css} trạng thái CSS mở rộng",
+          groupsAria: "Kiểu con trỏ được nhóm theo tình huống",
+          groups: ["Thao tác chung", "Văn bản và chọn chính xác", "Di chuyển và kéo thả", "Đổi kích thước", "Thu phóng"],
+          groupCount: "{count} kiểu",
+          empty: "Không có kiểu con trỏ phù hợp",
+          clear: "Xóa bộ lọc",
+          systemBadge: "HỆ THỐNG",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Các từ khóa con trỏ tuân theo đặc tả {spec}",
+          footerCounts: "{system} vai trò hệ thống · {css} trạng thái CSS"
+        },
+        cursors: [
+          ["Tự động", "Để trình duyệt tự chọn theo phần tử hiện tại"],
+          ["Con trỏ mặc định", "Con trỏ mũi tên tiêu chuẩn"],
+          ["Ẩn con trỏ", "Không hiển thị con trỏ chuột"],
+          ["Trình đơn ngữ cảnh", "Có thể mở trình đơn ngữ cảnh"],
+          ["Trợ giúp", "Có thể xem trợ giúp liên quan"],
+          ["Đang chạy nền", "Tác vụ đang chạy nhưng vẫn có thể thao tác"],
+          ["Bận", "Đang xử lý, tạm thời không thể thao tác"],
+          ["Không được phép", "Không thể thực hiện thao tác hiện tại"],
+          ["Không thể thả", "Không thể thả đối tượng tại đây"],
+          ["Chọn liên kết", "Có thể bấm vào liên kết hoặc điều khiển"],
+          ["Chọn văn bản", "Có thể chọn văn bản ngang"],
+          ["Chọn văn bản dọc", "Có thể chọn văn bản dọc"],
+          ["Chọn chính xác", "Dùng để xác định vị trí chính xác"],
+          ["Chọn ô", "Có thể chọn ô trong bảng"],
+          ["Di chuyển", "Có thể di chuyển đối tượng hiện tại"],
+          ["Nắm", "Có thể nắm đối tượng hiện tại"],
+          ["Đang nắm", "Đang kéo đối tượng đã nắm"],
+          ["Tạo bí danh", "Tạo lối tắt hoặc tham chiếu"],
+          ["Sao chép", "Sao chép đối tượng hiện tại"],
+          ["Cuộn mọi hướng", "Có thể cuộn theo mọi hướng"],
+          ["Điều chỉnh độ rộng cột", "Có thể điều chỉnh độ rộng cột hiện tại"],
+          ["Điều chỉnh chiều cao hàng", "Có thể điều chỉnh chiều cao hàng hiện tại"],
+          ["Điều chỉnh lên trên", "Có thể điều chỉnh cạnh trên"],
+          ["Điều chỉnh sang phải", "Có thể điều chỉnh cạnh phải"],
+          ["Điều chỉnh xuống dưới", "Có thể điều chỉnh cạnh dưới"],
+          ["Điều chỉnh sang trái", "Có thể điều chỉnh cạnh trái"],
+          ["Điều chỉnh lên trên bên phải", "Có thể điều chỉnh theo hướng trên bên phải"],
+          ["Điều chỉnh lên trên bên trái", "Có thể điều chỉnh theo hướng trên bên trái"],
+          ["Điều chỉnh xuống dưới bên phải", "Có thể điều chỉnh theo hướng dưới bên phải"],
+          ["Điều chỉnh xuống dưới bên trái", "Có thể điều chỉnh theo hướng dưới bên trái"],
+          ["Điều chỉnh hai chiều dọc", "Có thể điều chỉnh lên hoặc xuống"],
+          ["Điều chỉnh hai chiều ngang", "Có thể điều chỉnh sang trái hoặc phải"],
+          ["Điều chỉnh từ trên trái xuống dưới phải", "Có thể điều chỉnh theo đường chéo từ trên trái xuống dưới phải"],
+          ["Điều chỉnh từ trên phải xuống dưới trái", "Có thể điều chỉnh theo đường chéo từ trên phải xuống dưới trái"],
+          ["Phóng to", "Có thể phóng to nội dung hiện tại"],
+          ["Thu nhỏ", "Có thể thu nhỏ nội dung hiện tại"]
+        ]
+      },
+      ko: {
+        ui: {
+          pageTitle: "Windows 마우스 포인터 및 CSS cursor 테스트",
+          metaDescription: "현재 Windows 포인터 구성표와 CSS cursor에 정의된 36개 키워드를 온라인에서 테스트합니다.",
+          title: "Windows 마우스 포인터 테스트",
+          subtitle: "현재 시스템 구성표 · 브라우저에서 실시간 렌더링",
+          language: "언어 선택",
+          auto: "자동(브라우저 설정 사용)",
+          statusAria: "리소스 상태",
+          status: ["시스템 역할", "CSS 상태", "플랫폼"],
+          searchPlaceholder: "이름, 시스템 역할 또는 CSS 값 검색",
+          searchAria: "포인터 스타일 검색",
+          filtersAria: "포인터 스타일 분류",
+          tabs: ["전체", "일반", "텍스트", "이동", "크기 조절", "화면 확대/축소"],
+          results: "포인터 스타일 {count}개",
+          systemNote: "시스템 역할 매핑 {system}개 · CSS 확장 상태 {css}개",
+          groupsAria: "사용 상황별 포인터 스타일",
+          groups: ["일반 작업", "텍스트 및 정밀 선택", "이동 및 끌어서 놓기", "크기 조절", "화면 확대/축소"],
+          groupCount: "{count}개",
+          empty: "일치하는 포인터 스타일이 없습니다",
+          clear: "필터 지우기",
+          systemBadge: "시스템",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "커서 키워드는 {spec} 사양을 따릅니다",
+          footerCounts: "시스템 역할 {system}개 · CSS 상태 {css}개"
+        },
+        cursors: [
+          ["자동 선택", "현재 요소에 맞게 브라우저가 자동 선택"],
+          ["기본 포인터", "표준 화살표 포인터"],
+          ["포인터 숨기기", "마우스 포인터를 표시하지 않음"],
+          ["상황에 맞는 메뉴", "상황에 맞는 메뉴를 열 수 있음"],
+          ["도움말", "관련 도움말을 볼 수 있음"],
+          ["백그라운드 작업", "작업이 실행 중이지만 계속 조작할 수 있음"],
+          ["사용 중", "처리 중이므로 잠시 조작할 수 없음"],
+          ["사용할 수 없음", "현재 작업을 수행할 수 없음"],
+          ["놓을 수 없음", "여기에 개체를 놓을 수 없음"],
+          ["링크 선택", "링크나 컨트롤을 클릭할 수 있음"],
+          ["텍스트 선택", "가로 텍스트를 선택할 수 있음"],
+          ["세로 텍스트 선택", "세로 텍스트를 선택할 수 있음"],
+          ["정밀 선택", "위치를 정확하게 지정할 때 사용"],
+          ["셀 선택", "표의 셀을 선택할 수 있음"],
+          ["이동", "현재 개체를 이동할 수 있음"],
+          ["잡기", "현재 개체를 잡을 수 있음"],
+          ["잡는 중", "잡은 개체를 끌고 있음"],
+          ["별칭 만들기", "바로 가기나 참조를 만듦"],
+          ["복사", "현재 개체를 복사함"],
+          ["모든 방향으로 스크롤", "모든 방향으로 스크롤할 수 있음"],
+          ["열 너비 조절", "현재 열의 너비를 조절할 수 있음"],
+          ["행 높이 조절", "현재 행의 높이를 조절할 수 있음"],
+          ["위쪽 크기 조절", "위쪽 경계를 조절할 수 있음"],
+          ["오른쪽 크기 조절", "오른쪽 경계를 조절할 수 있음"],
+          ["아래쪽 크기 조절", "아래쪽 경계를 조절할 수 있음"],
+          ["왼쪽 크기 조절", "왼쪽 경계를 조절할 수 있음"],
+          ["오른쪽 위 크기 조절", "오른쪽 위 방향으로 조절할 수 있음"],
+          ["왼쪽 위 크기 조절", "왼쪽 위 방향으로 조절할 수 있음"],
+          ["오른쪽 아래 크기 조절", "오른쪽 아래 방향으로 조절할 수 있음"],
+          ["왼쪽 아래 크기 조절", "왼쪽 아래 방향으로 조절할 수 있음"],
+          ["세로 양방향 크기 조절", "위쪽 또는 아래쪽으로 조절할 수 있음"],
+          ["가로 양방향 크기 조절", "왼쪽 또는 오른쪽으로 조절할 수 있음"],
+          ["왼쪽 위-오른쪽 아래 크기 조절", "왼쪽 위에서 오른쪽 아래 방향으로 조절할 수 있음"],
+          ["오른쪽 위-왼쪽 아래 크기 조절", "오른쪽 위에서 왼쪽 아래 방향으로 조절할 수 있음"],
+          ["확대", "현재 내용을 확대할 수 있음"],
+          ["축소", "현재 내용을 축소할 수 있음"]
+        ]
+      },
+      es: {
+        ui: {
+          pageTitle: "Probador de punteros de Windows y CSS cursor",
+          metaDescription: "Prueba en línea el esquema de punteros actual de Windows y las 36 palabras clave predefinidas de CSS cursor.",
+          title: "Probador de punteros de Windows",
+          subtitle: "Esquema actual del sistema · Renderizado en tiempo real por el navegador",
+          language: "Elegir idioma",
+          auto: "Automático (según el navegador)",
+          statusAria: "Estado de los recursos",
+          status: ["Roles del sistema", "Estados CSS", "Plataforma"],
+          searchPlaceholder: "Buscar por nombre, rol del sistema o valor CSS",
+          searchAria: "Buscar estilos de puntero",
+          filtersAria: "Categorías de estilos de puntero",
+          tabs: ["Todos", "General", "Texto", "Movimiento", "Redimensionar", "Zoom"],
+          results: "{count} estilos de puntero",
+          systemNote: "{system} correspondencias con roles del sistema · {css} estados CSS ampliados",
+          groupsAria: "Estilos de puntero agrupados por uso",
+          groups: ["Acciones generales", "Texto y selección precisa", "Movimiento y arrastrar y soltar", "Redimensionado", "Zoom"],
+          groupCount: "{count} estilos",
+          empty: "No hay estilos de puntero coincidentes",
+          clear: "Borrar filtros",
+          systemBadge: "SISTEMA",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Las palabras clave de cursor siguen la especificación {spec}",
+          footerCounts: "{system} roles del sistema · {css} estados CSS"
+        },
+        cursors: [
+          ["Selección automática", "El navegador elige según el elemento actual"],
+          ["Puntero predeterminado", "Puntero de flecha estándar"],
+          ["Ocultar puntero", "No se muestra el puntero del ratón"],
+          ["Menú contextual", "Se puede abrir un menú contextual"],
+          ["Ayuda", "Hay ayuda relacionada disponible"],
+          ["Trabajo en segundo plano", "Hay una tarea en curso, pero se puede seguir interactuando"],
+          ["Ocupado", "Procesando; no se puede interactuar temporalmente"],
+          ["No permitido", "La acción actual no está disponible"],
+          ["No se puede soltar", "El objeto no se puede soltar aquí"],
+          ["Selección de enlace", "Se puede activar un enlace o control"],
+          ["Selección de texto", "Permite seleccionar texto horizontal"],
+          ["Selección de texto vertical", "Permite seleccionar texto vertical"],
+          ["Selección precisa", "Permite señalar una posición con precisión"],
+          ["Selección de celda", "Permite seleccionar una celda de tabla"],
+          ["Mover", "Permite mover el objeto actual"],
+          ["Agarrar", "El objeto actual se puede agarrar"],
+          ["Agarrando", "Se está arrastrando el objeto agarrado"],
+          ["Crear alias", "Crea un acceso directo o una referencia"],
+          ["Copiar", "Copia el objeto actual"],
+          ["Desplazamiento en todas direcciones", "Permite desplazarse en cualquier dirección"],
+          ["Cambiar ancho de columna", "Permite ajustar el ancho de la columna actual"],
+          ["Cambiar alto de fila", "Permite ajustar la altura de la fila actual"],
+          ["Redimensionar hacia arriba", "Permite ajustar el borde superior"],
+          ["Redimensionar hacia la derecha", "Permite ajustar el borde derecho"],
+          ["Redimensionar hacia abajo", "Permite ajustar el borde inferior"],
+          ["Redimensionar hacia la izquierda", "Permite ajustar el borde izquierdo"],
+          ["Redimensionar hacia arriba a la derecha", "Permite ajustar en dirección superior derecha"],
+          ["Redimensionar hacia arriba a la izquierda", "Permite ajustar en dirección superior izquierda"],
+          ["Redimensionar hacia abajo a la derecha", "Permite ajustar en dirección inferior derecha"],
+          ["Redimensionar hacia abajo a la izquierda", "Permite ajustar en dirección inferior izquierda"],
+          ["Redimensionamiento vertical", "Permite ajustar hacia arriba o hacia abajo"],
+          ["Redimensionamiento horizontal", "Permite ajustar hacia la izquierda o la derecha"],
+          ["Diagonal superior izquierda-inferior derecha", "Permite ajustar en la diagonal de arriba a la izquierda a abajo a la derecha"],
+          ["Diagonal superior derecha-inferior izquierda", "Permite ajustar en la diagonal de arriba a la derecha a abajo a la izquierda"],
+          ["Acercar", "Amplía el contenido actual"],
+          ["Alejar", "Reduce el contenido actual"]
+        ]
+      },
+      fr: {
+        ui: {
+          pageTitle: "Test des pointeurs Windows et de CSS cursor",
+          metaDescription: "Testez en ligne le jeu de pointeurs Windows actuel et les 36 mots-clés prédéfinis de CSS cursor.",
+          title: "Test des pointeurs Windows",
+          subtitle: "Configuration système actuelle · Rendu en direct par le navigateur",
+          language: "Choisir la langue",
+          auto: "Automatique (selon le navigateur)",
+          statusAria: "État des ressources",
+          status: ["Rôles système", "États CSS", "Plateforme"],
+          searchPlaceholder: "Rechercher par nom, rôle système ou valeur CSS",
+          searchAria: "Rechercher des styles de pointeur",
+          filtersAria: "Catégories de styles de pointeur",
+          tabs: ["Tous", "Général", "Texte", "Déplacement", "Redimensionnement", "Zoom"],
+          results: "{count} styles de pointeur",
+          systemNote: "{system} correspondances avec des rôles système · {css} états CSS étendus",
+          groupsAria: "Styles de pointeur regroupés par usage",
+          groups: ["Actions générales", "Texte et sélection précise", "Déplacement et glisser-déposer", "Redimensionnement", "Zoom"],
+          groupCount: "{count} styles",
+          empty: "Aucun style de pointeur ne correspond",
+          clear: "Effacer les filtres",
+          systemBadge: "SYSTÈME",
+          cardAria: "{name}, cursor : {css}",
+          footerSpec: "Les mots-clés cursor suivent la spécification {spec}",
+          footerCounts: "{system} rôles système · {css} états CSS"
+        },
+        cursors: [
+          ["Sélection automatique", "Le navigateur choisit selon l’élément survolé"],
+          ["Pointeur par défaut", "Pointeur flèche standard"],
+          ["Masquer le pointeur", "Le pointeur de la souris n’est pas affiché"],
+          ["Menu contextuel", "Un menu contextuel peut être ouvert"],
+          ["Aide", "Une aide associée est disponible"],
+          ["Tâche en arrière-plan", "Une tâche est en cours, mais l’interface reste utilisable"],
+          ["Occupé", "Traitement en cours ; interaction temporairement impossible"],
+          ["Action interdite", "L’action actuelle n’est pas disponible"],
+          ["Dépôt impossible", "L’objet ne peut pas être déposé ici"],
+          ["Sélection de lien", "Un lien ou une commande peut être activé"],
+          ["Sélection de texte", "Permet de sélectionner du texte horizontal"],
+          ["Sélection de texte vertical", "Permet de sélectionner du texte vertical"],
+          ["Sélection précise", "Permet de viser un emplacement avec précision"],
+          ["Sélection de cellule", "Permet de sélectionner une cellule de tableau"],
+          ["Déplacer", "Permet de déplacer l’objet actuel"],
+          ["Saisir", "L’objet actuel peut être saisi"],
+          ["Déplacement en cours", "L’objet saisi est en cours de déplacement"],
+          ["Créer un alias", "Crée un raccourci ou une référence"],
+          ["Copier", "Copie l’objet actuel"],
+          ["Défilement multidirectionnel", "Permet de faire défiler dans toutes les directions"],
+          ["Redimensionner la colonne", "Permet de modifier la largeur de la colonne actuelle"],
+          ["Redimensionner la ligne", "Permet de modifier la hauteur de la ligne actuelle"],
+          ["Redimensionner vers le haut", "Permet d’ajuster le bord supérieur"],
+          ["Redimensionner vers la droite", "Permet d’ajuster le bord droit"],
+          ["Redimensionner vers le bas", "Permet d’ajuster le bord inférieur"],
+          ["Redimensionner vers la gauche", "Permet d’ajuster le bord gauche"],
+          ["Redimensionner vers le haut à droite", "Permet d’ajuster dans la direction supérieure droite"],
+          ["Redimensionner vers le haut à gauche", "Permet d’ajuster dans la direction supérieure gauche"],
+          ["Redimensionner vers le bas à droite", "Permet d’ajuster dans la direction inférieure droite"],
+          ["Redimensionner vers le bas à gauche", "Permet d’ajuster dans la direction inférieure gauche"],
+          ["Redimensionnement vertical", "Permet d’ajuster vers le haut ou vers le bas"],
+          ["Redimensionnement horizontal", "Permet d’ajuster vers la gauche ou vers la droite"],
+          ["Diagonale haut gauche-bas droite", "Permet d’ajuster selon la diagonale du haut à gauche vers le bas à droite"],
+          ["Diagonale haut droite-bas gauche", "Permet d’ajuster selon la diagonale du haut à droite vers le bas à gauche"],
+          ["Zoom avant", "Agrandit le contenu actuel"],
+          ["Zoom arrière", "Réduit le contenu actuel"]
+        ]
+      },
+      "pt-BR": {
+        ui: {
+          pageTitle: "Teste de ponteiros do Windows e de CSS cursor",
+          metaDescription: "Teste on-line o esquema atual de ponteiros do Windows e as 36 palavras-chave predefinidas de CSS cursor.",
+          title: "Teste de ponteiros do Windows",
+          subtitle: "Esquema atual do sistema · Renderização em tempo real pelo navegador",
+          language: "Selecionar idioma",
+          auto: "Automático (seguir o navegador)",
+          statusAria: "Status dos recursos",
+          status: ["Funções do sistema", "Estados CSS", "Plataforma"],
+          searchPlaceholder: "Buscar por nome, função do sistema ou valor CSS",
+          searchAria: "Buscar estilos de ponteiro",
+          filtersAria: "Categorias de estilos de ponteiro",
+          tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionamento", "Zoom"],
+          results: "{count} estilos de ponteiro",
+          systemNote: "{system} correspondências com funções do sistema · {css} estados CSS adicionais",
+          groupsAria: "Estilos de ponteiro agrupados por uso",
+          groups: ["Ações gerais", "Texto e seleção precisa", "Movimento e arrastar e soltar", "Redimensionamento", "Zoom"],
+          groupCount: "{count} estilos",
+          empty: "Nenhum estilo de ponteiro encontrado",
+          clear: "Limpar filtros",
+          systemBadge: "SISTEMA",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
+          footerCounts: "{system} funções do sistema · {css} estados CSS"
+        },
+        cursors: [
+          ["Seleção automática", "O navegador escolhe conforme o elemento atual"],
+          ["Ponteiro padrão", "Ponteiro de seta padrão"],
+          ["Ocultar ponteiro", "O ponteiro do mouse não é exibido"],
+          ["Menu de contexto", "Um menu de contexto pode ser aberto"],
+          ["Ajuda", "Há ajuda relacionada disponível"],
+          ["Trabalho em segundo plano", "Uma tarefa está em andamento, mas ainda é possível interagir"],
+          ["Ocupado", "Processamento em andamento; interação temporariamente indisponível"],
+          ["Não permitido", "A ação atual não está disponível"],
+          ["Não é possível soltar", "O objeto não pode ser solto aqui"],
+          ["Seleção de link", "Um link ou controle pode ser acionado"],
+          ["Seleção de texto", "Permite selecionar texto horizontal"],
+          ["Seleção de texto vertical", "Permite selecionar texto vertical"],
+          ["Seleção precisa", "Permite indicar uma posição com precisão"],
+          ["Seleção de célula", "Permite selecionar uma célula de tabela"],
+          ["Mover", "Permite mover o objeto atual"],
+          ["Agarrar", "O objeto atual pode ser agarrado"],
+          ["Agarrando", "O objeto agarrado está sendo arrastado"],
+          ["Criar alias", "Cria um atalho ou uma referência"],
+          ["Copiar", "Copia o objeto atual"],
+          ["Rolagem em todas as direções", "Permite rolar em qualquer direção"],
+          ["Redimensionar coluna", "Permite ajustar a largura da coluna atual"],
+          ["Redimensionar linha", "Permite ajustar a altura da linha atual"],
+          ["Redimensionar para cima", "Permite ajustar a borda superior"],
+          ["Redimensionar para a direita", "Permite ajustar a borda direita"],
+          ["Redimensionar para baixo", "Permite ajustar a borda inferior"],
+          ["Redimensionar para a esquerda", "Permite ajustar a borda esquerda"],
+          ["Redimensionar para cima e à direita", "Permite ajustar na direção superior direita"],
+          ["Redimensionar para cima e à esquerda", "Permite ajustar na direção superior esquerda"],
+          ["Redimensionar para baixo e à direita", "Permite ajustar na direção inferior direita"],
+          ["Redimensionar para baixo e à esquerda", "Permite ajustar na direção inferior esquerda"],
+          ["Redimensionamento vertical", "Permite ajustar para cima ou para baixo"],
+          ["Redimensionamento horizontal", "Permite ajustar para a esquerda ou para a direita"],
+          ["Diagonal superior esquerda-inferior direita", "Permite ajustar da parte superior esquerda para a inferior direita"],
+          ["Diagonal superior direita-inferior esquerda", "Permite ajustar da parte superior direita para a inferior esquerda"],
+          ["Ampliar", "Amplia o conteúdo atual"],
+          ["Reduzir", "Reduz o conteúdo atual"]
+        ]
+      },
+      "pt-PT": {
+        ui: {
+          pageTitle: "Teste de ponteiros do Windows e de CSS cursor",
+          metaDescription: "Teste online o esquema atual de ponteiros do Windows e as 36 palavras-chave predefinidas de CSS cursor.",
+          title: "Teste de ponteiros do Windows",
+          subtitle: "Esquema atual do sistema · Apresentação em tempo real pelo navegador",
+          language: "Escolher idioma",
+          auto: "Automático (seguir o navegador)",
+          statusAria: "Estado dos recursos",
+          status: ["Funções do sistema", "Estados CSS", "Plataforma"],
+          searchPlaceholder: "Pesquisar por nome, função do sistema ou valor CSS",
+          searchAria: "Pesquisar estilos de ponteiro",
+          filtersAria: "Categorias de estilos de ponteiro",
+          tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionar", "Zoom"],
+          results: "{count} estilos de ponteiro",
+          systemNote: "{system} correspondências com funções do sistema · {css} estados CSS adicionais",
+          groupsAria: "Estilos de ponteiro agrupados por utilização",
+          groups: ["Ações gerais", "Texto e seleção precisa", "Movimento e arrastar e largar", "Redimensionamento", "Zoom"],
+          groupCount: "{count} estilos",
+          empty: "Não existem estilos de ponteiro correspondentes",
+          clear: "Limpar filtros",
+          systemBadge: "SISTEMA",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
+          footerCounts: "{system} funções do sistema · {css} estados CSS"
+        },
+        cursors: [
+          ["Seleção automática", "O navegador escolhe de acordo com o elemento atual"],
+          ["Ponteiro predefinido", "Ponteiro de seta normal"],
+          ["Ocultar ponteiro", "O ponteiro do rato não é apresentado"],
+          ["Menu de contexto", "É possível abrir um menu de contexto"],
+          ["Ajuda", "Está disponível ajuda relacionada"],
+          ["Trabalho em segundo plano", "Está a decorrer uma tarefa, mas ainda é possível interagir"],
+          ["Ocupado", "Processamento em curso; interação temporariamente indisponível"],
+          ["Não permitido", "A ação atual não está disponível"],
+          ["Não é possível largar", "O objeto não pode ser largado aqui"],
+          ["Seleção de ligação", "É possível ativar uma ligação ou um controlo"],
+          ["Seleção de texto", "Permite selecionar texto horizontal"],
+          ["Seleção de texto vertical", "Permite selecionar texto vertical"],
+          ["Seleção precisa", "Permite indicar uma posição com precisão"],
+          ["Seleção de célula", "Permite selecionar uma célula de tabela"],
+          ["Mover", "Permite mover o objeto atual"],
+          ["Agarrar", "O objeto atual pode ser agarrado"],
+          ["A agarrar", "O objeto agarrado está a ser arrastado"],
+          ["Criar referência", "Cria um atalho ou uma referência"],
+          ["Copiar", "Copia o objeto atual"],
+          ["Deslocamento em todas as direções", "Permite deslocar em qualquer direção"],
+          ["Redimensionar coluna", "Permite ajustar a largura da coluna atual"],
+          ["Redimensionar linha", "Permite ajustar a altura da linha atual"],
+          ["Redimensionar para cima", "Permite ajustar o limite superior"],
+          ["Redimensionar para a direita", "Permite ajustar o limite direito"],
+          ["Redimensionar para baixo", "Permite ajustar o limite inferior"],
+          ["Redimensionar para a esquerda", "Permite ajustar o limite esquerdo"],
+          ["Redimensionar para cima e para a direita", "Permite ajustar na direção superior direita"],
+          ["Redimensionar para cima e para a esquerda", "Permite ajustar na direção superior esquerda"],
+          ["Redimensionar para baixo e para a direita", "Permite ajustar na direção inferior direita"],
+          ["Redimensionar para baixo e para a esquerda", "Permite ajustar na direção inferior esquerda"],
+          ["Redimensionamento vertical", "Permite ajustar para cima ou para baixo"],
+          ["Redimensionamento horizontal", "Permite ajustar para a esquerda ou para a direita"],
+          ["Diagonal superior esquerda-inferior direita", "Permite ajustar da parte superior esquerda para a inferior direita"],
+          ["Diagonal superior direita-inferior esquerda", "Permite ajustar da parte superior direita para a inferior esquerda"],
+          ["Ampliar", "Amplia o conteúdo atual"],
+          ["Reduzir", "Reduz o conteúdo atual"]
+        ]
+      },
+      ru: {
+        ui: {
+          pageTitle: "Проверка указателей Windows и свойства CSS cursor",
+          metaDescription: "Проверьте текущую схему указателей Windows и все 36 предопределённых значений свойства CSS cursor.",
+          title: "Проверка указателей Windows",
+          subtitle: "Текущая системная схема · Отрисовка браузером в реальном времени",
+          language: "Выбрать язык",
+          auto: "Автоматически (язык браузера)",
+          statusAria: "Состояние ресурсов",
+          status: ["Системные роли", "Состояния CSS", "Платформа"],
+          searchPlaceholder: "Поиск по названию, системной роли или значению CSS",
+          searchAria: "Поиск стилей указателя",
+          filtersAria: "Категории стилей указателя",
+          tabs: ["Все", "Основные", "Текст", "Перемещение", "Изменение размера", "Масштаб"],
+          results: "Стилей указателя: {count}",
+          systemNote: "Системных соответствий: {system} · дополнительных состояний CSS: {css}",
+          groupsAria: "Стили указателя, сгруппированные по назначению",
+          groups: ["Основные действия", "Текст и точное выделение", "Перемещение и перетаскивание", "Изменение размера", "Масштаб"],
+          groupCount: "Стилей: {count}",
+          empty: "Подходящие стили указателя не найдены",
+          clear: "Сбросить фильтры",
+          systemBadge: "СИСТЕМА",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Ключевые слова cursor соответствуют спецификации {spec}",
+          footerCounts: "Системных ролей: {system} · состояний CSS: {css}"
+        },
+        cursors: [
+          ["Автоматический выбор", "Браузер выбирает указатель для текущего элемента"],
+          ["Указатель по умолчанию", "Стандартный указатель-стрелка"],
+          ["Скрыть указатель", "Указатель мыши не отображается"],
+          ["Контекстное меню", "Можно открыть контекстное меню"],
+          ["Справка", "Доступна связанная справка"],
+          ["Фоновая работа", "Задача выполняется, но взаимодействие остаётся доступным"],
+          ["Ожидание", "Идёт обработка; взаимодействие временно недоступно"],
+          ["Запрещено", "Текущее действие недоступно"],
+          ["Нельзя отпустить", "Объект нельзя отпустить в этом месте"],
+          ["Выбор ссылки", "Можно активировать ссылку или элемент управления"],
+          ["Выделение текста", "Можно выделять горизонтальный текст"],
+          ["Выделение вертикального текста", "Можно выделять вертикальный текст"],
+          ["Точный выбор", "Позволяет точно указать позицию"],
+          ["Выбор ячейки", "Можно выбрать ячейку таблицы"],
+          ["Перемещение", "Можно переместить текущий объект"],
+          ["Захват", "Текущий объект можно захватить"],
+          ["Перетаскивание", "Захваченный объект перетаскивается"],
+          ["Создание ссылки", "Будет создан ярлык или ссылка"],
+          ["Копирование", "Текущий объект будет скопирован"],
+          ["Прокрутка во всех направлениях", "Можно прокручивать в любом направлении"],
+          ["Изменение ширины столбца", "Можно изменить ширину текущего столбца"],
+          ["Изменение высоты строки", "Можно изменить высоту текущей строки"],
+          ["Изменение размера вверх", "Можно перемещать верхнюю границу"],
+          ["Изменение размера вправо", "Можно перемещать правую границу"],
+          ["Изменение размера вниз", "Можно перемещать нижнюю границу"],
+          ["Изменение размера влево", "Можно перемещать левую границу"],
+          ["Изменение размера вверх и вправо", "Можно изменять размер в направлении вверх и вправо"],
+          ["Изменение размера вверх и влево", "Можно изменять размер в направлении вверх и влево"],
+          ["Изменение размера вниз и вправо", "Можно изменять размер в направлении вниз и вправо"],
+          ["Изменение размера вниз и влево", "Можно изменять размер в направлении вниз и влево"],
+          ["Изменение размера по вертикали", "Можно изменять размер вверх или вниз"],
+          ["Изменение размера по горизонтали", "Можно изменять размер влево или вправо"],
+          ["Диагональ сверху слева вниз вправо", "Можно изменять размер по диагонали сверху слева вниз вправо"],
+          ["Диагональ сверху справа вниз влево", "Можно изменять размер по диагонали сверху справа вниз влево"],
+          ["Увеличение", "Увеличивает текущее содержимое"],
+          ["Уменьшение", "Уменьшает текущее содержимое"]
+        ]
+      },
+      de: {
+        ui: {
+          pageTitle: "Windows-Zeiger und CSS cursor testen",
+          metaDescription: "Testen Sie das aktuelle Windows-Zeigerschema und alle 36 vordefinierten Schlüsselwörter von CSS cursor.",
+          title: "Windows-Zeigertest",
+          subtitle: "Aktuelles Systemschema · Live-Darstellung durch den Browser",
+          language: "Sprache auswählen",
+          auto: "Automatisch (Browsersprache)",
+          statusAria: "Ressourcenstatus",
+          status: ["Systemrollen", "CSS-Zustände", "Plattform"],
+          searchPlaceholder: "Nach Name, Systemrolle oder CSS-Wert suchen",
+          searchAria: "Zeigerstile durchsuchen",
+          filtersAria: "Kategorien der Zeigerstile",
+          tabs: ["Alle", "Allgemein", "Text", "Bewegen", "Größe ändern", "Zoom"],
+          results: "{count} Zeigerstile",
+          systemNote: "{system} Zuordnungen zu Systemrollen · {css} zusätzliche CSS-Zustände",
+          groupsAria: "Nach Verwendungszweck gruppierte Zeigerstile",
+          groups: ["Allgemeine Aktionen", "Text und präzise Auswahl", "Bewegen und Ziehen", "Größe ändern", "Zoom"],
+          groupCount: "{count} Stile",
+          empty: "Keine passenden Zeigerstile gefunden",
+          clear: "Filter zurücksetzen",
+          systemBadge: "SYSTEM",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Die cursor-Schlüsselwörter entsprechen der Spezifikation {spec}",
+          footerCounts: "{system} Systemrollen · {css} CSS-Zustände"
+        },
+        cursors: [
+          ["Automatische Auswahl", "Der Browser wählt passend zum aktuellen Element"],
+          ["Standardzeiger", "Standardmäßiger Pfeilzeiger"],
+          ["Zeiger ausblenden", "Der Mauszeiger wird nicht angezeigt"],
+          ["Kontextmenü", "Ein Kontextmenü kann geöffnet werden"],
+          ["Hilfe", "Zugehörige Hilfe ist verfügbar"],
+          ["Hintergrundaktivität", "Eine Aufgabe läuft, die Bedienung bleibt jedoch möglich"],
+          ["Ausgelastet", "Verarbeitung läuft; Bedienung vorübergehend nicht möglich"],
+          ["Nicht zulässig", "Die aktuelle Aktion ist nicht verfügbar"],
+          ["Ablegen nicht möglich", "Das Objekt kann hier nicht abgelegt werden"],
+          ["Linkauswahl", "Ein Link oder Bedienelement kann aktiviert werden"],
+          ["Textauswahl", "Horizontaler Text kann ausgewählt werden"],
+          ["Vertikale Textauswahl", "Vertikaler Text kann ausgewählt werden"],
+          ["Präzisionsauswahl", "Eine Position kann präzise anvisiert werden"],
+          ["Zellenauswahl", "Eine Tabellenzelle kann ausgewählt werden"],
+          ["Bewegen", "Das aktuelle Objekt kann bewegt werden"],
+          ["Greifen", "Das aktuelle Objekt kann gegriffen werden"],
+          ["Gegriffen", "Das gegriffene Objekt wird gerade gezogen"],
+          ["Verknüpfung erstellen", "Erstellt eine Verknüpfung oder einen Verweis"],
+          ["Kopieren", "Kopiert das aktuelle Objekt"],
+          ["Bildlauf in alle Richtungen", "Bildlauf in jede Richtung ist möglich"],
+          ["Spaltenbreite ändern", "Die Breite der aktuellen Spalte kann geändert werden"],
+          ["Zeilenhöhe ändern", "Die Höhe der aktuellen Zeile kann geändert werden"],
+          ["Nach oben skalieren", "Der obere Rand kann verschoben werden"],
+          ["Nach rechts skalieren", "Der rechte Rand kann verschoben werden"],
+          ["Nach unten skalieren", "Der untere Rand kann verschoben werden"],
+          ["Nach links skalieren", "Der linke Rand kann verschoben werden"],
+          ["Nach rechts oben skalieren", "Die Größe kann nach rechts oben geändert werden"],
+          ["Nach links oben skalieren", "Die Größe kann nach links oben geändert werden"],
+          ["Nach rechts unten skalieren", "Die Größe kann nach rechts unten geändert werden"],
+          ["Nach links unten skalieren", "Die Größe kann nach links unten geändert werden"],
+          ["Vertikal skalieren", "Die Größe kann nach oben oder unten geändert werden"],
+          ["Horizontal skalieren", "Die Größe kann nach links oder rechts geändert werden"],
+          ["Diagonal links oben–rechts unten", "Die Größe kann von links oben nach rechts unten geändert werden"],
+          ["Diagonal rechts oben–links unten", "Die Größe kann von rechts oben nach links unten geändert werden"],
+          ["Vergrößern", "Vergrößert den aktuellen Inhalt"],
+          ["Verkleinern", "Verkleinert den aktuellen Inhalt"]
+        ]
+      },
+      it: {
+        ui: {
+          pageTitle: "Test dei puntatori di Windows e di CSS cursor",
+          metaDescription: "Prova online lo schema di puntatori Windows attuale e tutte le 36 parole chiave predefinite di CSS cursor.",
+          title: "Test dei puntatori di Windows",
+          subtitle: "Schema di sistema attuale · Rendering in tempo reale del browser",
+          language: "Seleziona lingua",
+          auto: "Automatico (segui il browser)",
+          statusAria: "Stato delle risorse",
+          status: ["Ruoli di sistema", "Stati CSS", "Piattaforma"],
+          searchPlaceholder: "Cerca per nome, ruolo di sistema o valore CSS",
+          searchAria: "Cerca stili del puntatore",
+          filtersAria: "Categorie degli stili del puntatore",
+          tabs: ["Tutti", "Generali", "Testo", "Movimento", "Ridimensionamento", "Zoom"],
+          results: "{count} stili del puntatore",
+          systemNote: "{system} corrispondenze con ruoli di sistema · {css} stati CSS aggiuntivi",
+          groupsAria: "Stili del puntatore raggruppati per utilizzo",
+          groups: ["Azioni generali", "Testo e selezione precisa", "Movimento e trascinamento", "Ridimensionamento", "Zoom"],
+          groupCount: "{count} stili",
+          empty: "Nessuno stile del puntatore corrispondente",
+          clear: "Azzera filtri",
+          systemBadge: "SISTEMA",
+          cardAria: "{name}, cursor: {css}",
+          footerSpec: "Le parole chiave cursor seguono la specifica {spec}",
+          footerCounts: "{system} ruoli di sistema · {css} stati CSS"
+        },
+        cursors: [
+          ["Selezione automatica", "Il browser sceglie in base all’elemento corrente"],
+          ["Puntatore predefinito", "Puntatore a freccia standard"],
+          ["Nascondi puntatore", "Il puntatore del mouse non viene visualizzato"],
+          ["Menu contestuale", "È possibile aprire un menu contestuale"],
+          ["Guida", "È disponibile una guida correlata"],
+          ["Attività in background", "È in corso un’attività, ma è ancora possibile interagire"],
+          ["Occupato", "Elaborazione in corso; interazione temporaneamente non disponibile"],
+          ["Non consentito", "L’azione corrente non è disponibile"],
+          ["Rilascio non consentito", "L’oggetto non può essere rilasciato qui"],
+          ["Selezione collegamento", "È possibile attivare un collegamento o un controllo"],
+          ["Selezione testo", "Consente di selezionare testo orizzontale"],
+          ["Selezione testo verticale", "Consente di selezionare testo verticale"],
+          ["Selezione precisa", "Consente di indicare con precisione una posizione"],
+          ["Selezione cella", "Consente di selezionare una cella di tabella"],
+          ["Sposta", "Consente di spostare l’oggetto corrente"],
+          ["Afferra", "L’oggetto corrente può essere afferrato"],
+          ["Trascinamento in corso", "L’oggetto afferrato viene trascinato"],
+          ["Crea alias", "Crea un collegamento o un riferimento"],
+          ["Copia", "Copia l’oggetto corrente"],
+          ["Scorrimento in tutte le direzioni", "Consente di scorrere in qualsiasi direzione"],
+          ["Ridimensiona colonna", "Consente di modificare la larghezza della colonna corrente"],
+          ["Ridimensiona riga", "Consente di modificare l’altezza della riga corrente"],
+          ["Ridimensiona verso l’alto", "Consente di spostare il bordo superiore"],
+          ["Ridimensiona verso destra", "Consente di spostare il bordo destro"],
+          ["Ridimensiona verso il basso", "Consente di spostare il bordo inferiore"],
+          ["Ridimensiona verso sinistra", "Consente di spostare il bordo sinistro"],
+          ["Ridimensiona in alto a destra", "Consente di ridimensionare verso l’alto a destra"],
+          ["Ridimensiona in alto a sinistra", "Consente di ridimensionare verso l’alto a sinistra"],
+          ["Ridimensiona in basso a destra", "Consente di ridimensionare verso il basso a destra"],
+          ["Ridimensiona in basso a sinistra", "Consente di ridimensionare verso il basso a sinistra"],
+          ["Ridimensionamento verticale", "Consente di ridimensionare verso l’alto o il basso"],
+          ["Ridimensionamento orizzontale", "Consente di ridimensionare verso sinistra o destra"],
+          ["Diagonale alto sinistra–basso destra", "Consente di ridimensionare dall’alto a sinistra al basso a destra"],
+          ["Diagonale alto destra–basso sinistra", "Consente di ridimensionare dall’alto a destra al basso a sinistra"],
+          ["Ingrandisci", "Ingrandisce il contenuto corrente"],
+          ["Riduci", "Riduce il contenuto corrente"]
+        ]
+      }
+    };
+
+    const STORAGE_KEY = "windows-cursor-simulation.locale";
+    const SPEC_NAME = "CSS Basic User Interface Module Level 4";
+    const SYSTEM_ROLE_COUNT = cursorDefinitions.filter((cursor) => cursor.source === "system").length;
+    const CSS_STATE_COUNT = cursorDefinitions.length - SYSTEM_ROLE_COUNT;
+    const supportedLocales = new Set(Object.keys(localeMessages));
 
     const state = {
       category: "all",
-      query: ""
+      query: "",
+      preference: "auto",
+      locale: "zh-CN"
     };
 
-    const groups = document.getElementById("cursorGroups");
-    const searchInput = document.getElementById("searchInput");
-    const resultsCount = document.getElementById("resultsCount");
-    const emptyState = document.getElementById("emptyState");
+    const elements = {
+      title: document.getElementById("appTitle"),
+      subtitle: document.getElementById("appSubtitle"),
+      languageButton: document.getElementById("languageButton"),
+      languageButtonLabel: document.getElementById("languageButtonLabel"),
+      languageMenu: document.getElementById("languageMenu"),
+      headerStatus: document.getElementById("headerStatus"),
+      statusLabels: [
+        document.getElementById("systemRolesLabel"),
+        document.getElementById("cssStatesLabel"),
+        document.getElementById("platformLabel")
+      ],
+      systemRoles: document.getElementById("systemRoles"),
+      cssStates: document.getElementById("cssStates"),
+      platform: document.getElementById("platformValue"),
+      search: document.getElementById("searchInput"),
+      tabs: document.getElementById("filterTabs"),
+      results: document.getElementById("resultsCount"),
+      systemNote: document.getElementById("systemNote"),
+      groups: document.getElementById("cursorGroups"),
+      emptyState: document.getElementById("emptyState"),
+      emptyMessage: document.getElementById("emptyMessage"),
+      clear: document.getElementById("clearFilters"),
+      footerSpec: document.getElementById("footerSpec"),
+      footerCounts: document.getElementById("footerCounts")
+    };
+
+    function format(message, values = {}) {
+      return message.replace(/\{(\w+)\}/g, (match, key) => String(values[key] ?? match));
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function detectLocale() {
+      const requested = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
+
+      for (const language of requested) {
+        const normalized = language.replace("_", "-").toLowerCase();
+        if (normalized === "zh-hk" || normalized.startsWith("zh-hk-") || normalized === "zh-mo" || normalized.startsWith("zh-mo-")) return "zh-HK";
+        if (normalized === "zh-tw" || normalized.startsWith("zh-tw-")) return "zh-TW";
+        if (normalized === "zh" || normalized.startsWith("zh-")) return "zh-CN";
+        if (normalized === "pt-br" || normalized.startsWith("pt-br-")) return "pt-BR";
+        if (normalized === "pt" || normalized.startsWith("pt-")) return "pt-PT";
+
+        const baseLocale = [...supportedLocales].find((locale) => locale.toLowerCase() === normalized || locale.toLowerCase() === normalized.split("-")[0]);
+        if (baseLocale) return baseLocale;
+      }
+
+      return "en";
+    }
+
+    function readPreference() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved === "auto" || supportedLocales.has(saved) ? saved : "auto";
+      } catch {
+        return "auto";
+      }
+    }
+
+    function savePreference(preference) {
+      try {
+        localStorage.setItem(STORAGE_KEY, preference);
+      } catch {
+        // The page remains fully usable when storage is unavailable.
+      }
+    }
+
+    function currentMessages() {
+      return localeMessages[state.locale];
+    }
+
+    function currentCursors() {
+      return cursorDefinitions.map((definition, index) => ({
+        ...definition,
+        index,
+        name: currentMessages().cursors[index][0],
+        description: currentMessages().cursors[index][1]
+      }));
+    }
+
+    function platformName() {
+      const platform = navigator.userAgentData?.platform || navigator.platform || "";
+      return /^win/i.test(platform) ? "Windows" : platform || "—";
+    }
+
+    function setMeta(selector, content) {
+      const meta = document.querySelector(selector);
+      if (meta) meta.content = content;
+    }
+
+    function updateSpecText(message) {
+      const marker = "{spec}";
+      const markerIndex = message.indexOf(marker);
+      const strong = document.createElement("strong");
+      strong.textContent = SPEC_NAME;
+      elements.footerSpec.replaceChildren(
+        document.createTextNode(message.slice(0, markerIndex)),
+        strong,
+        document.createTextNode(message.slice(markerIndex + marker.length))
+      );
+    }
+
+    function updateStaticText() {
+      const { ui } = currentMessages();
+      document.documentElement.lang = state.locale;
+      document.title = ui.pageTitle;
+      setMeta('meta[name="description"]', ui.metaDescription);
+      setMeta('meta[property="og:title"]', ui.pageTitle);
+      setMeta('meta[property="og:description"]', ui.metaDescription);
+      setMeta('meta[property="og:locale"]', state.locale.replace("-", "_"));
+
+      elements.title.textContent = ui.title;
+      elements.subtitle.textContent = ui.subtitle;
+      elements.languageButton.setAttribute("aria-label", ui.language);
+      elements.languageMenu.setAttribute("aria-label", ui.language);
+      elements.headerStatus.setAttribute("aria-label", ui.statusAria);
+      elements.statusLabels.forEach((element, index) => {
+        element.textContent = ui.status[index];
+      });
+      elements.systemRoles.textContent = String(SYSTEM_ROLE_COUNT);
+      elements.cssStates.textContent = String(CSS_STATE_COUNT);
+      elements.platform.textContent = platformName();
+      elements.search.placeholder = ui.searchPlaceholder;
+      elements.search.setAttribute("aria-label", ui.searchAria);
+      elements.tabs.setAttribute("aria-label", ui.filtersAria);
+      elements.groups.setAttribute("aria-label", ui.groupsAria);
+      elements.emptyMessage.textContent = ui.empty;
+      elements.clear.textContent = ui.clear;
+      elements.systemNote.textContent = format(ui.systemNote, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
+      elements.footerCounts.textContent = format(ui.footerCounts, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
+      updateSpecText(ui.footerSpec);
+
+      elements.tabs.querySelectorAll("[data-category]").forEach((tab, index) => {
+        tab.textContent = ui.tabs[index];
+      });
+    }
+
+    function preferenceLabel(option) {
+      return option.value === "auto" ? currentMessages().ui.auto : option.nativeName;
+    }
+
+    function renderLanguageMenu() {
+      elements.languageMenu.innerHTML = localeOptions.map((option) => `
+        <button class="language-option" type="button" role="menuitemradio" data-locale="${option.value}" aria-checked="${String(option.value === state.preference)}" tabindex="-1">
+          ${escapeHtml(preferenceLabel(option))}
+        </button>`).join("");
+      const selected = localeOptions.find((option) => option.value === state.preference);
+      elements.languageButtonLabel.textContent = preferenceLabel(selected || localeOptions[0]);
+    }
 
     function matches(cursor) {
       const categoryMatches = state.category === "all" || cursor.category === state.category;
-      const haystack = `${cursor.name} ${cursor.description} ${cursor.role} ${cursor.css}`.toLocaleLowerCase();
+      const haystack = `${cursor.name} ${cursor.description} ${cursor.role} ${cursor.css}`.toLocaleLowerCase(state.locale);
       return categoryMatches && haystack.includes(state.query);
     }
 
-    function cardTemplate(cursor, index) {
-      const roleType = cursor.source === "system" ? "系统" : "CSS";
+    function cardTemplate(cursor) {
+      const { ui } = currentMessages();
+      const roleType = cursor.source === "system" ? ui.systemBadge : "CSS";
       const roleClass = cursor.source === "system" ? "role-type" : "role-type is-css";
+      const cardLabel = format(ui.cardAria, { name: cursor.name, css: cursor.css });
 
       return `
-        <article class="cursor-card" tabindex="0" style="--cursor: ${cursor.css}" data-index="${index}" aria-label="${cursor.name}，cursor: ${cursor.css}">
+        <article class="cursor-card" tabindex="0" style="--cursor: ${cursor.css}" data-index="${cursor.index}" aria-label="${escapeHtml(cardLabel)}">
           <header class="card-header">
             <div class="card-title">
-              <h2>${cursor.name}</h2>
-              <p title="${cursor.description}">${cursor.description}</p>
+              <h2>${escapeHtml(cursor.name)}</h2>
+              <p title="${escapeHtml(cursor.description)}">${escapeHtml(cursor.description)}</p>
             </div>
-            <span class="${roleClass}">${roleType}</span>
+            <span class="${roleClass}">${escapeHtml(roleType)}</span>
           </header>
           <footer class="card-meta">
             <code class="css-value">cursor: ${cursor.css}</code>
@@ -1182,76 +2396,142 @@
         </article>`;
     }
 
-    function groupTemplate(category, visible) {
-      const items = visible.filter((cursor) => cursor.category === category.id);
+    function groupTemplate(categoryId, visible) {
+      const categoryIndex = categoryIds.indexOf(categoryId);
+      const items = visible.filter((cursor) => cursor.category === categoryId);
       if (items.length === 0) return "";
 
-      const headingId = `group-${category.id}`;
+      const { ui } = currentMessages();
+      const headingId = `group-${categoryId}`;
       return `
         <section class="cursor-group" aria-labelledby="${headingId}">
           <header class="group-heading">
-            <h2 id="${headingId}">${category.label}</h2>
-            <span class="group-count">${items.length} 种</span>
+            <h2 id="${headingId}">${escapeHtml(ui.groups[categoryIndex])}</h2>
+            <span class="group-count">${escapeHtml(format(ui.groupCount, { count: items.length }))}</span>
           </header>
-          <div class="cursor-grid">
-            ${items.map((cursor) => cardTemplate(cursor, cursors.indexOf(cursor))).join("")}
-          </div>
+          <div class="cursor-grid">${items.map(cardTemplate).join("")}</div>
         </section>`;
     }
 
     function render() {
-      const visible = cursors.filter(matches);
-      groups.innerHTML = categories.map((category) => groupTemplate(category, visible)).join("");
-      resultsCount.textContent = `共 ${visible.length} 种指针样式`;
-      emptyState.classList.toggle("is-visible", visible.length === 0);
-      groups.hidden = visible.length === 0;
-
+      const { ui } = currentMessages();
+      const visible = currentCursors().filter(matches);
+      elements.groups.innerHTML = categoryIds.map((categoryId) => groupTemplate(categoryId, visible)).join("");
+      elements.results.textContent = format(ui.results, { count: visible.length });
+      elements.emptyState.classList.toggle("is-visible", visible.length === 0);
+      elements.groups.hidden = visible.length === 0;
     }
 
-    document.getElementById("filterTabs").addEventListener("click", (event) => {
+    function resetSearch() {
+      state.query = "";
+      elements.search.value = "";
+    }
+
+    function applyPreference(preference, persist = true) {
+      state.preference = preference === "auto" || supportedLocales.has(preference) ? preference : "auto";
+      state.locale = state.preference === "auto" ? detectLocale() : state.preference;
+      resetSearch();
+      updateStaticText();
+      renderLanguageMenu();
+      render();
+      if (persist) savePreference(state.preference);
+    }
+
+    function setMenuOpen(open, focusPosition) {
+      elements.languageMenu.hidden = !open;
+      elements.languageButton.setAttribute("aria-expanded", String(open));
+      if (!open) return;
+
+      const options = [...elements.languageMenu.querySelectorAll(".language-option")];
+      const checkedIndex = options.findIndex((option) => option.getAttribute("aria-checked") === "true");
+      const index = focusPosition === "last" ? options.length - 1 : Math.max(checkedIndex, 0);
+      options[index]?.focus();
+    }
+
+    elements.languageButton.addEventListener("click", () => {
+      setMenuOpen(elements.languageButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    elements.languageButton.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        setMenuOpen(true, event.key === "ArrowUp" ? "last" : "selected");
+      }
+    });
+
+    elements.languageMenu.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-locale]");
+      if (!option) return;
+      applyPreference(option.dataset.locale);
+      setMenuOpen(false);
+      elements.languageButton.focus();
+    });
+
+    elements.languageMenu.addEventListener("keydown", (event) => {
+      const options = [...elements.languageMenu.querySelectorAll(".language-option")];
+      const currentIndex = options.indexOf(document.activeElement);
+      let nextIndex = currentIndex;
+
+      if (event.key === "ArrowDown") nextIndex = (currentIndex + 1) % options.length;
+      else if (event.key === "ArrowUp") nextIndex = (currentIndex - 1 + options.length) % options.length;
+      else if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = options.length - 1;
+      else if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+        elements.languageButton.focus();
+        return;
+      } else return;
+
+      event.preventDefault();
+      options[nextIndex]?.focus();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".language-control")) setMenuOpen(false);
+    });
+
+    elements.tabs.addEventListener("click", (event) => {
       const button = event.target.closest("[data-category]");
       if (!button) return;
-
       state.category = button.dataset.category;
-      document.querySelectorAll("[data-category]").forEach((tab) => {
+      elements.tabs.querySelectorAll("[data-category]").forEach((tab) => {
         tab.setAttribute("aria-selected", String(tab === button));
       });
       render();
     });
 
-    searchInput.addEventListener("input", () => {
-      state.query = searchInput.value.trim().toLocaleLowerCase();
+    elements.search.addEventListener("input", () => {
+      state.query = elements.search.value.trim().toLocaleLowerCase(state.locale);
       render();
     });
 
-    document.getElementById("clearFilters").addEventListener("click", () => {
+    elements.clear.addEventListener("click", () => {
       state.category = "all";
-      state.query = "";
-      searchInput.value = "";
-      document.querySelectorAll("[data-category]").forEach((tab) => {
+      resetSearch();
+      elements.tabs.querySelectorAll("[data-category]").forEach((tab) => {
         tab.setAttribute("aria-selected", String(tab.dataset.category === "all"));
       });
       render();
-      searchInput.focus();
+      elements.search.focus();
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "/" && document.activeElement !== searchInput) {
+      if (event.key === "/" && document.activeElement !== elements.search && !event.ctrlKey && !event.metaKey && !event.altKey) {
         event.preventDefault();
-        searchInput.focus();
+        elements.search.focus();
       }
-      if (event.key === "Escape" && document.activeElement === searchInput) {
-        searchInput.value = "";
-        state.query = "";
+      if (event.key === "Escape" && document.activeElement === elements.search) {
+        resetSearch();
         render();
       }
     });
 
-    const systemRoleCount = cursors.filter((cursor) => cursor.source === "system").length;
-    document.getElementById("systemRoles").textContent = String(systemRoleCount);
-    document.getElementById("cssStates").textContent = String(cursors.length - systemRoleCount);
-    document.getElementById("platformValue").textContent = navigator.platform.startsWith("Win") ? "Windows" : navigator.platform;
-    render();
+    window.addEventListener("languagechange", () => {
+      if (state.preference === "auto") applyPreference("auto", false);
+    });
+
+    applyPreference(readPreference(), false);
   </script>
 </body>
 </html>
