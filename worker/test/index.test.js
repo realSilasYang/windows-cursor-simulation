@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildVariables, normalizeStats } from "../src/index.js";
+import { STATS_QUERY, buildVariables, normalizeStats } from "../src/index.js";
+
+test("query requests page views without visit totals", () => {
+  assert.match(STATS_QUERY, /rumPageloadEventsAdaptiveGroups[\s\S]*\bcount\b/);
+  assert.doesNotMatch(STATS_QUERY, /sum\s*\{\s*visits/);
+});
 
 test("buildVariables creates a cumulative window from launch", () => {
   const now = new Date("2026-08-09T12:00:00.000Z");
@@ -17,13 +22,13 @@ test("buildVariables creates a cumulative window from launch", () => {
   });
 });
 
-test("normalizeStats returns only the cumulative visit count", () => {
+test("normalizeStats returns only the cumulative page-view count", () => {
   const generatedAt = new Date("2026-08-09T12:00:00.000Z");
   const result = normalizeStats({
     data: {
       viewer: {
         accounts: [{
-          total: [{ sum: { visits: 31.7 } }]
+          total: [{ count: 20 }, { count: 12 }]
         }]
       }
     }
@@ -32,7 +37,7 @@ test("normalizeStats returns only the cumulative visit count", () => {
   assert.deepEqual(result, {
     generatedAt: "2026-08-09T12:00:00.000Z",
     since: "2026-08-09T00:00:00.000Z",
-    totalVisits: 32
+    totalPageViews: 32
   });
 });
 

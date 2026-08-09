@@ -2,15 +2,15 @@ const CLOUDFLARE_GRAPHQL = "https://api.cloudflare.com/client/v4/graphql";
 const CACHE_TTL_SECONDS = 600;
 const STATS_START = "2026-08-09T00:00:00.000Z";
 
-const STATS_QUERY = `
-  query PublicTotalVisits(
+export const STATS_QUERY = `
+  query PublicTotalPageViews(
     $accountTag: string!
     $totalFilter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!
   ) {
     viewer {
       accounts(filter: { accountTag: $accountTag }) {
         total: rumPageloadEventsAdaptiveGroups(limit: 1, filter: $totalFilter) {
-          sum { visits }
+          count
         }
       }
     }
@@ -57,8 +57,8 @@ export function buildVariables(now, env) {
   };
 }
 
-function sumVisits(groups = []) {
-  return Math.round(groups.reduce((total, group) => total + (group.sum?.visits || 0), 0));
+function sumPageViews(groups = []) {
+  return Math.round(groups.reduce((total, group) => total + (group.count || 0), 0));
 }
 
 export function normalizeStats(payload, generatedAt) {
@@ -69,7 +69,7 @@ export function normalizeStats(payload, generatedAt) {
   return {
     generatedAt: generatedAt.toISOString(),
     since: STATS_START,
-    totalVisits: sumVisits(account.total)
+    totalPageViews: sumPageViews(account.total)
   };
 }
 
@@ -108,7 +108,7 @@ export default {
     }
 
     const cache = caches.default;
-    const cacheKey = new Request(`${url.origin}/stats`, { method: "GET" });
+    const cacheKey = new Request(`${url.origin}/stats?pageviews=v1`, { method: "GET" });
     const cached = await cache.match(cacheKey);
     if (cached) {
       const response = new Response(cached.body, cached);

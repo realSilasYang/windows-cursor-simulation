@@ -12,7 +12,7 @@
 - 按常规操作、文本选择、移动与拖放、调整大小、视图缩放分组
 - 支持搜索、分类筛选、深浅主题以及 14 种界面语言；语言可跟随浏览器，主题可跟随系统
 - favicon 已嵌入每个 HTML 页面，无需额外图标文件
-- 使用不设置 Cookie 的 Cloudflare Web Analytics 收集匿名汇总访问数据，并在页脚公开显示累计访问量
+- 使用不设置 Cookie 的 Cloudflare Web Analytics 收集匿名汇总数据，并在页脚公开显示累计页面浏览量
 - 提供独立语言 URL、hreflang、结构化数据、sitemap 与 `llms.txt`
 
 在线体验：<https://realsilasyang.github.io/windows-cursor-simulation/zh-cn/>
@@ -29,7 +29,7 @@
 - 按一般操作、文字選取、移動與拖放、調整大小及畫面縮放分組
 - 支援搜尋、分類篩選、深淺主題及 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - favicon 已嵌入每個 HTML 頁面，毋須額外圖示檔案
-- 使用不設 Cookie 的 Cloudflare Web Analytics 收集匿名彙總瀏覽數據，並在頁尾公開顯示累計瀏覽次數
+- 使用不設 Cookie 的 Cloudflare Web Analytics 收集匿名彙總數據，並在頁尾公開顯示累計頁面瀏覽量
 - 提供獨立語言網址、hreflang、結構化資料、sitemap 及 `llms.txt`
 
 網上試用：<https://realsilasyang.github.io/windows-cursor-simulation/zh-hk/>
@@ -46,7 +46,7 @@
 - 依一般操作、文字選取、移動與拖放、調整大小、檢視縮放分組
 - 支援搜尋、分類篩選、深淺主題與 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - favicon 已嵌入每個 HTML 頁面，不需要額外的圖示檔案
-- 使用不設定 Cookie 的 Cloudflare Web Analytics 收集匿名彙總造訪資料，並在頁尾公開顯示累計造訪次數
+- 使用不設定 Cookie 的 Cloudflare Web Analytics 收集匿名彙總資料，並在頁尾公開顯示累計頁面瀏覽量
 - 提供獨立語言網址、hreflang、結構化資料、sitemap 與 `llms.txt`
 
 線上體驗：<https://realsilasyang.github.io/windows-cursor-simulation/zh-tw/>
@@ -63,7 +63,7 @@ Test the current system pointer scheme and all 36 predefined CSS `cursor` keywor
 - Groups styles into general actions, text selection, movement and drag-and-drop, resizing, and zoom
 - Includes search, category filters, light and dark themes, and 14 interface languages; language can follow the browser and theme can follow the system
 - Embeds the favicon in every HTML page, so no separate icon file is required
-- Uses cookie-free Cloudflare Web Analytics for anonymous, aggregate traffic measurement and publicly displays the cumulative visit count in the footer
+- Uses cookie-free Cloudflare Web Analytics for anonymous, aggregate traffic measurement and publicly displays the cumulative page-view count in the footer
 - Provides locale-specific URLs, hreflang, structured data, a sitemap, and `llms.txt`
 
 Live demo: <https://realsilasyang.github.io/windows-cursor-simulation/en/>
@@ -80,7 +80,7 @@ The page does not load or simulate cursor files from the repository. Every card 
 - 一般操作、テキスト選択、移動とドラッグ＆ドロップ、サイズ変更、ズームの用途別に分類
 - 検索、カテゴリーフィルター、ライト／ダークテーマ、14 言語の表示に対応し、言語はブラウザー、テーマはシステムの設定に追従可能
 - favicon は各 HTML ページに埋め込まれているため、別のアイコンファイルは不要
-- Cookie を使用しない Cloudflare Web Analytics で匿名の集計アクセスデータを計測し、累計訪問数をフッターに公開表示
+- Cookie を使用しない Cloudflare Web Analytics で匿名の集計データを計測し、累計ページビュー数をフッターに公開表示
 - 言語別 URL、hreflang、構造化データ、サイトマップ、`llms.txt` を提供
 
 オンライン版：<https://realsilasyang.github.io/windows-cursor-simulation/ja/>
@@ -97,7 +97,7 @@ Kiểm tra trực tuyến bộ con trỏ hiện tại của hệ thống và đ�
 - Nhóm theo thao tác chung, chọn văn bản, di chuyển và kéo thả, đổi kích thước, phóng to/thu nhỏ
 - Hỗ trợ tìm kiếm, lọc theo danh mục, giao diện sáng/tối và 14 ngôn ngữ; ngôn ngữ có thể theo trình duyệt, giao diện có thể theo hệ thống
 - favicon được nhúng trong từng trang HTML, không cần tệp biểu tượng riêng
-- Dùng Cloudflare Web Analytics không cookie để đo lường lưu lượng ẩn danh ở dạng tổng hợp và công khai tổng lượt truy cập ở chân trang
+- Dùng Cloudflare Web Analytics không cookie để đo lường lưu lượng ẩn danh ở dạng tổng hợp và công khai tổng lượt xem trang tích lũy ở chân trang
 - Cung cấp URL riêng cho từng ngôn ngữ, hreflang, dữ liệu có cấu trúc, sitemap và `llms.txt`
 
 Dùng thử trực tuyến: <https://realsilasyang.github.io/windows-cursor-simulation/vi/>
@@ -114,7 +114,7 @@ Trang không tải hay mô phỏng các tệp con trỏ trong kho mã. Mỗi th�
 - 일반 동작, 텍스트 선택, 이동 및 끌어서 놓기, 크기 조절, 확대/축소로 분류
 - 검색, 범주 필터, 밝은/어두운 테마와 14개 인터페이스 언어를 지원하며 언어는 브라우저, 테마는 시스템 설정을 따를 수 있음
 - favicon이 각 HTML 페이지에 포함되어 별도의 아이콘 파일이 필요 없음
-- 쿠키를 사용하지 않는 Cloudflare Web Analytics로 익명 집계 방문 데이터를 측정하고 누적 방문 수를 바닥글에 공개 표시
+- 쿠키를 사용하지 않는 Cloudflare Web Analytics로 익명 집계 데이터를 측정하고 누적 페이지 조회 수를 바닥글에 공개 표시
 - 언어별 URL, hreflang, 구조화 데이터, 사이트맵 및 `llms.txt` 제공
 
 온라인 데모: <https://realsilasyang.github.io/windows-cursor-simulation/ko/>
@@ -131,7 +131,7 @@ Prueba en línea el esquema de punteros actual del sistema y las 36 palabras cla
 - Agrupa los estilos en acciones generales, selección de texto, movimiento y arrastrar y soltar, redimensionado y zoom
 - Incluye búsqueda, filtros por categoría, temas claro y oscuro y 14 idiomas; el idioma puede seguir al navegador y el tema al sistema
 - El favicon está integrado en cada página HTML, sin necesidad de un archivo de icono aparte
-- Usa Cloudflare Web Analytics sin cookies para medir el tráfico de forma anónima y agregada, y muestra públicamente el total acumulado de visitas en el pie de página
+- Usa Cloudflare Web Analytics sin cookies para medir el tráfico de forma anónima y agregada, y muestra públicamente el total acumulado de páginas vistas en el pie de página
 - Ofrece URL específicas por idioma, hreflang, datos estructurados, un sitemap y `llms.txt`
 
 Demostración: <https://realsilasyang.github.io/windows-cursor-simulation/es/>
@@ -148,7 +148,7 @@ Testez en ligne la configuration actuelle des pointeurs du système ainsi que le
 - Regroupe les styles par actions générales, sélection de texte, déplacement et glisser-déposer, redimensionnement et zoom
 - Propose une recherche, des filtres par catégorie, des thèmes clair et sombre et 14 langues ; la langue peut suivre le navigateur et le thème le système
 - Intègre le favicon dans chaque page HTML ; aucun fichier d’icône séparé n’est nécessaire
-- Utilise Cloudflare Web Analytics sans cookies pour mesurer le trafic de façon anonyme et agrégée, et affiche publiquement le nombre cumulé de visites dans le pied de page
+- Utilise Cloudflare Web Analytics sans cookies pour mesurer le trafic de façon anonyme et agrégée, et affiche publiquement le nombre cumulé de pages vues dans le pied de page
 - Fournit des URL propres à chaque langue, hreflang, des données structurées, un sitemap et `llms.txt`
 
 Version en ligne : <https://realsilasyang.github.io/windows-cursor-simulation/fr/>
@@ -165,7 +165,7 @@ Teste on-line o esquema atual de ponteiros do sistema e todas as 36 palavras-cha
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e soltar, redimensionamento e zoom
 - Oferece busca, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - O favicon está incorporado a cada página HTML, sem necessidade de um arquivo de ícone separado
-- Usa o Cloudflare Web Analytics sem cookies para medir o tráfego de forma anônima e agregada e exibe publicamente o total acumulado de visitas no rodapé
+- Usa o Cloudflare Web Analytics sem cookies para medir o tráfego de forma anônima e agregada e exibe publicamente o total acumulado de visualizações de página no rodapé
 - Oferece URLs específicas por idioma, hreflang, dados estruturados, sitemap e `llms.txt`
 
 Demonstração: <https://realsilasyang.github.io/windows-cursor-simulation/pt-br/>
@@ -182,7 +182,7 @@ Teste online o esquema atual de ponteiros do sistema e todas as 36 palavras-chav
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e largar, redimensionamento e zoom
 - Inclui pesquisa, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - O favicon está incorporado em cada página HTML, pelo que não é necessário um ficheiro de ícone separado
-- Utiliza o Cloudflare Web Analytics sem cookies para medir o tráfego de forma anónima e agregada e apresenta publicamente o total acumulado de visitas no rodapé
+- Utiliza o Cloudflare Web Analytics sem cookies para medir o tráfego de forma anónima e agregada e apresenta publicamente o total acumulado de visualizações de páginas no rodapé
 - Disponibiliza URLs próprias por idioma, hreflang, dados estruturados, sitemap e `llms.txt`
 
 Demonstração online: <https://realsilasyang.github.io/windows-cursor-simulation/pt-pt/>
@@ -199,7 +199,7 @@ A página não carrega nem simula ficheiros de ponteiro do repositório. Cada ca
 - Группирует стили по назначению: основные действия, выделение текста, перемещение и перетаскивание, изменение размера и масштаб
 - Поддерживает поиск, фильтры по категориям, светлую и тёмную темы и 14 языков; язык может определяться по браузеру, а тема — по системе
 - Значок favicon встроен в каждую HTML-страницу, поэтому отдельный файл значка не нужен
-- Использует Cloudflare Web Analytics без файлов cookie для анонимной агрегированной оценки посещаемости и публично показывает общее число посещений в нижней части страницы
+- Использует Cloudflare Web Analytics без файлов cookie для анонимной агрегированной оценки трафика и публично показывает общее число просмотров страниц в нижней части страницы
 - Предоставляет отдельные URL для каждого языка, hreflang, структурированные данные, sitemap и `llms.txt`
 
 Онлайн-версия: <https://realsilasyang.github.io/windows-cursor-simulation/ru/>
@@ -216,7 +216,7 @@ Testen Sie das aktuelle Zeigerschema des Systems und alle 36 vordefinierten CSS-
 - Gruppiert die Stile in allgemeine Aktionen, Textauswahl, Bewegen und Ziehen, Größenänderung und Zoom
 - Bietet Suche, Kategoriefilter, ein helles und dunkles Design sowie 14 Sprachen; Sprache und Design können Browser- bzw. Systemeinstellungen folgen
 - Das Favicon ist in jede HTML-Seite eingebettet; eine separate Symboldatei ist nicht erforderlich
-- Verwendet Cloudflare Web Analytics ohne Cookies für eine anonyme, aggregierte Zugriffsmessung und zeigt die kumulierte Besuchszahl öffentlich in der Fußzeile an
+- Verwendet Cloudflare Web Analytics ohne Cookies für eine anonyme, aggregierte Zugriffsmessung und zeigt die kumulierte Zahl der Seitenaufrufe öffentlich in der Fußzeile an
 - Bietet sprachspezifische URLs, hreflang, strukturierte Daten, eine Sitemap und `llms.txt`
 
 Online-Demo: <https://realsilasyang.github.io/windows-cursor-simulation/de/>
@@ -233,7 +233,7 @@ Prova online lo schema di puntatori attuale del sistema e tutte le 36 parole chi
 - Raggruppa gli stili in azioni generali, selezione del testo, movimento e trascinamento, ridimensionamento e zoom
 - Include ricerca, filtri per categoria, temi chiaro e scuro e 14 lingue; la lingua può seguire il browser e il tema il sistema
 - Il favicon è incorporato in ogni pagina HTML, quindi non occorre un file icona separato
-- Usa Cloudflare Web Analytics senza cookie per misurare il traffico in forma anonima e aggregata e mostra pubblicamente il totale cumulativo delle visite nel piè di pagina
+- Usa Cloudflare Web Analytics senza cookie per misurare il traffico in forma anonima e aggregata e mostra pubblicamente il totale cumulativo delle visualizzazioni di pagina nel piè di pagina
 - Offre URL specifici per lingua, hreflang, dati strutturati, sitemap e `llms.txt`
 
 Demo online: <https://realsilasyang.github.io/windows-cursor-simulation/it/>

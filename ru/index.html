@@ -170,15 +170,16 @@
     }
 
     .header-inner {
-      display: flex;
+      display: grid;
       min-height: 76px;
       align-items: center;
-      justify-content: space-between;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       gap: 24px;
       padding-block: 14px;
     }
 
     .title-block {
+      grid-column: 1;
       min-width: 0;
     }
 
@@ -196,16 +197,15 @@
     }
 
     .header-actions {
-      display: flex;
-      flex: 0 0 auto;
-      align-items: center;
-      gap: 12px;
+      display: contents;
     }
 
     .preference-controls {
       display: flex;
+      grid-column: 3;
       align-items: center;
       gap: 8px;
+      justify-self: end;
     }
 
     .language-control,
@@ -310,8 +310,9 @@
 
     .header-status {
       display: grid;
-      flex: 0 0 auto;
+      grid-column: 2;
       grid-template-columns: repeat(3, auto);
+      justify-self: center;
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -435,26 +436,6 @@
       padding-block: 20px 32px;
     }
 
-    .results-bar {
-      display: flex;
-      min-height: 28px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 10px;
-    }
-
-    .results-count {
-      margin: 0;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .system-note {
-      color: var(--quiet);
-      font-size: 12px;
-    }
-
     .cursor-groups {
       display: grid;
       gap: 24px;
@@ -470,8 +451,6 @@
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 10px;
-      padding-bottom: 7px;
-      border-bottom: 1px dashed var(--border);
     }
 
     .group-heading h2 {
@@ -635,7 +614,7 @@
       font-size: 12px;
     }
 
-    .footer-visits {
+    .footer-page-views {
       color: var(--text);
       font-variant-numeric: tabular-nums;
       justify-self: end;
@@ -666,8 +645,8 @@
 
       .header-inner {
         min-height: 0;
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: center;
+        grid-template-columns: minmax(0, 1fr) auto;
         gap: 14px;
         padding-block: 18px;
       }
@@ -676,18 +655,13 @@
         font-size: 20px;
       }
 
-      .header-actions {
-        width: 100%;
-        align-items: stretch;
-        flex-direction: column;
-        gap: 8px;
-      }
-
       .preference-controls {
-        align-self: flex-end;
+        grid-column: 2;
+        grid-row: 1;
       }
 
       .header-status {
+        grid-column: 1 / -1;
         width: 100%;
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -716,11 +690,6 @@
         padding-block: 20px 30px;
       }
 
-      .results-bar {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 4px;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -848,10 +817,6 @@
 
   <main>
     <div class="main-inner">
-      <div class="results-bar">
-        <p class="results-count" id="resultsCount" aria-live="polite">Стилей указателя: 36</p>
-        <span class="system-note" id="systemNote">Системных соответствий: 13 · дополнительных состояний CSS: 23</span>
-      </div>
       <section class="cursor-groups" id="cursorGroups" aria-label="Стили указателя, сгруппированные по назначению">
         <section class="cursor-group" aria-labelledby="group-standard">
           <header class="group-heading">
@@ -1369,7 +1334,7 @@
     <div class="footer-inner">
       <span id="footerSpec">Ключевые слова cursor соответствуют спецификации <strong>CSS Basic User Interface Module Level 4</strong></span>
       <span id="footerCounts">Системных ролей: 13 · состояний CSS: 23</span>
-      <span class="footer-visits" id="footerVisits" aria-live="polite" hidden="">Всего посещений: 0</span>
+      <span class="footer-page-views" id="footerPageViews" aria-live="polite" hidden="">Всего просмотров страниц: 0</span>
     </div>
   </footer>
 
@@ -1452,8 +1417,6 @@
           searchAria: "搜索指针样式",
           filtersAria: "指针样式分类",
           tabs: ["全部", "常规", "文本", "移动", "调整大小", "视图缩放"],
-          results: "共 {count} 种指针样式",
-          systemNote: "{system} 种系统角色映射 · {css} 种 CSS 扩展状态",
           groupsAria: "按场景分组的指针样式",
           groups: ["常规操作", "文本与精确选择", "移动与拖放", "调整大小", "视图缩放"],
           groupCount: "{count} 种",
@@ -1462,7 +1425,7 @@
           systemBadge: "系统",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "光标关键字依据 {spec} 规范",
-          totalVisits: "总访问量：{count}",
+          totalPageViews: "总浏览量：{count}",
           footerCounts: "{system} 种系统角色 · {css} 种 CSS 状态"
         },
         cursors: [
@@ -1522,8 +1485,6 @@
           searchAria: "搜尋指標樣式",
           filtersAria: "指標樣式分類",
           tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
-          results: "共 {count} 種指標樣式",
-          systemNote: "{system} 種系統角色對應 · {css} 種 CSS 延伸狀態",
           groupsAria: "按場景分組的指標樣式",
           groups: ["一般操作", "文字與精確選擇", "移動與拖放", "調整大小", "檢視縮放"],
           groupCount: "{count} 種",
@@ -1532,7 +1493,7 @@
           systemBadge: "系統",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "指標關鍵字依據 {spec} 規範",
-          totalVisits: "總瀏覽次數：{count}",
+          totalPageViews: "總瀏覽量：{count}",
           footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
         },
         cursors: [
@@ -1592,8 +1553,6 @@
           searchAria: "搜尋游標樣式",
           filtersAria: "游標樣式分類",
           tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
-          results: "共 {count} 種游標樣式",
-          systemNote: "{system} 種系統角色對應 · {css} 種 CSS 延伸狀態",
           groupsAria: "依情境分組的游標樣式",
           groups: ["一般操作", "文字與精確選取", "移動與拖放", "調整大小", "檢視縮放"],
           groupCount: "{count} 種",
@@ -1602,7 +1561,7 @@
           systemBadge: "系統",
           cardAria: "{name}，cursor：{css}",
           footerSpec: "游標關鍵字依據 {spec} 規範",
-          totalVisits: "總造訪次數：{count}",
+          totalPageViews: "總瀏覽量：{count}",
           footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
         },
         cursors: [
@@ -1662,8 +1621,6 @@
           searchAria: "Search pointer styles",
           filtersAria: "Pointer style categories",
           tabs: ["All", "General", "Text", "Move", "Resize", "View zoom"],
-          results: "{count} pointer styles",
-          systemNote: "{system} system-role mappings · {css} extended CSS states",
           groupsAria: "Pointer styles grouped by use case",
           groups: ["General actions", "Text and precision selection", "Move and drag-and-drop", "Resize", "View zoom"],
           groupCount: "{count} styles",
@@ -1672,7 +1629,7 @@
           systemBadge: "SYSTEM",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Cursor keywords follow the {spec} specification",
-          totalVisits: "Total visits: {count}",
+          totalPageViews: "Total page views: {count}",
           footerCounts: "{system} system roles · {css} CSS states"
         },
         cursors: [
@@ -1732,8 +1689,6 @@
           searchAria: "ポインター形式を検索",
           filtersAria: "ポインター形式の分類",
           tabs: ["すべて", "一般", "テキスト", "移動", "サイズ変更", "表示倍率"],
-          results: "全 {count} 種類のポインター",
-          systemNote: "システムの役割 {system} 種類 · CSS 拡張状態 {css} 種類",
           groupsAria: "用途別に分類したポインター形式",
           groups: ["一般操作", "テキストと精密選択", "移動とドラッグ＆ドロップ", "サイズ変更", "表示倍率"],
           groupCount: "{count} 種類",
@@ -1742,7 +1697,7 @@
           systemBadge: "システム",
           cardAria: "{name}、cursor: {css}",
           footerSpec: "カーソルキーワードは {spec} 仕様に準拠",
-          totalVisits: "総訪問数：{count}",
+          totalPageViews: "総ページビュー数：{count}",
           footerCounts: "システムの役割 {system} 種類 · CSS 状態 {css} 種類"
         },
         cursors: [
@@ -1802,8 +1757,6 @@
           searchAria: "Tìm kiểu con trỏ",
           filtersAria: "Danh mục kiểu con trỏ",
           tabs: ["Tất cả", "Chung", "Văn bản", "Di chuyển", "Đổi kích thước", "Thu phóng"],
-          results: "Có {count} kiểu con trỏ",
-          systemNote: "{system} ánh xạ vai trò hệ thống · {css} trạng thái CSS mở rộng",
           groupsAria: "Kiểu con trỏ được nhóm theo tình huống",
           groups: ["Thao tác chung", "Văn bản và chọn chính xác", "Di chuyển và kéo thả", "Đổi kích thước", "Thu phóng"],
           groupCount: "{count} kiểu",
@@ -1812,7 +1765,7 @@
           systemBadge: "HỆ THỐNG",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Các từ khóa con trỏ tuân theo đặc tả {spec}",
-          totalVisits: "Tổng lượt truy cập: {count}",
+          totalPageViews: "Tổng lượt xem trang: {count}",
           footerCounts: "{system} vai trò hệ thống · {css} trạng thái CSS"
         },
         cursors: [
@@ -1872,8 +1825,6 @@
           searchAria: "포인터 스타일 검색",
           filtersAria: "포인터 스타일 분류",
           tabs: ["전체", "일반", "텍스트", "이동", "크기 조절", "화면 확대/축소"],
-          results: "포인터 스타일 {count}개",
-          systemNote: "시스템 역할 매핑 {system}개 · CSS 확장 상태 {css}개",
           groupsAria: "사용 상황별 포인터 스타일",
           groups: ["일반 작업", "텍스트 및 정밀 선택", "이동 및 끌어서 놓기", "크기 조절", "화면 확대/축소"],
           groupCount: "{count}개",
@@ -1882,7 +1833,7 @@
           systemBadge: "시스템",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "커서 키워드는 {spec} 사양을 따릅니다",
-          totalVisits: "총 방문 수: {count}",
+          totalPageViews: "총 페이지 조회 수: {count}",
           footerCounts: "시스템 역할 {system}개 · CSS 상태 {css}개"
         },
         cursors: [
@@ -1942,8 +1893,6 @@
           searchAria: "Buscar estilos de puntero",
           filtersAria: "Categorías de estilos de puntero",
           tabs: ["Todos", "General", "Texto", "Movimiento", "Redimensionar", "Zoom"],
-          results: "{count} estilos de puntero",
-          systemNote: "{system} correspondencias con roles del sistema · {css} estados CSS ampliados",
           groupsAria: "Estilos de puntero agrupados por uso",
           groups: ["Acciones generales", "Texto y selección precisa", "Movimiento y arrastrar y soltar", "Redimensionado", "Zoom"],
           groupCount: "{count} estilos",
@@ -1952,7 +1901,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Las palabras clave de cursor siguen la especificación {spec}",
-          totalVisits: "Visitas totales: {count}",
+          totalPageViews: "Total de páginas vistas: {count}",
           footerCounts: "{system} roles del sistema · {css} estados CSS"
         },
         cursors: [
@@ -2012,8 +1961,6 @@
           searchAria: "Rechercher des styles de pointeur",
           filtersAria: "Catégories de styles de pointeur",
           tabs: ["Tous", "Général", "Texte", "Déplacement", "Redimensionnement", "Zoom"],
-          results: "{count} styles de pointeur",
-          systemNote: "{system} correspondances avec des rôles système · {css} états CSS étendus",
           groupsAria: "Styles de pointeur regroupés par usage",
           groups: ["Actions générales", "Texte et sélection précise", "Déplacement et glisser-déposer", "Redimensionnement", "Zoom"],
           groupCount: "{count} styles",
@@ -2022,7 +1969,7 @@
           systemBadge: "SYSTÈME",
           cardAria: "{name}, cursor : {css}",
           footerSpec: "Les mots-clés cursor suivent la spécification {spec}",
-          totalVisits: "Nombre total de visites : {count}",
+          totalPageViews: "Nombre total de pages vues : {count}",
           footerCounts: "{system} rôles système · {css} états CSS"
         },
         cursors: [
@@ -2082,8 +2029,6 @@
           searchAria: "Buscar estilos de ponteiro",
           filtersAria: "Categorias de estilos de ponteiro",
           tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionamento", "Zoom"],
-          results: "{count} estilos de ponteiro",
-          systemNote: "{system} correspondências com funções do sistema · {css} estados CSS adicionais",
           groupsAria: "Estilos de ponteiro agrupados por uso",
           groups: ["Ações gerais", "Texto e seleção precisa", "Movimento e arrastar e soltar", "Redimensionamento", "Zoom"],
           groupCount: "{count} estilos",
@@ -2092,7 +2037,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
-          totalVisits: "Total de visitas: {count}",
+          totalPageViews: "Total de visualizações de página: {count}",
           footerCounts: "{system} funções do sistema · {css} estados CSS"
         },
         cursors: [
@@ -2152,8 +2097,6 @@
           searchAria: "Pesquisar estilos de ponteiro",
           filtersAria: "Categorias de estilos de ponteiro",
           tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionar", "Zoom"],
-          results: "{count} estilos de ponteiro",
-          systemNote: "{system} correspondências com funções do sistema · {css} estados CSS adicionais",
           groupsAria: "Estilos de ponteiro agrupados por utilização",
           groups: ["Ações gerais", "Texto e seleção precisa", "Movimento e arrastar e largar", "Redimensionamento", "Zoom"],
           groupCount: "{count} estilos",
@@ -2162,7 +2105,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
-          totalVisits: "Total de visitas: {count}",
+          totalPageViews: "Total de visualizações de páginas: {count}",
           footerCounts: "{system} funções do sistema · {css} estados CSS"
         },
         cursors: [
@@ -2222,8 +2165,6 @@
           searchAria: "Поиск стилей указателя",
           filtersAria: "Категории стилей указателя",
           tabs: ["Все", "Основные", "Текст", "Перемещение", "Изменение размера", "Масштаб"],
-          results: "Стилей указателя: {count}",
-          systemNote: "Системных соответствий: {system} · дополнительных состояний CSS: {css}",
           groupsAria: "Стили указателя, сгруппированные по назначению",
           groups: ["Основные действия", "Текст и точное выделение", "Перемещение и перетаскивание", "Изменение размера", "Масштаб"],
           groupCount: "Стилей: {count}",
@@ -2232,7 +2173,7 @@
           systemBadge: "СИСТЕМА",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Ключевые слова cursor соответствуют спецификации {spec}",
-          totalVisits: "Всего посещений: {count}",
+          totalPageViews: "Всего просмотров страниц: {count}",
           footerCounts: "Системных ролей: {system} · состояний CSS: {css}"
         },
         cursors: [
@@ -2292,8 +2233,6 @@
           searchAria: "Zeigerstile durchsuchen",
           filtersAria: "Kategorien der Zeigerstile",
           tabs: ["Alle", "Allgemein", "Text", "Bewegen", "Größe ändern", "Zoom"],
-          results: "{count} Zeigerstile",
-          systemNote: "{system} Zuordnungen zu Systemrollen · {css} zusätzliche CSS-Zustände",
           groupsAria: "Nach Verwendungszweck gruppierte Zeigerstile",
           groups: ["Allgemeine Aktionen", "Text und präzise Auswahl", "Bewegen und Ziehen", "Größe ändern", "Zoom"],
           groupCount: "{count} Stile",
@@ -2302,7 +2241,7 @@
           systemBadge: "SYSTEM",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Die cursor-Schlüsselwörter entsprechen der Spezifikation {spec}",
-          totalVisits: "Besuche insgesamt: {count}",
+          totalPageViews: "Seitenaufrufe insgesamt: {count}",
           footerCounts: "{system} Systemrollen · {css} CSS-Zustände"
         },
         cursors: [
@@ -2362,8 +2301,6 @@
           searchAria: "Cerca stili del puntatore",
           filtersAria: "Categorie degli stili del puntatore",
           tabs: ["Tutti", "Generali", "Testo", "Movimento", "Ridimensionamento", "Zoom"],
-          results: "{count} stili del puntatore",
-          systemNote: "{system} corrispondenze con ruoli di sistema · {css} stati CSS aggiuntivi",
           groupsAria: "Stili del puntatore raggruppati per utilizzo",
           groups: ["Azioni generali", "Testo e selezione precisa", "Movimento e trascinamento", "Ridimensionamento", "Zoom"],
           groupCount: "{count} stili",
@@ -2372,7 +2309,7 @@
           systemBadge: "SISTEMA",
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Le parole chiave cursor seguono la specifica {spec}",
-          totalVisits: "Visite totali: {count}",
+          totalPageViews: "Visualizzazioni di pagina totali: {count}",
           footerCounts: "{system} ruoli di sistema · {css} stati CSS"
         },
         cursors: [
@@ -2468,7 +2405,7 @@
       preference: "auto",
       locale: "zh-CN",
       themePreference: document.documentElement.dataset.themePreference || "auto",
-      totalVisits: null
+      totalPageViews: null
     };
 
     const elements = {
@@ -2489,14 +2426,12 @@
       platform: document.getElementById("platformValue"),
       search: document.getElementById("searchInput"),
       tabs: document.getElementById("filterTabs"),
-      results: document.getElementById("resultsCount"),
-      systemNote: document.getElementById("systemNote"),
       groups: document.getElementById("cursorGroups"),
       emptyState: document.getElementById("emptyState"),
       emptyMessage: document.getElementById("emptyMessage"),
       clear: document.getElementById("clearFilters"),
       footerSpec: document.getElementById("footerSpec"),
-      footerVisits: document.getElementById("footerVisits"),
+      footerPageViews: document.getElementById("footerPageViews"),
       footerCounts: document.getElementById("footerCounts")
     };
 
@@ -2701,18 +2636,18 @@
       );
     }
 
-    function updateVisitText() {
-      if (!Number.isFinite(state.totalVisits)) {
-        elements.footerVisits.textContent = format(currentMessages().ui.totalVisits, { count: "0" });
-        elements.footerVisits.hidden = true;
+    function updatePageViewText() {
+      if (!Number.isFinite(state.totalPageViews)) {
+        elements.footerPageViews.textContent = format(currentMessages().ui.totalPageViews, { count: "0" });
+        elements.footerPageViews.hidden = true;
         return;
       }
-      const count = new Intl.NumberFormat(state.locale).format(state.totalVisits);
-      elements.footerVisits.textContent = format(currentMessages().ui.totalVisits, { count });
-      elements.footerVisits.hidden = false;
+      const count = new Intl.NumberFormat(state.locale).format(state.totalPageViews);
+      elements.footerPageViews.textContent = format(currentMessages().ui.totalPageViews, { count });
+      elements.footerPageViews.hidden = false;
     }
 
-    async function loadTotalVisits() {
+    async function loadTotalPageViews() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 6000);
       try {
@@ -2723,14 +2658,14 @@
         });
         if (!response.ok) throw new Error(`Statistics returned HTTP ${response.status}`);
         const payload = await response.json();
-        if (!Number.isInteger(payload.totalVisits) || payload.totalVisits < 0) {
+        if (!Number.isInteger(payload.totalPageViews) || payload.totalPageViews < 0) {
           throw new Error("Statistics returned an invalid total");
         }
-        state.totalVisits = payload.totalVisits;
-        updateVisitText();
+        state.totalPageViews = payload.totalPageViews;
+        updatePageViewText();
       } catch {
-        state.totalVisits = null;
-        updateVisitText();
+        state.totalPageViews = null;
+        updatePageViewText();
       } finally {
         clearTimeout(timeout);
       }
@@ -2775,10 +2710,9 @@
       elements.groups.setAttribute("aria-label", ui.groupsAria);
       elements.emptyMessage.textContent = ui.empty;
       elements.clear.textContent = ui.clear;
-      elements.systemNote.textContent = format(ui.systemNote, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
       elements.footerCounts.textContent = format(ui.footerCounts, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
       updateSpecText(ui.footerSpec);
-      updateVisitText();
+      updatePageViewText();
 
       elements.tabs.querySelectorAll("[data-category]").forEach((tab, index) => {
         tab.textContent = ui.tabs[index];
@@ -2867,10 +2801,8 @@
     }
 
     function render() {
-      const { ui } = currentMessages();
       const visible = currentCursors().filter(matches);
       elements.groups.innerHTML = categoryIds.map((categoryId) => groupTemplate(categoryId, visible)).join("");
-      elements.results.textContent = format(ui.results, { count: visible.length });
       elements.emptyState.classList.toggle("is-visible", visible.length === 0);
       elements.groups.hidden = visible.length === 0;
     }
@@ -3042,8 +2974,8 @@
     const initialPreference = initialRouteLocale || readPreference();
     applyPreference(initialPreference, false);
     applyTheme(readThemePreference(), false);
-    loadTotalVisits();
-    setInterval(loadTotalVisits, STATS_REFRESH_INTERVAL_MS);
+    loadTotalPageViews();
+    setInterval(loadTotalPageViews, STATS_REFRESH_INTERVAL_MS);
     if (!initialRouteLocale && initialPreference !== "auto") syncLocaleUrl("replace");
   </script>
   <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;fe49643173e74721b452221aafe7d9be&quot;}"></script><!-- End Cloudflare Web Analytics -->

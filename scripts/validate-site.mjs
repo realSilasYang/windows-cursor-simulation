@@ -19,6 +19,7 @@ for (const [locale, route, canonical] of pages) {
   const dom = new JSDOM(html);
   const { document } = dom.window;
   const label = route || "root";
+  const styleText = document.querySelector("style")?.textContent || "";
 
   if (document.documentElement.lang !== locale) throw new Error(`${label}: incorrect html lang`);
   if (!document.title || document.title.length > 65) throw new Error(`${label}: invalid title length`);
@@ -29,6 +30,12 @@ for (const [locale, route, canonical] of pages) {
   if (!document.querySelector('meta[property="og:image"]')?.content.endsWith("/og-image.png")) throw new Error(`${label}: missing og:image`);
   if (document.querySelector('meta[name="twitter:card"]')?.content !== "summary_large_image") throw new Error(`${label}: missing Twitter card`);
   if (document.querySelectorAll(".cursor-card").length !== 36) throw new Error(`${label}: expected 36 static cards`);
+  if (document.querySelector(".results-bar")) throw new Error(`${label}: redundant results summary row is still present`);
+  const groupHeadingStyles = styleText.match(/\.group-heading\s*\{([^}]*)\}/)?.[1] || "";
+  if (/border-bottom/.test(groupHeadingStyles)) throw new Error(`${label}: group headings must not have bottom rules`);
+  if (!styleText.includes("grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)")) {
+    throw new Error(`${label}: overview card is not centered by the header grid`);
+  }
   if (document.querySelector('meta[name="color-scheme"]')?.content !== "dark light") throw new Error(`${label}: incomplete color-scheme support`);
 
   const languageButton = document.getElementById("languageButton");
@@ -47,11 +54,11 @@ for (const [locale, route, canonical] of pages) {
   if (!document.documentElement.dataset.theme || !document.documentElement.dataset.themePreference) {
     throw new Error(`${label}: missing initialized theme state`);
   }
-  const footerVisits = document.getElementById("footerVisits");
-  if (!footerVisits || !footerVisits.hidden) throw new Error(`${label}: visit counter must wait for live data`);
+  const footerPageViews = document.getElementById("footerPageViews");
+  if (!footerPageViews || !footerPageViews.hidden) throw new Error(`${label}: page-view counter must wait for live data`);
   const footerOrder = [...document.querySelector(".footer-inner")?.children || []].map((element) => element.id);
-  if (footerOrder.join(",") !== "footerSpec,footerCounts,footerVisits") {
-    throw new Error(`${label}: visit counter must be the rightmost footer item`);
+  if (footerOrder.join(",") !== "footerSpec,footerCounts,footerPageViews") {
+    throw new Error(`${label}: page-view counter must be the rightmost footer item`);
   }
 
   const hreflangs = new Set([...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((link) => link.hreflang));
@@ -71,7 +78,7 @@ for (const [locale, route, canonical] of pages) {
   if (!appScript.includes("https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats")) {
     throw new Error(`${label}: missing public statistics endpoint`);
   }
-  if (!appScript.includes("setInterval(loadTotalVisits, STATS_REFRESH_INTERVAL_MS)")) {
+  if (!appScript.includes("setInterval(loadTotalPageViews, STATS_REFRESH_INTERVAL_MS)")) {
     throw new Error(`${label}: missing periodic statistics refresh`);
   }
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);

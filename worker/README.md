@@ -1,6 +1,6 @@
 # Public site statistics Worker
 
-This Worker exposes only the cumulative visit count from Cloudflare Web Analytics. The count starts at the site's analytics launch date. The Cloudflare Analytics API token remains encrypted as a Worker secret and is never sent to the website.
+This Worker exposes only the cumulative page-view count from Cloudflare Web Analytics. The count starts at the site's analytics launch date. The Cloudflare Analytics API token remains encrypted as a Worker secret and is never sent to the website.
 
 Required secrets:
 
