@@ -71,6 +71,9 @@ for (const [locale, route, canonical] of pages) {
   if (!appScript.includes("https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats")) {
     throw new Error(`${label}: missing public statistics endpoint`);
   }
+  if (!appScript.includes("setInterval(loadTotalVisits, STATS_REFRESH_INTERVAL_MS)")) {
+    throw new Error(`${label}: missing periodic statistics refresh`);
+  }
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
 
   const analyticsScripts = [...document.querySelectorAll('script[src="https://static.cloudflareinsights.com/beacon.min.js"]')];

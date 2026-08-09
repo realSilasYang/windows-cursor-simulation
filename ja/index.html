@@ -2420,6 +2420,7 @@
     const THEME_STORAGE_KEY = "windows-cursor-simulation.theme";
     const SITE_URL = "https://realsilasyang.github.io/windows-cursor-simulation/";
     const STATS_ENDPOINT = "https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats";
+    const STATS_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
     const SOURCE_URL = "https://github.com/realSilasYang/windows-cursor-simulation";
     const SPEC_URL = "https://www.w3.org/TR/css-ui-4/#cursor";
     const LAST_MODIFIED = "2026-08-09";
@@ -3042,6 +3043,7 @@
     applyPreference(initialPreference, false);
     applyTheme(readThemePreference(), false);
     loadTotalVisits();
+    setInterval(loadTotalVisits, STATS_REFRESH_INTERVAL_MS);
     if (!initialRouteLocale && initialPreference !== "auto") syncLocaleUrl("replace");
   </script>
   <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;fe49643173e74721b452221aafe7d9be&quot;}"></script><!-- End Cloudflare Web Analytics -->
