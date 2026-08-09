@@ -10,7 +10,7 @@
 
 - 展示 13 种 Windows 系统角色映射和 23 种 CSS 扩展状态
 - 按常规操作、文本选择、移动与拖放、调整大小、视图缩放分组
-- 支持搜索、分类筛选以及 14 种界面语言；可自动跟随浏览器语言
+- 支持搜索、分类筛选、深浅主题以及 14 种界面语言；语言可跟随浏览器，主题可跟随系统
 - favicon 已嵌入每个 HTML 页面，无需额外图标文件
 - 提供独立语言 URL、hreflang、结构化数据、sitemap 与 `llms.txt`
 
@@ -26,7 +26,7 @@
 
 - 顯示 13 個 Windows 系統角色對應及 23 個 CSS 延伸狀態
 - 按一般操作、文字選取、移動與拖放、調整大小及畫面縮放分組
-- 支援搜尋、分類篩選及 14 種介面語言，亦可自動跟隨瀏覽器語言
+- 支援搜尋、分類篩選、深淺主題及 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - favicon 已嵌入每個 HTML 頁面，毋須額外圖示檔案
 - 提供獨立語言網址、hreflang、結構化資料、sitemap 及 `llms.txt`
 
@@ -42,7 +42,7 @@
 
 - 顯示 13 個 Windows 系統角色對應與 23 個 CSS 擴充狀態
 - 依一般操作、文字選取、移動與拖放、調整大小、檢視縮放分組
-- 支援搜尋、分類篩選與 14 種介面語言，也可自動跟隨瀏覽器語言
+- 支援搜尋、分類篩選、深淺主題與 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - favicon 已嵌入每個 HTML 頁面，不需要額外的圖示檔案
 - 提供獨立語言網址、hreflang、結構化資料、sitemap 與 `llms.txt`
 
@@ -58,7 +58,7 @@ Test the current system pointer scheme and all 36 predefined CSS `cursor` keywor
 
 - Shows 13 Windows system-role mappings and 23 additional CSS states
 - Groups styles into general actions, text selection, movement and drag-and-drop, resizing, and zoom
-- Includes search, category filters, and 14 interface languages with automatic browser-language detection
+- Includes search, category filters, light and dark themes, and 14 interface languages; language can follow the browser and theme can follow the system
 - Embeds the favicon in every HTML page, so no separate icon file is required
 - Provides locale-specific URLs, hreflang, structured data, a sitemap, and `llms.txt`
 
@@ -74,7 +74,7 @@ The page does not load or simulate cursor files from the repository. Every card 
 
 - Windows のシステムロール 13 種類と、CSS 固有の状態 23 種類を表示
 - 一般操作、テキスト選択、移動とドラッグ＆ドロップ、サイズ変更、ズームの用途別に分類
-- 検索、カテゴリーフィルター、14 言語の表示に対応し、ブラウザーの言語を自動判定
+- 検索、カテゴリーフィルター、ライト／ダークテーマ、14 言語の表示に対応し、言語はブラウザー、テーマはシステムの設定に追従可能
 - favicon は各 HTML ページに埋め込まれているため、別のアイコンファイルは不要
 - 言語別 URL、hreflang、構造化データ、サイトマップ、`llms.txt` を提供
 
@@ -90,7 +90,7 @@ Kiểm tra trực tuyến bộ con trỏ hiện tại của hệ thống và đ�
 
 - Hiển thị 13 ánh xạ vai trò hệ thống Windows và 23 trạng thái CSS mở rộng
 - Nhóm theo thao tác chung, chọn văn bản, di chuyển và kéo thả, đổi kích thước, phóng to/thu nhỏ
-- Hỗ trợ tìm kiếm, lọc theo danh mục và 14 ngôn ngữ giao diện; có thể tự động theo ngôn ngữ trình duyệt
+- Hỗ trợ tìm kiếm, lọc theo danh mục, giao diện sáng/tối và 14 ngôn ngữ; ngôn ngữ có thể theo trình duyệt, giao diện có thể theo hệ thống
 - favicon được nhúng trong từng trang HTML, không cần tệp biểu tượng riêng
 - Cung cấp URL riêng cho từng ngôn ngữ, hreflang, dữ liệu có cấu trúc, sitemap và `llms.txt`
 
@@ -106,7 +106,7 @@ Trang không tải hay mô phỏng các tệp con trỏ trong kho mã. Mỗi th�
 
 - Windows 시스템 역할 13개와 추가 CSS 상태 23개를 표시
 - 일반 동작, 텍스트 선택, 이동 및 끌어서 놓기, 크기 조절, 확대/축소로 분류
-- 검색, 범주 필터, 14개 인터페이스 언어를 지원하며 브라우저 언어를 자동으로 감지
+- 검색, 범주 필터, 밝은/어두운 테마와 14개 인터페이스 언어를 지원하며 언어는 브라우저, 테마는 시스템 설정을 따를 수 있음
 - favicon이 각 HTML 페이지에 포함되어 별도의 아이콘 파일이 필요 없음
 - 언어별 URL, hreflang, 구조화 데이터, 사이트맵 및 `llms.txt` 제공
 
@@ -122,7 +122,7 @@ Prueba en línea el esquema de punteros actual del sistema y las 36 palabras cla
 
 - Muestra 13 correspondencias con roles del sistema Windows y 23 estados CSS adicionales
 - Agrupa los estilos en acciones generales, selección de texto, movimiento y arrastrar y soltar, redimensionado y zoom
-- Incluye búsqueda, filtros por categoría y 14 idiomas de interfaz, con detección automática del idioma del navegador
+- Incluye búsqueda, filtros por categoría, temas claro y oscuro y 14 idiomas; el idioma puede seguir al navegador y el tema al sistema
 - El favicon está integrado en cada página HTML, sin necesidad de un archivo de icono aparte
 - Ofrece URL específicas por idioma, hreflang, datos estructurados, un sitemap y `llms.txt`
 
@@ -138,7 +138,7 @@ Testez en ligne la configuration actuelle des pointeurs du système ainsi que le
 
 - Présente 13 correspondances avec des rôles système Windows et 23 états CSS supplémentaires
 - Regroupe les styles par actions générales, sélection de texte, déplacement et glisser-déposer, redimensionnement et zoom
-- Propose une recherche, des filtres par catégorie et 14 langues d’interface, avec détection automatique de la langue du navigateur
+- Propose une recherche, des filtres par catégorie, des thèmes clair et sombre et 14 langues ; la langue peut suivre le navigateur et le thème le système
 - Intègre le favicon dans chaque page HTML ; aucun fichier d’icône séparé n’est nécessaire
 - Fournit des URL propres à chaque langue, hreflang, des données structurées, un sitemap et `llms.txt`
 
@@ -154,7 +154,7 @@ Teste on-line o esquema atual de ponteiros do sistema e todas as 36 palavras-cha
 
 - Exibe 13 correspondências com funções do sistema Windows e 23 estados CSS adicionais
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e soltar, redimensionamento e zoom
-- Oferece busca, filtros por categoria e 14 idiomas de interface, com detecção automática do idioma do navegador
+- Oferece busca, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - O favicon está incorporado a cada página HTML, sem necessidade de um arquivo de ícone separado
 - Oferece URLs específicas por idioma, hreflang, dados estruturados, sitemap e `llms.txt`
 
@@ -170,7 +170,7 @@ Teste online o esquema atual de ponteiros do sistema e todas as 36 palavras-chav
 
 - Apresenta 13 correspondências com funções do sistema Windows e 23 estados CSS adicionais
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e largar, redimensionamento e zoom
-- Inclui pesquisa, filtros por categoria e 14 idiomas da interface, com deteção automática do idioma do navegador
+- Inclui pesquisa, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - O favicon está incorporado em cada página HTML, pelo que não é necessário um ficheiro de ícone separado
 - Disponibiliza URLs próprias por idioma, hreflang, dados estruturados, sitemap e `llms.txt`
 
@@ -186,7 +186,7 @@ A página não carrega nem simula ficheiros de ponteiro do repositório. Cada ca
 
 - Отображает 13 соответствий системным ролям Windows и 23 дополнительных состояния CSS
 - Группирует стили по назначению: основные действия, выделение текста, перемещение и перетаскивание, изменение размера и масштаб
-- Поддерживает поиск, фильтры по категориям и 14 языков интерфейса с автоматическим определением языка браузера
+- Поддерживает поиск, фильтры по категориям, светлую и тёмную темы и 14 языков; язык может определяться по браузеру, а тема — по системе
 - Значок favicon встроен в каждую HTML-страницу, поэтому отдельный файл значка не нужен
 - Предоставляет отдельные URL для каждого языка, hreflang, структурированные данные, sitemap и `llms.txt`
 
@@ -202,7 +202,7 @@ Testen Sie das aktuelle Zeigerschema des Systems und alle 36 vordefinierten CSS-
 
 - Zeigt 13 Zuordnungen zu Windows-Systemrollen und 23 zusätzliche CSS-Zustände
 - Gruppiert die Stile in allgemeine Aktionen, Textauswahl, Bewegen und Ziehen, Größenänderung und Zoom
-- Bietet Suche, Kategoriefilter und 14 Oberflächensprachen mit automatischer Erkennung der Browsersprache
+- Bietet Suche, Kategoriefilter, ein helles und dunkles Design sowie 14 Sprachen; Sprache und Design können Browser- bzw. Systemeinstellungen folgen
 - Das Favicon ist in jede HTML-Seite eingebettet; eine separate Symboldatei ist nicht erforderlich
 - Bietet sprachspezifische URLs, hreflang, strukturierte Daten, eine Sitemap und `llms.txt`
 
@@ -218,7 +218,7 @@ Prova online lo schema di puntatori attuale del sistema e tutte le 36 parole chi
 
 - Mostra 13 corrispondenze con i ruoli di sistema Windows e 23 stati CSS aggiuntivi
 - Raggruppa gli stili in azioni generali, selezione del testo, movimento e trascinamento, ridimensionamento e zoom
-- Include ricerca, filtri per categoria e 14 lingue dell’interfaccia, con rilevamento automatico della lingua del browser
+- Include ricerca, filtri per categoria, temi chiaro e scuro e 14 lingue; la lingua può seguire il browser e il tema il sistema
 - Il favicon è incorporato in ogni pagina HTML, quindi non occorre un file icona separato
 - Offre URL specifici per lingua, hreflang, dati strutturati, sitemap e `llms.txt`
 

@@ -29,6 +29,16 @@ for (const [locale, route, canonical] of pages) {
   if (!document.querySelector('meta[property="og:image"]')?.content.endsWith("/og-image.png")) throw new Error(`${label}: missing og:image`);
   if (document.querySelector('meta[name="twitter:card"]')?.content !== "summary_large_image") throw new Error(`${label}: missing Twitter card`);
   if (document.querySelectorAll(".cursor-card").length !== 36) throw new Error(`${label}: expected 36 static cards`);
+  if (document.querySelector('meta[name="color-scheme"]')?.content !== "dark light") throw new Error(`${label}: incomplete color-scheme support`);
+
+  const languageButton = document.getElementById("languageButton");
+  if (languageButton?.querySelectorAll("svg").length !== 1 || languageButton.textContent.trim()) {
+    throw new Error(`${label}: language button must contain exactly one icon and no visible text`);
+  }
+  if (document.querySelectorAll("#themeMenu [data-theme]").length !== 3) throw new Error(`${label}: expected three theme choices`);
+  if (!document.documentElement.dataset.theme || !document.documentElement.dataset.themePreference) {
+    throw new Error(`${label}: missing initialized theme state`);
+  }
 
   const hreflangs = new Set([...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((link) => link.hreflang));
   if (hreflangs.size !== expectedHreflangs.size || [...expectedHreflangs].some((value) => !hreflangs.has(value))) {
@@ -41,9 +51,21 @@ for (const [locale, route, canonical] of pages) {
   const terms = graph.find((item) => item["@type"] === "DefinedTermSet")?.hasDefinedTerm;
   if (!Array.isArray(terms) || terms.length !== 36) throw new Error(`${label}: expected 36 structured cursor terms`);
 
-  const appScript = [...document.scripts].find((script) => !script.type)?.textContent;
+  const appScript = document.getElementById("applicationScript")?.textContent;
+  if (!appScript) throw new Error(`${label}: missing application script`);
   new vm.Script(appScript, { filename: `${label}/index.html` });
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
+
+  if (locale.startsWith("zh-")) {
+    const walker = document.createTreeWalker(document.body, dom.window.NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (["SCRIPT", "STYLE", "TEMPLATE"].includes(node.parentElement?.tagName)) continue;
+      const text = node.textContent.trim();
+      if (/\p{Script=Han}/u.test(text) && /[()]/.test(text)) {
+        throw new Error(`${label}: Chinese visible text contains half-width parentheses: ${JSON.stringify(text)}`);
+      }
+    }
+  }
   dom.window.close();
 }
 

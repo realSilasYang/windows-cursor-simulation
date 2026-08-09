@@ -1,8 +1,25 @@
-<!DOCTYPE html><html lang="ru"><head>
+<!DOCTYPE html><html lang="ru" data-theme-preference="auto" data-theme="dark"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#25262b">
+  <script id="themeBootstrap">
+    (() => {
+      const key = "windows-cursor-simulation.theme";
+      let preference = "auto";
+      try {
+        const saved = localStorage.getItem(key);
+        if (saved === "dark" || saved === "light") preference = saved;
+      } catch {
+        // Use automatic mode when storage is unavailable.
+      }
+      const systemDark = typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)").matches : true;
+      const resolved = preference === "auto" ? (systemDark ? "dark" : "light") : preference;
+      document.documentElement.dataset.themePreference = preference;
+      document.documentElement.dataset.theme = resolved;
+      document.querySelector('meta[name="theme-color"]').content = resolved === "dark" ? "#25262b" : "#ffffff";
+    })();
+  </script>
   <meta name="application-name" content="Windows Cursor Simulation">
   <meta name="author" content="realSilasYang">
   <meta name="description" content="Проверьте текущую схему указателей Windows и все 36 предопределённых значений свойства CSS cursor.">
@@ -63,9 +80,49 @@
       --system-text: #9bd2ff;
       --amber-soft: #4b3c20;
       --focus: #91ead6;
+      --selected-text: #c7f3e8;
+      --tab-border: #285849;
+      --tab-text: #a9eadb;
+      --css-border: #604d24;
+      --css-text: #f0c978;
+      --code-text: #b9c3c1;
+      --toolbar-bg: rgba(29, 30, 34, 0.94);
+      --focus-shadow: rgba(140, 226, 208, 0.16);
+      --menu-shadow: rgba(0, 0, 0, 0.34);
+      --clear-hover-border: #53736d;
       --radius: 7px;
       --content-width: 1540px;
       --footer-height: 58px;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f5f7f8;
+      --chrome: #ffffff;
+      --surface: #ffffff;
+      --surface-raised: #eef2f3;
+      --border: #d6dadd;
+      --border-strong: #9ca5aa;
+      --text: #1d2426;
+      --muted: #596468;
+      --quiet: #727d82;
+      --teal: #087d69;
+      --teal-soft: #d9f1eb;
+      --system-soft: #e4f1fb;
+      --system-border: #83b9dc;
+      --system-text: #155f8c;
+      --amber-soft: #fff2d2;
+      --focus: #0a806d;
+      --selected-text: #075f51;
+      --tab-border: #72ad9f;
+      --tab-text: #086b5b;
+      --css-border: #d3aa50;
+      --css-text: #76540a;
+      --code-text: #3f5752;
+      --toolbar-bg: rgba(245, 247, 248, 0.94);
+      --focus-shadow: rgba(10, 128, 109, 0.18);
+      --menu-shadow: rgba(28, 39, 42, 0.18);
+      --clear-hover-border: #69a397;
     }
 
     * {
@@ -145,18 +202,25 @@
       gap: 12px;
     }
 
-    .language-control {
+    .preference-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .language-control,
+    .theme-control {
       position: relative;
       flex: 0 0 auto;
     }
 
-    .language-button {
+    .preference-button {
       display: inline-flex;
-      max-width: 220px;
-      min-height: 38px;
+      width: 38px;
+      height: 38px;
       align-items: center;
-      gap: 7px;
-      padding: 0 10px;
+      justify-content: center;
+      padding: 0;
       border: 1px solid var(--border);
       border-radius: 6px;
       background: var(--surface);
@@ -164,33 +228,25 @@
       cursor: pointer;
     }
 
-    .language-button:hover,
-    .language-button[aria-expanded="true"] {
+    .preference-button:hover,
+    .preference-button[aria-expanded="true"] {
       border-color: var(--border-strong);
       background: var(--surface-raised);
     }
 
-    .language-button:focus-visible,
-    .language-option:focus-visible {
+    .preference-button:focus-visible,
+    .menu-option:focus-visible {
       outline: 2px solid var(--focus);
       outline-offset: 2px;
     }
 
-    .language-symbol,
-    .language-chevron {
-      flex: 0 0 auto;
+    .preference-icon {
+      width: 21px;
+      height: 21px;
       color: var(--teal);
-      font-size: 12px;
-      font-weight: 700;
     }
 
-    .language-button-label {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
+    .preference-menu,
     .language-menu {
       position: absolute;
       z-index: 30;
@@ -204,13 +260,19 @@
       border: 1px solid var(--border-strong);
       border-radius: 6px;
       background: var(--surface);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+      box-shadow: 0 12px 28px var(--menu-shadow);
     }
 
+    .theme-menu {
+      width: 220px;
+    }
+
+    .preference-menu[hidden],
     .language-menu[hidden] {
       display: none;
     }
 
+    .menu-option,
     .language-option {
       display: flex;
       width: 100%;
@@ -227,16 +289,19 @@
       text-align: left;
     }
 
+    .menu-option:hover,
     .language-option:hover {
       background: var(--surface-raised);
       color: var(--text);
     }
 
+    .menu-option[aria-checked="true"],
     .language-option[aria-checked="true"] {
       background: var(--teal-soft);
-      color: #c7f3e8;
+      color: var(--selected-text);
     }
 
+    .menu-option[aria-checked="true"]::after,
     .language-option[aria-checked="true"]::after {
       flex: 0 0 auto;
       content: "✓";
@@ -285,7 +350,7 @@
       position: sticky;
       z-index: 10;
       top: 0;
-      background: rgba(29, 30, 34, 0.94);
+      background: var(--toolbar-bg);
       backdrop-filter: blur(12px);
     }
 
@@ -319,7 +384,7 @@
 
     .search-field:focus-visible {
       border-color: var(--focus);
-      box-shadow: 0 0 0 2px rgba(140, 226, 208, 0.16);
+      box-shadow: 0 0 0 2px var(--focus-shadow);
     }
 
     .filter-tabs {
@@ -355,9 +420,9 @@
     }
 
     .tab-button[aria-selected="true"] {
-      border-color: #285849;
+      border-color: var(--tab-border);
       background: var(--teal-soft);
-      color: #a9eadb;
+      color: var(--tab-text);
     }
 
     .tab-button:focus-visible,
@@ -489,9 +554,9 @@
     }
 
     .role-type.is-css {
-      border-color: #604d24;
+      border-color: var(--css-border);
       background: var(--amber-soft);
-      color: #f0c978;
+      color: var(--css-text);
     }
 
     .card-meta {
@@ -511,7 +576,7 @@
     }
 
     .css-value {
-      color: #b9c3c1;
+      color: var(--code-text);
       font-family: Consolas, "Cascadia Mono", monospace;
       font-size: 11px;
     }
@@ -547,7 +612,7 @@
     }
 
     .clear-button:hover {
-      border-color: #53736d;
+      border-color: var(--clear-hover-border);
       background: var(--teal-soft);
     }
 
@@ -612,7 +677,7 @@
         gap: 8px;
       }
 
-      .language-control {
+      .preference-controls {
         align-self: flex-end;
       }
 
@@ -670,58 +735,78 @@
         <p class="subtitle" id="appSubtitle">Текущая системная схема · Отрисовка браузером в реальном времени</p>
       </div>
       <div class="header-actions">
-        <div class="language-control">
-          <button class="language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="languageMenu" aria-label="Выбрать язык">
-            <span class="language-symbol" aria-hidden="true">A/文</span>
-            <span class="language-button-label" id="languageButtonLabel">Русский</span>
-            <span class="language-chevron" aria-hidden="true">▾</span>
-          </button>
+        <div class="preference-controls">
+          <div class="language-control">
+            <button class="preference-button language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="languageMenu" aria-label="Выбрать язык" title="Выбрать язык">
+              <svg class="preference-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-hidden="true">
+                <path fill="currentColor" d="M213.333333 682.666667v42.666666a85.333333 85.333333 0 0 0 78.933334 85.12L298.666667 810.666667h85.333333a42.666667 42.666667 0 0 1 0 85.333333H298.666667a170.666667 170.666667 0 0 1-170.666667-170.666667v-42.666666a42.666667 42.666667 0 0 1 85.333333 0z m560.042667-242.602667l170.666667 426.666667a21.333333 21.333333 0 0 1-19.84 29.269333h-45.994667a21.333333 21.333333 0 0 1-19.797333-13.397333L812.544 768h-174.506667l-45.781333 114.602667a21.333333 21.333333 0 0 1-19.84 13.397333H526.506667a21.333333 21.333333 0 0 1-19.797334-29.269333l170.666667-426.666667a21.333333 21.333333 0 0 1 19.797333-13.397333h56.405334a21.333333 21.333333 0 0 1 19.84 13.397333zM725.333333 549.76L672.128 682.666667h106.325333L725.333333 549.76zM341.333333 106.666667V170.666667h149.333334a21.333333 21.333333 0 0 1 21.333333 21.333333v256a21.333333 21.333333 0 0 1-21.333333 21.333333H341.333333v106.666667a21.333333 21.333333 0 0 1-21.333333 21.333333h-42.666667a21.333333 21.333333 0 0 1-21.333333-21.333333V469.333333H106.666667a21.333333 21.333333 0 0 1-21.333334-21.333333v-256a21.333333 21.333333 0 0 1 21.333334-21.333333H256V106.666667a21.333333 21.333333 0 0 1 21.333333-21.333334h42.666667a21.333333 21.333333 0 0 1 21.333333 21.333334z m384 21.333333a170.666667 170.666667 0 0 1 170.666667 170.666667v42.666666a42.666667 42.666667 0 0 1-85.333333 0V298.666667a85.333333 85.333333 0 0 0-85.333334-85.333334h-85.333333a42.666667 42.666667 0 0 1 0-85.333333h85.333333zM256 256H170.666667v128h85.333333V256z m170.666667 0H341.333333v128h85.333334V256z"></path>
+              </svg>
+            </button>
           <div class="language-menu" id="languageMenu" role="menu" aria-label="Выбрать язык" hidden="">
-        <button class="language-option" type="button" role="menuitemradio" data-locale="auto" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="auto" aria-checked="false" tabindex="-1">
           Автоматически (язык браузера)
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="zh-CN" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="zh-CN" aria-checked="false" tabindex="-1">
           简体中文
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="zh-HK" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="zh-HK" aria-checked="false" tabindex="-1">
           繁體中文（香港）
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="zh-TW" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="zh-TW" aria-checked="false" tabindex="-1">
           繁體中文（台灣）
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="en" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="en" aria-checked="false" tabindex="-1">
           English
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="ja" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="ja" aria-checked="false" tabindex="-1">
           日本語
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="vi" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="vi" aria-checked="false" tabindex="-1">
           Tiếng Việt
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="ko" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="ko" aria-checked="false" tabindex="-1">
           한국어
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="es" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="es" aria-checked="false" tabindex="-1">
           Español
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="fr" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="fr" aria-checked="false" tabindex="-1">
           Français
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="pt-BR" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="pt-BR" aria-checked="false" tabindex="-1">
           Português (Brasil)
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="pt-PT" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="pt-PT" aria-checked="false" tabindex="-1">
           Português (Portugal)
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="ru" aria-checked="true" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="ru" aria-checked="true" tabindex="-1">
           Русский
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="de" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="de" aria-checked="false" tabindex="-1">
           Deutsch
         </button>
-        <button class="language-option" type="button" role="menuitemradio" data-locale="it" aria-checked="false" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="it" aria-checked="false" tabindex="-1">
           Italiano
         </button></div>
+          </div>
+          <div class="theme-control">
+            <button class="preference-button theme-button" id="themeButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="themeMenu" aria-label="Выбрать тему" title="Выбрать тему">
+              <svg class="preference-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+                <path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"></path>
+              </svg>
+            </button>
+            <div class="preference-menu theme-menu" id="themeMenu" role="menu" aria-label="Выбрать тему" hidden="">
+        <button class="menu-option theme-option" type="button" role="menuitemradio" data-theme="auto" aria-checked="true" tabindex="-1">
+          Автоматически (настройка системы)
+        </button>
+        <button class="menu-option theme-option" type="button" role="menuitemradio" data-theme="dark" aria-checked="false" tabindex="-1">
+          Тёмная
+        </button>
+        <button class="menu-option theme-option" type="button" role="menuitemradio" data-theme="light" aria-checked="false" tabindex="-1">
+          Светлая
+        </button></div>
+          </div>
         </div>
         <div class="header-status" id="headerStatus" aria-label="Состояние ресурсов">
           <div class="status-item">
@@ -1281,7 +1366,7 @@
     </div>
   </footer>
 
-  <script>
+  <script id="applicationScript">
     const cursorDefinitions = [
       { id: "auto", role: "auto", css: "auto", category: "standard", source: "css" },
       { id: "default", role: "Arrow", css: "default", category: "standard", source: "system" },
@@ -1350,6 +1435,10 @@
           subtitle: "当前系统方案 · 浏览器实时渲染",
           language: "选择语言",
           auto: "自动（跟随浏览器）",
+          theme: "选择主题",
+          themeAuto: "自动（跟随系统）",
+          themeDark: "深色",
+          themeLight: "浅色",
           statusAria: "资源状态",
           status: ["系统角色", "CSS 状态", "运行平台"],
           searchPlaceholder: "搜索名称、系统角色或 CSS 值",
@@ -1415,6 +1504,10 @@
           subtitle: "目前系統配置 · 瀏覽器即時呈現",
           language: "選擇語言",
           auto: "自動（跟隨瀏覽器）",
+          theme: "選擇主題",
+          themeAuto: "自動（跟隨系統）",
+          themeDark: "深色",
+          themeLight: "淺色",
           statusAria: "資源狀態",
           status: ["系統角色", "CSS 狀態", "執行平台"],
           searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
@@ -1480,6 +1573,10 @@
           subtitle: "目前系統配置 · 瀏覽器即時呈現",
           language: "選擇語言",
           auto: "自動（跟隨瀏覽器）",
+          theme: "選擇主題",
+          themeAuto: "自動（跟隨系統）",
+          themeDark: "深色",
+          themeLight: "淺色",
           statusAria: "資源狀態",
           status: ["系統角色", "CSS 狀態", "執行平台"],
           searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
@@ -1545,6 +1642,10 @@
           subtitle: "Current system scheme · Live browser rendering",
           language: "Choose language",
           auto: "Automatic (browser default)",
+          theme: "Choose theme",
+          themeAuto: "Automatic (follow system)",
+          themeDark: "Dark",
+          themeLight: "Light",
           statusAria: "Resource status",
           status: ["System roles", "CSS states", "Platform"],
           searchPlaceholder: "Search by name, system role, or CSS value",
@@ -1610,6 +1711,10 @@
           subtitle: "現在のシステム設定 · ブラウザーでリアルタイム表示",
           language: "言語を選択",
           auto: "自動（ブラウザーに合わせる）",
+          theme: "テーマを選択",
+          themeAuto: "自動（システム設定に合わせる）",
+          themeDark: "ダーク",
+          themeLight: "ライト",
           statusAria: "リソースの状態",
           status: ["システムの役割", "CSS の状態", "実行環境"],
           searchPlaceholder: "名前、システムの役割、CSS 値を検索",
@@ -1675,6 +1780,10 @@
           subtitle: "Cấu hình hệ thống hiện tại · Kết xuất trực tiếp trong trình duyệt",
           language: "Chọn ngôn ngữ",
           auto: "Tự động (theo trình duyệt)",
+          theme: "Chọn giao diện",
+          themeAuto: "Tự động (theo hệ thống)",
+          themeDark: "Tối",
+          themeLight: "Sáng",
           statusAria: "Trạng thái tài nguyên",
           status: ["Vai trò hệ thống", "Trạng thái CSS", "Nền tảng"],
           searchPlaceholder: "Tìm theo tên, vai trò hệ thống hoặc giá trị CSS",
@@ -1740,6 +1849,10 @@
           subtitle: "현재 시스템 구성표 · 브라우저에서 실시간 렌더링",
           language: "언어 선택",
           auto: "자동(브라우저 설정 사용)",
+          theme: "테마 선택",
+          themeAuto: "자동(시스템 설정 사용)",
+          themeDark: "어둡게",
+          themeLight: "밝게",
           statusAria: "리소스 상태",
           status: ["시스템 역할", "CSS 상태", "플랫폼"],
           searchPlaceholder: "이름, 시스템 역할 또는 CSS 값 검색",
@@ -1805,6 +1918,10 @@
           subtitle: "Esquema actual del sistema · Renderizado en tiempo real por el navegador",
           language: "Elegir idioma",
           auto: "Automático (según el navegador)",
+          theme: "Elegir tema",
+          themeAuto: "Automático (según el sistema)",
+          themeDark: "Oscuro",
+          themeLight: "Claro",
           statusAria: "Estado de los recursos",
           status: ["Roles del sistema", "Estados CSS", "Plataforma"],
           searchPlaceholder: "Buscar por nombre, rol del sistema o valor CSS",
@@ -1870,6 +1987,10 @@
           subtitle: "Configuration système actuelle · Rendu en direct par le navigateur",
           language: "Choisir la langue",
           auto: "Automatique (selon le navigateur)",
+          theme: "Choisir le thème",
+          themeAuto: "Automatique (selon le système)",
+          themeDark: "Sombre",
+          themeLight: "Clair",
           statusAria: "État des ressources",
           status: ["Rôles système", "États CSS", "Plateforme"],
           searchPlaceholder: "Rechercher par nom, rôle système ou valeur CSS",
@@ -1935,6 +2056,10 @@
           subtitle: "Esquema atual do sistema · Renderização em tempo real pelo navegador",
           language: "Selecionar idioma",
           auto: "Automático (seguir o navegador)",
+          theme: "Selecionar tema",
+          themeAuto: "Automático (seguir o sistema)",
+          themeDark: "Escuro",
+          themeLight: "Claro",
           statusAria: "Status dos recursos",
           status: ["Funções do sistema", "Estados CSS", "Plataforma"],
           searchPlaceholder: "Buscar por nome, função do sistema ou valor CSS",
@@ -2000,6 +2125,10 @@
           subtitle: "Esquema atual do sistema · Apresentação em tempo real pelo navegador",
           language: "Escolher idioma",
           auto: "Automático (seguir o navegador)",
+          theme: "Escolher tema",
+          themeAuto: "Automático (seguir o sistema)",
+          themeDark: "Escuro",
+          themeLight: "Claro",
           statusAria: "Estado dos recursos",
           status: ["Funções do sistema", "Estados CSS", "Plataforma"],
           searchPlaceholder: "Pesquisar por nome, função do sistema ou valor CSS",
@@ -2065,6 +2194,10 @@
           subtitle: "Текущая системная схема · Отрисовка браузером в реальном времени",
           language: "Выбрать язык",
           auto: "Автоматически (язык браузера)",
+          theme: "Выбрать тему",
+          themeAuto: "Автоматически (настройка системы)",
+          themeDark: "Тёмная",
+          themeLight: "Светлая",
           statusAria: "Состояние ресурсов",
           status: ["Системные роли", "Состояния CSS", "Платформа"],
           searchPlaceholder: "Поиск по названию, системной роли или значению CSS",
@@ -2130,6 +2263,10 @@
           subtitle: "Aktuelles Systemschema · Live-Darstellung durch den Browser",
           language: "Sprache auswählen",
           auto: "Automatisch (Browsersprache)",
+          theme: "Design auswählen",
+          themeAuto: "Automatisch (Systemeinstellung)",
+          themeDark: "Dunkel",
+          themeLight: "Hell",
           statusAria: "Ressourcenstatus",
           status: ["Systemrollen", "CSS-Zustände", "Plattform"],
           searchPlaceholder: "Nach Name, Systemrolle oder CSS-Wert suchen",
@@ -2195,6 +2332,10 @@
           subtitle: "Schema di sistema attuale · Rendering in tempo reale del browser",
           language: "Seleziona lingua",
           auto: "Automatico (segui il browser)",
+          theme: "Seleziona tema",
+          themeAuto: "Automatico (segui il sistema)",
+          themeDark: "Scuro",
+          themeLight: "Chiaro",
           statusAria: "Stato delle risorse",
           status: ["Ruoli di sistema", "Stati CSS", "Piattaforma"],
           searchPlaceholder: "Cerca per nome, ruolo di sistema o valore CSS",
@@ -2255,6 +2396,7 @@
     };
 
     const STORAGE_KEY = "windows-cursor-simulation.locale";
+    const THEME_STORAGE_KEY = "windows-cursor-simulation.theme";
     const SITE_URL = "https://realsilasyang.github.io/windows-cursor-simulation/";
     const SOURCE_URL = "https://github.com/realSilasYang/windows-cursor-simulation";
     const SPEC_URL = "https://www.w3.org/TR/css-ui-4/#cursor";
@@ -2280,6 +2422,7 @@
       ["it", "it"]
     ]);
     const routeLocales = new Map([...localeRoutes].map(([locale, route]) => [route, locale]));
+    const themeMedia = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
     function localeFromPath() {
       const segments = window.location.pathname.split("/").filter(Boolean);
@@ -2300,15 +2443,17 @@
       category: "all",
       query: "",
       preference: "auto",
-      locale: "zh-CN"
+      locale: "zh-CN",
+      themePreference: document.documentElement.dataset.themePreference || "auto"
     };
 
     const elements = {
       title: document.getElementById("appTitle"),
       subtitle: document.getElementById("appSubtitle"),
       languageButton: document.getElementById("languageButton"),
-      languageButtonLabel: document.getElementById("languageButtonLabel"),
       languageMenu: document.getElementById("languageMenu"),
+      themeButton: document.getElementById("themeButton"),
+      themeMenu: document.getElementById("themeMenu"),
       headerStatus: document.getElementById("headerStatus"),
       statusLabels: [
         document.getElementById("systemRolesLabel"),
@@ -2373,6 +2518,23 @@
     function savePreference(preference) {
       try {
         localStorage.setItem(STORAGE_KEY, preference);
+      } catch {
+        // The page remains fully usable when storage is unavailable.
+      }
+    }
+
+    function readThemePreference() {
+      try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        return saved === "dark" || saved === "light" ? saved : "auto";
+      } catch {
+        return "auto";
+      }
+    }
+
+    function saveThemePreference(preference) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, preference);
       } catch {
         // The page remains fully usable when storage is unavailable.
       }
@@ -2535,7 +2697,11 @@
       elements.title.textContent = ui.title;
       elements.subtitle.textContent = ui.subtitle;
       elements.languageButton.setAttribute("aria-label", ui.language);
+      elements.languageButton.title = ui.language;
       elements.languageMenu.setAttribute("aria-label", ui.language);
+      elements.themeButton.setAttribute("aria-label", ui.theme);
+      elements.themeButton.title = ui.theme;
+      elements.themeMenu.setAttribute("aria-label", ui.theme);
       elements.headerStatus.setAttribute("aria-label", ui.statusAria);
       elements.statusLabels.forEach((element, index) => {
         element.textContent = ui.status[index];
@@ -2564,11 +2730,34 @@
 
     function renderLanguageMenu() {
       elements.languageMenu.innerHTML = localeOptions.map((option) => `
-        <button class="language-option" type="button" role="menuitemradio" data-locale="${option.value}" aria-checked="${String(option.value === state.preference)}" tabindex="-1">
+        <button class="menu-option language-option" type="button" role="menuitemradio" data-locale="${option.value}" aria-checked="${String(option.value === state.preference)}" tabindex="-1">
           ${escapeHtml(preferenceLabel(option))}
         </button>`).join("");
-      const selected = localeOptions.find((option) => option.value === state.preference);
-      elements.languageButtonLabel.textContent = preferenceLabel(selected || localeOptions[0]);
+    }
+
+    function renderThemeMenu() {
+      const { ui } = currentMessages();
+      const options = [
+        ["auto", ui.themeAuto],
+        ["dark", ui.themeDark],
+        ["light", ui.themeLight]
+      ];
+      elements.themeMenu.innerHTML = options.map(([value, label]) => `
+        <button class="menu-option theme-option" type="button" role="menuitemradio" data-theme="${value}" aria-checked="${String(value === state.themePreference)}" tabindex="-1">
+          ${escapeHtml(label)}
+        </button>`).join("");
+    }
+
+    function applyTheme(preference, persist = true) {
+      state.themePreference = ["auto", "dark", "light"].includes(preference) ? preference : "auto";
+      const resolved = state.themePreference === "auto"
+        ? (themeMedia ? (themeMedia.matches ? "dark" : "light") : "dark")
+        : state.themePreference;
+      document.documentElement.dataset.themePreference = state.themePreference;
+      document.documentElement.dataset.theme = resolved;
+      setMeta('meta[name="theme-color"]', resolved === "dark" ? "#25262b" : "#ffffff");
+      renderThemeMenu();
+      if (persist) saveThemePreference(state.themePreference);
     }
 
     function matches(cursor) {
@@ -2636,43 +2825,38 @@
       resetSearch();
       updateStaticText();
       renderLanguageMenu();
+      renderThemeMenu();
       render();
       if (persist) savePreference(state.preference);
       if (urlMode) syncLocaleUrl(urlMode);
     }
 
-    function setMenuOpen(open, focusPosition) {
-      elements.languageMenu.hidden = !open;
-      elements.languageButton.setAttribute("aria-expanded", String(open));
+    function setMenuOpen(kind, open, focusPosition) {
+      const isLanguage = kind === "language";
+      const menu = isLanguage ? elements.languageMenu : elements.themeMenu;
+      const button = isLanguage ? elements.languageButton : elements.themeButton;
+      const otherMenu = isLanguage ? elements.themeMenu : elements.languageMenu;
+      const otherButton = isLanguage ? elements.themeButton : elements.languageButton;
+
+      if (open) {
+        otherMenu.hidden = true;
+        otherButton.setAttribute("aria-expanded", "false");
+      }
+      menu.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
       if (!open) return;
 
-      const options = [...elements.languageMenu.querySelectorAll(".language-option")];
+      const options = [...menu.querySelectorAll('[role="menuitemradio"]')];
       const checkedIndex = options.findIndex((option) => option.getAttribute("aria-checked") === "true");
       const index = focusPosition === "last" ? options.length - 1 : Math.max(checkedIndex, 0);
       options[index]?.focus();
     }
 
-    elements.languageButton.addEventListener("click", () => {
-      setMenuOpen(elements.languageButton.getAttribute("aria-expanded") !== "true");
-    });
-
-    elements.languageButton.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-        event.preventDefault();
-        setMenuOpen(true, event.key === "ArrowUp" ? "last" : "selected");
-      }
-    });
-
-    elements.languageMenu.addEventListener("click", (event) => {
-      const option = event.target.closest("[data-locale]");
-      if (!option) return;
-      applyPreference(option.dataset.locale, true, "push");
-      setMenuOpen(false);
-      elements.languageButton.focus();
-    });
-
-    elements.languageMenu.addEventListener("keydown", (event) => {
-      const options = [...elements.languageMenu.querySelectorAll(".language-option")];
+    function handleMenuKeydown(kind, event) {
+      const isLanguage = kind === "language";
+      const menu = isLanguage ? elements.languageMenu : elements.themeMenu;
+      const button = isLanguage ? elements.languageButton : elements.themeButton;
+      const options = [...menu.querySelectorAll('[role="menuitemradio"]')];
       const currentIndex = options.indexOf(document.activeElement);
       let nextIndex = currentIndex;
 
@@ -2682,17 +2866,64 @@
       else if (event.key === "End") nextIndex = options.length - 1;
       else if (event.key === "Escape") {
         event.preventDefault();
-        setMenuOpen(false);
-        elements.languageButton.focus();
+        setMenuOpen(kind, false);
+        button.focus();
         return;
       } else return;
 
       event.preventDefault();
       options[nextIndex]?.focus();
+    }
+
+    elements.languageButton.addEventListener("click", () => {
+      setMenuOpen("language", elements.languageButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    elements.languageButton.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        setMenuOpen("language", true, event.key === "ArrowUp" ? "last" : "selected");
+      }
+    });
+
+    elements.languageMenu.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-locale]");
+      if (!option) return;
+      applyPreference(option.dataset.locale, true, "push");
+      setMenuOpen("language", false);
+      elements.languageButton.focus();
+    });
+
+    elements.languageMenu.addEventListener("keydown", (event) => {
+      handleMenuKeydown("language", event);
+    });
+
+    elements.themeButton.addEventListener("click", () => {
+      setMenuOpen("theme", elements.themeButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    elements.themeButton.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        setMenuOpen("theme", true, event.key === "ArrowUp" ? "last" : "selected");
+      }
+    });
+
+    elements.themeMenu.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-theme]");
+      if (!option) return;
+      applyTheme(option.dataset.theme);
+      setMenuOpen("theme", false);
+      elements.themeButton.focus();
+    });
+
+    elements.themeMenu.addEventListener("keydown", (event) => {
+      handleMenuKeydown("theme", event);
     });
 
     document.addEventListener("click", (event) => {
-      if (!event.target.closest(".language-control")) setMenuOpen(false);
+      if (!event.target.closest(".language-control")) setMenuOpen("language", false);
+      if (!event.target.closest(".theme-control")) setMenuOpen("theme", false);
     });
 
     elements.tabs.addEventListener("click", (event) => {
@@ -2735,12 +2966,21 @@
       if (state.preference === "auto") applyPreference("auto", false);
     });
 
+    if (themeMedia) {
+      const handleSystemThemeChange = () => {
+        if (state.themePreference === "auto") applyTheme("auto", false);
+      };
+      if (typeof themeMedia.addEventListener === "function") themeMedia.addEventListener("change", handleSystemThemeChange);
+      else if (typeof themeMedia.addListener === "function") themeMedia.addListener(handleSystemThemeChange);
+    }
+
     window.addEventListener("popstate", () => {
       applyPreference(localeFromPath() || "auto", true);
     });
 
     const initialPreference = initialRouteLocale || readPreference();
     applyPreference(initialPreference, false);
+    applyTheme(readThemePreference(), false);
     if (!initialRouteLocale && initialPreference !== "auto") syncLocaleUrl("replace");
   </script>
 </body></html>
