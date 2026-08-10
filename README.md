@@ -29,7 +29,7 @@
 
 在线测试当前系统鼠标指针方案以及 CSS `cursor` 的全部 36 种预定义关键字。
 
-- 展示 13 个 CSS 关键字与 Windows 指针方案项的直接对应关系，以及 23 种无独立方案项的 CSS 扩展状态
+- 展示 24 个 CSS 关键词如何共用 13 个 Windows 指针方案项，以及 12 个没有对应方案项的 CSS 标准关键词
 - 按常规操作、文本选择、移动与拖放、调整大小、视图缩放分组
 - 支持搜索、分类筛选、深浅主题以及 14 种界面语言；语言可跟随浏览器，主题可跟随系统
 - 站点 favicon 已嵌入每个 HTML 页面，不会额外请求图标文件；README 单独使用 PNG 预览
@@ -46,7 +46,7 @@
 
 在線測試目前系統的滑鼠指標配置，以及 CSS `cursor` 全部 36 個預設關鍵字。
 
-- 顯示 13 個 CSS 關鍵字與 Windows 指標配置項目的直接對應，以及 23 種沒有獨立配置項目的 CSS 延伸狀態
+- 顯示 24 個 CSS 關鍵字如何共用 13 個 Windows 指標配置項目，以及 12 個沒有對應配置項目的 CSS 標準關鍵字
 - 按一般操作、文字選取、移動與拖放、調整大小及畫面縮放分組
 - 支援搜尋、分類篩選、深淺主題及 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - 網站 favicon 已嵌入每個 HTML 頁面，不會另行請求圖示檔案；README 另用 PNG 預覽
@@ -63,7 +63,7 @@
 
 線上測試目前系統的滑鼠游標配置，以及 CSS `cursor` 全部 36 個預先定義的關鍵字。
 
-- 顯示 13 個 CSS 關鍵字與 Windows 游標設定項目的直接對應，以及 23 種沒有獨立設定項目的 CSS 擴充狀態
+- 顯示 24 個 CSS 關鍵字如何共用 13 個 Windows 游標設定項目，以及 12 個沒有對應設定項目的 CSS 標準關鍵字
 - 依一般操作、文字選取、移動與拖放、調整大小、檢視縮放分組
 - 支援搜尋、分類篩選、深淺主題與 14 種介面語言；語言可跟隨瀏覽器，主題可跟隨系統
 - 網站 favicon 已嵌入每個 HTML 頁面，不會額外請求圖示檔案；README 另用 PNG 預覽
@@ -80,7 +80,7 @@
 
 Test the current system pointer scheme and all 36 predefined CSS `cursor` keywords online.
 
-- Shows 13 CSS keywords that map directly to standard Windows cursor-scheme entries and 23 additional CSS states without a dedicated entry
+- Shows how 24 CSS keywords share 13 Windows pointer scheme entries, plus the 12 standard CSS keywords without a corresponding entry
 - Groups styles into general actions, text selection, movement and drag-and-drop, resizing, and zoom
 - Includes search, category filters, light and dark themes, and 14 interface languages; language can follow the browser and theme can follow the system
 - Embeds the site favicon in every HTML page without an extra icon request; the README uses a separate PNG preview
@@ -97,7 +97,7 @@ The page does not load or simulate cursor files from the repository. Every card 
 
 現在のシステムポインター設定と、CSS `cursor` で定義されている全 36 種類のキーワードをオンラインで確認できます。
 
-- Windows の標準カーソル設定項目に直接対応する CSS キーワード 13 種類と、専用項目を持たない CSS 固有の状態 23 種類を表示
+- 24 個の CSS キーワードが 13 個の Windows ポインター設定項目を共有する仕組みと、対応項目を持たない 12 個の標準 CSS キーワードを表示
 - 一般操作、テキスト選択、移動とドラッグ＆ドロップ、サイズ変更、ズームの用途別に分類
 - 検索、カテゴリーフィルター、ライト／ダークテーマ、14 言語の表示に対応し、言語はブラウザー、テーマはシステムの設定に追従可能
 - サイトの favicon は各 HTML ページに埋め込まれており、別途アイコンを読み込まない。README では専用の PNG プレビューを使用
@@ -114,7 +114,7 @@ The page does not load or simulate cursor files from the repository. Every card 
 
 Kiểm tra trực tuyến bộ con trỏ hiện tại của hệ thống và đầy đủ 36 từ khóa CSS `cursor` được định nghĩa sẵn.
 
-- Hiển thị 13 từ khóa CSS ánh xạ trực tiếp tới mục cấu hình con trỏ chuẩn của Windows và 23 trạng thái CSS mở rộng không có mục riêng
+- Cho thấy 24 từ khóa CSS dùng chung 13 mục trong bộ con trỏ Windows, cùng 12 từ khóa CSS chuẩn không có mục tương ứng
 - Nhóm theo thao tác chung, chọn văn bản, di chuyển và kéo thả, đổi kích thước, phóng to/thu nhỏ
 - Hỗ trợ tìm kiếm, lọc theo danh mục, giao diện sáng/tối và 14 ngôn ngữ; ngôn ngữ có thể theo trình duyệt, giao diện có thể theo hệ thống
 - Favicon của trang được nhúng vào từng trang HTML để không phát sinh yêu cầu tải biểu tượng riêng; README dùng một ảnh xem trước PNG riêng
@@ -131,7 +131,7 @@ Trang không tải hay mô phỏng các tệp con trỏ trong kho mã. Mỗi th�
 
 현재 시스템 포인터 구성과 CSS `cursor`에 미리 정의된 36개 키워드를 온라인에서 확인합니다.
 
-- Windows 표준 포인터 구성 항목에 직접 대응하는 CSS 키워드 13개와 전용 항목이 없는 추가 CSS 상태 23개를 표시
+- CSS 키워드 24개가 Windows 포인터 구성표 항목 13개를 공유하는 방식과 대응 항목이 없는 CSS 표준 키워드 12개를 표시
 - 일반 동작, 텍스트 선택, 이동 및 끌어서 놓기, 크기 조절, 확대/축소로 분류
 - 검색, 범주 필터, 밝은/어두운 테마와 14개 인터페이스 언어를 지원하며 언어는 브라우저, 테마는 시스템 설정을 따를 수 있음
 - 사이트 favicon은 각 HTML 페이지에 내장되어 별도의 아이콘 요청이 발생하지 않으며, README에는 별도 PNG 미리보기를 사용
@@ -148,7 +148,7 @@ Trang không tải hay mô phỏng các tệp con trỏ trong kho mã. Mỗi th�
 
 Prueba en línea el esquema de punteros actual del sistema y las 36 palabras clave predefinidas de CSS `cursor`.
 
-- Muestra 13 palabras clave CSS con correspondencia directa en el esquema de cursores de Windows y 23 estados CSS adicionales sin entrada propia
+- Muestra cómo 24 palabras clave CSS comparten 13 entradas del esquema de punteros de Windows y las 12 palabras clave CSS estándar sin correspondencia
 - Agrupa los estilos en acciones generales, selección de texto, movimiento y arrastrar y soltar, redimensionado y zoom
 - Incluye búsqueda, filtros por categoría, temas claro y oscuro y 14 idiomas; el idioma puede seguir al navegador y el tema al sistema
 - Integra el favicon del sitio en cada página HTML para evitar una solicitud de icono adicional; el README utiliza una vista previa PNG independiente
@@ -165,7 +165,7 @@ La página no carga ni simula archivos de puntero del repositorio. Cada tarjeta 
 
 Testez en ligne la configuration actuelle des pointeurs du système ainsi que les 36 mots-clés prédéfinis de CSS `cursor`.
 
-- Présente 13 mots-clés CSS correspondant directement à des entrées du jeu de pointeurs Windows et 23 états CSS supplémentaires sans entrée dédiée
+- Présente comment 24 mots-clés CSS partagent 13 entrées du modèle de pointeurs Windows, ainsi que les 12 mots-clés CSS standard sans correspondance
 - Regroupe les styles par actions générales, sélection de texte, déplacement et glisser-déposer, redimensionnement et zoom
 - Propose une recherche, des filtres par catégorie, des thèmes clair et sombre et 14 langues ; la langue peut suivre le navigateur et le thème le système
 - Intègre le favicon du site dans chaque page HTML afin d’éviter une requête d’icône supplémentaire ; le README utilise un aperçu PNG distinct
@@ -182,7 +182,7 @@ La page ne charge ni ne reproduit les fichiers de pointeur du dépôt. Chaque ca
 
 Teste on-line o esquema atual de ponteiros do sistema e todas as 36 palavras-chave predefinidas de CSS `cursor`.
 
-- Exibe 13 palavras-chave CSS com correspondência direta no esquema de ponteiros do Windows e 23 estados CSS adicionais sem entrada própria
+- Mostra como 24 palavras-chave CSS compartilham 13 itens do esquema de ponteiros do Windows e as 12 palavras-chave CSS padrão sem correspondência
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e soltar, redimensionamento e zoom
 - Oferece busca, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - Incorpora o favicon do site em cada página HTML, sem uma requisição extra de ícone; o README usa uma prévia PNG separada
@@ -199,7 +199,7 @@ A página não carrega nem simula arquivos de ponteiro do repositório. Cada car
 
 Teste online o esquema atual de ponteiros do sistema e todas as 36 palavras-chave predefinidas de CSS `cursor`.
 
-- Apresenta 13 palavras-chave CSS com correspondência direta no esquema de ponteiros do Windows e 23 estados CSS adicionais sem entrada própria
+- Mostra como 24 palavras-chave CSS partilham 13 itens do esquema de ponteiros do Windows e as 12 palavras-chave CSS padrão sem correspondência
 - Agrupa os estilos em ações gerais, seleção de texto, movimento e arrastar e largar, redimensionamento e zoom
 - Inclui pesquisa, filtros por categoria, temas claro e escuro e 14 idiomas; o idioma pode seguir o navegador e o tema, o sistema
 - Incorpora o favicon do site em cada página HTML, sem um pedido adicional do ícone; o README usa uma pré-visualização PNG separada
@@ -216,7 +216,7 @@ A página não carrega nem simula ficheiros de ponteiro do repositório. Cada ca
 
 Онлайн-проверка текущей системной схемы указателей и всех 36 предопределённых значений CSS `cursor`.
 
-- Отображает 13 ключевых слов CSS, напрямую сопоставленных с элементами схемы указателей Windows, и 23 дополнительных состояния CSS без отдельного элемента
+- Показывает, как 24 ключевых слова CSS используют 13 элементов схемы указателей Windows, а также 12 стандартных ключевых слов CSS без соответствия
 - Группирует стили по назначению: основные действия, выделение текста, перемещение и перетаскивание, изменение размера и масштаб
 - Поддерживает поиск, фильтры по категориям, светлую и тёмную темы и 14 языков; язык может определяться по браузеру, а тема — по системе
 - Фавикон сайта встроен в каждую HTML-страницу, поэтому отдельный запрос значка не выполняется; в README используется отдельное PNG-превью
@@ -233,7 +233,7 @@ A página não carrega nem simula ficheiros de ponteiro do repositório. Cada ca
 
 Testen Sie das aktuelle Zeigerschema des Systems und alle 36 vordefinierten CSS-`cursor`-Schlüsselwörter online.
 
-- Zeigt 13 CSS-Schlüsselwörter mit direkter Zuordnung zu Einträgen des Windows-Zeigerschemas und 23 zusätzliche CSS-Zustände ohne eigenen Eintrag
+- Zeigt, wie 24 CSS-Schlüsselwörter 13 Einträge des Windows-Zeigerschemas gemeinsam verwenden, sowie die 12 CSS-Standardschlüsselwörter ohne Zuordnung
 - Gruppiert die Stile in allgemeine Aktionen, Textauswahl, Bewegen und Ziehen, Größenänderung und Zoom
 - Bietet Suche, Kategoriefilter, ein helles und dunkles Design sowie 14 Sprachen; Sprache und Design können Browser- bzw. Systemeinstellungen folgen
 - Das Website-Favicon ist in jede HTML-Seite eingebettet und wird nicht separat angefordert; die README verwendet eine eigene PNG-Vorschau
@@ -250,7 +250,7 @@ Die Seite lädt oder simuliert keine Zeigerdateien aus dem Repository. Jede Kart
 
 Prova online lo schema di puntatori attuale del sistema e tutte le 36 parole chiave predefinite di CSS `cursor`.
 
-- Mostra 13 parole chiave CSS con corrispondenza diretta nello schema puntatori di Windows e 23 stati CSS aggiuntivi senza una voce dedicata
+- Mostra come 24 parole chiave CSS condividono 13 voci dello schema puntatori di Windows e le 12 parole chiave CSS standard senza corrispondenza
 - Raggruppa gli stili in azioni generali, selezione del testo, movimento e trascinamento, ridimensionamento e zoom
 - Include ricerca, filtri per categoria, temi chiaro e scuro e 14 lingue; la lingua può seguire il browser e il tema il sistema
 - Integra il favicon del sito in ogni pagina HTML senza richiedere un file icona aggiuntivo; il README usa un’anteprima PNG separata

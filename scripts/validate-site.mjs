@@ -14,6 +14,20 @@ const locales = [
 ];
 const pages = [["zh-CN", "", siteUrl], ...locales.map(([locale, route]) => [locale, route, `${siteUrl}${route}/`])];
 const expectedHreflangs = new Set(["x-default", ...locales.map(([locale]) => locale)]);
+const expectedCursorKeywords = new Set([
+  "auto", "default", "none", "context-menu", "help", "pointer", "progress", "wait", "cell", "crosshair", "text", "vertical-text",
+  "alias", "copy", "move", "no-drop", "not-allowed", "grab", "grabbing", "e-resize", "n-resize", "ne-resize", "nw-resize",
+  "s-resize", "se-resize", "sw-resize", "w-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "col-resize",
+  "row-resize", "all-scroll", "zoom-in", "zoom-out"
+]);
+const expectedWindowsMappings = new Map([
+  ["default", "Arrow"], ["context-menu", "Arrow"], ["help", "Help"], ["progress", "AppStarting"], ["wait", "Wait"],
+  ["not-allowed", "No"], ["no-drop", "No"], ["pointer", "Hand"], ["text", "IBeam"], ["crosshair", "Crosshair"],
+  ["move", "SizeAll"], ["all-scroll", "SizeAll"], ["n-resize", "SizeNS"], ["s-resize", "SizeNS"], ["ns-resize", "SizeNS"],
+  ["e-resize", "SizeWE"], ["w-resize", "SizeWE"], ["ew-resize", "SizeWE"], ["ne-resize", "SizeNESW"],
+  ["sw-resize", "SizeNESW"], ["nesw-resize", "SizeNESW"], ["nw-resize", "SizeNWSE"], ["se-resize", "SizeNWSE"],
+  ["nwse-resize", "SizeNWSE"]
+]);
 
 for (const [locale, route, canonical] of pages) {
   const html = await readFile(join(siteRoot, route, "index.html"), "utf8");
@@ -83,7 +97,42 @@ for (const [locale, route, canonical] of pages) {
   if (/border-bottom/.test(groupHeadingStyles)) throw new Error(`${label}: group headings must not have bottom rules`);
   if (!/margin-bottom:\s*16px/.test(groupHeadingStyles)) throw new Error(`${label}: group headings need breathing room above card grids`);
   const cursorGridStyles = styleText.match(/\.cursor-grid\s*\{([^}]*)\}/)?.[1] || "";
-  if (!/min\(100%,\s*192px\)/.test(cursorGridStyles)) throw new Error(`${label}: cursor cards must use the compact grid width`);
+  if (!/min\(100%,\s*220px\)/.test(cursorGridStyles)) throw new Error(`${label}: cursor cards must use the requested minimum width`);
+  const mappingLabelKeys = ["cssKeywordLabel", "windowsSchemeEntryLabel", "noWindowsSchemeEntry"];
+  if (!document.querySelector(".meta-label") || mappingLabelKeys.some((key) => !html.includes(`${key}:`))) {
+    throw new Error(`${label}: cursor cards must distinguish CSS keywords from Windows pointer scheme entries`);
+  }
+  if ([...document.querySelectorAll(".meta-label")].some((element) => /[:：]\s*$/.test(element.textContent))) {
+    throw new Error(`${label}: cursor metadata labels must not end with a colon`);
+  }
+  const cardMetaStyles = styleText.match(/\.card-meta\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/gap:\s*1px/.test(cardMetaStyles)) throw new Error(`${label}: cursor metadata rows must use compact spacing`);
+  const metaItemStyles = styleText.match(/\.meta-item\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/display:\s*grid/.test(metaItemStyles) || !/grid-template-columns:\s*minmax\(0,\s*1fr\)\s*auto/.test(metaItemStyles)) {
+    throw new Error(`${label}: cursor metadata must align labels left and values right`);
+  }
+  const metadataValueStyles = styleText.match(/\.css-value,\s*\.role-name\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/font-family:\s*Consolas,\s*"Cascadia Mono",\s*monospace/.test(metadataValueStyles) || !/text-align:\s*right/.test(metadataValueStyles)) {
+    throw new Error(`${label}: both cursor metadata values must share the first row typography and right alignment`);
+  }
+  const cssOnlyCards = [...document.querySelectorAll(".cursor-card")].filter((card) => card.querySelector(".role-type.is-css"));
+  const systemMappedCards = [...document.querySelectorAll(".cursor-card")].filter((card) => !card.querySelector(".role-type.is-css"));
+  if (cssOnlyCards.length !== 12 || cssOnlyCards.some((card) => card.querySelectorAll(".meta-item").length !== 2 || !card.querySelector(".role-name.is-none"))) {
+    throw new Error(`${label}: CSS-only cards must explicitly show the missing Windows scheme entry`);
+  }
+  if (systemMappedCards.length !== 24 || systemMappedCards.some((card) => card.querySelectorAll(".meta-item").length !== 2 || card.querySelector(".role-name.is-none"))) {
+    throw new Error(`${label}: Windows-mapped cards must show the pointer scheme entry`);
+  }
+  const cardsByKeyword = new Map([...document.querySelectorAll(".cursor-card")].map((card) => [card.querySelector(".css-value")?.textContent.trim(), card]));
+  if (cardsByKeyword.size !== expectedCursorKeywords.size || [...expectedCursorKeywords].some((keyword) => !cardsByKeyword.has(keyword))) {
+    throw new Error(`${label}: predefined CSS cursor keyword set is incomplete`);
+  }
+  for (const [keyword, entry] of expectedWindowsMappings) {
+    const card = cardsByKeyword.get(keyword);
+    if (card?.querySelector(".role-name")?.textContent.trim() !== entry || card.querySelector(".role-type.is-css")) {
+      throw new Error(`${label}: ${keyword} must map to the Windows ${entry} scheme entry`);
+    }
+  }
   const pageViewStyles = styleText.match(/\.footer-page-views\s*\{([^}]*)\}/)?.[1] || "";
   if (!/color:\s*inherit/.test(pageViewStyles)) throw new Error(`${label}: page-view count must match adjacent footer text`);
   if (document.querySelector('meta[name="color-scheme"]')?.content !== "dark light") throw new Error(`${label}: incomplete color-scheme support`);
@@ -109,11 +158,11 @@ for (const [locale, route, canonical] of pages) {
     throw new Error(`${label}: guide introduction must scroll with the article content`);
   }
   const knowledgeCounts = [...document.querySelectorAll("[data-knowledge-count]")].map((element) => Number(element.dataset.knowledgeCount));
-  if (knowledgeCounts.join(",") !== "17,13,23") throw new Error(`${label}: knowledge summary must show 17, 13, and 23`);
+  if (knowledgeCounts.join(",") !== "17,24,12") throw new Error(`${label}: knowledge summary must show 17, 24, and 12`);
   if (document.querySelectorAll("#windowsEntryList .knowledge-entry").length !== 17) throw new Error(`${label}: expected all 17 Windows scheme entries`);
-  if (document.querySelectorAll("#directMappingList .knowledge-entry").length !== 13) throw new Error(`${label}: expected all 13 direct CSS mappings`);
+  if (document.querySelectorAll("#directMappingList .knowledge-entry").length !== 24) throw new Error(`${label}: expected all 24 CSS-to-Windows mappings`);
   if (document.querySelectorAll("#windowsOnlyList .knowledge-keyword-pair").length !== 4) throw new Error(`${label}: expected four Windows-only entries`);
-  if (document.querySelectorAll("#cssOnlyList .knowledge-keyword-pair").length !== 23) throw new Error(`${label}: expected all 23 CSS-only keywords with translations`);
+  if (document.querySelectorAll("#cssOnlyList .knowledge-keyword-pair").length !== 12) throw new Error(`${label}: expected all 12 CSS-only keywords with translations`);
   if (document.querySelectorAll("#pointerJourney > li").length !== 4) throw new Error(`${label}: pointer guide needs a four-step rendering journey`);
   if (document.querySelectorAll("#foundationParagraphs > p").length !== 4) throw new Error(`${label}: pointer guide needs a four-paragraph conceptual introduction`);
   if (document.querySelectorAll("#conceptList .concept-item").length !== 4) throw new Error(`${label}: pointer guide needs four foundational concepts`);
