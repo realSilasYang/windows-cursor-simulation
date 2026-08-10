@@ -26,6 +26,47 @@ for (const [locale, route, canonical] of pages) {
   if (!/--footer-height:\s*76px/.test(styleText)) throw new Error(`${label}: mobile footer must use the compact height`);
   const headerInnerStyles = styleText.match(/\.header-inner\s*\{([^}]*)\}/)?.[1] || "";
   if (!/min-height:\s*96px/.test(headerInnerStyles)) throw new Error(`${label}: desktop title bar must use the taller header`);
+  if (!/grid-template-columns:\s*minmax\(0,\s*1fr\)\s*auto/.test(headerInnerStyles)) {
+    throw new Error(`${label}: header must reserve one right-aligned column for controls`);
+  }
+  const preferenceControlStyles = styleText.match(/\.preference-controls\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/flex-direction:\s*row/.test(preferenceControlStyles)) throw new Error(`${label}: header controls must be arranged horizontally`);
+  if (/--teal|#67dbc1|#087d69/i.test(styleText)) throw new Error(`${label}: retired cool accent color is still present`);
+  if (!/--accent:\s*#e5a67b/.test(styleText) || !/--accent:\s*#a4522e/.test(styleText)) {
+    throw new Error(`${label}: warm accent palette is incomplete`);
+  }
+  const cardDescriptionStyles = styleText.match(/\.card-title p\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/grid-column:\s*1\s*\/\s*-1/.test(cardDescriptionStyles) || !/text-align:\s*center/.test(cardDescriptionStyles)) {
+    throw new Error(`${label}: card descriptions must span the card and be centered`);
+  }
+  const cardTitleStyles = styleText.match(/\.card-title h2\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/font-size:\s*14px/.test(cardTitleStyles) || !/grid-column:\s*1/.test(cardTitleStyles) || !/grid-row:\s*1/.test(cardTitleStyles)) {
+    throw new Error(`${label}: card titles must remain compact in the upper-left corner`);
+  }
+  const roleTypeStyles = styleText.match(/\.role-type\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/grid-column:\s*2/.test(roleTypeStyles) || !/grid-row:\s*1/.test(roleTypeStyles) || !/justify-self:\s*end/.test(roleTypeStyles)) {
+    throw new Error(`${label}: CSS and system badges must remain in the upper-right corner`);
+  }
+  const appFooterStyles = styleText.match(/\.app-footer\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/background:\s*transparent/.test(appFooterStyles)) throw new Error(`${label}: fixed footer wrapper must remain transparent`);
+  const footerInnerStyles = [...styleText.matchAll(/\.footer-inner\s*\{([^}]*)\}/g)].map((match) => match[1]).find((styles) => /background:/.test(styles)) || "";
+  if (!/border-radius:\s*var\(--radius\)\s+var\(--radius\)\s+0\s+0/.test(footerInnerStyles) || !/background:\s*var\(--chrome\)/.test(footerInnerStyles)) {
+    throw new Error(`${label}: footer information must use a rounded rectangular background`);
+  }
+  if (/padding-bottom\s*:\s*(?!0(?:px)?\b)[^;}]*/.test(appFooterStyles)) {
+    throw new Error(`${label}: fixed footer wrapper must touch the bottom edge`);
+  }
+  const guideNavStyles = styleText.match(/\.guide-nav\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/position:\s*sticky/.test(guideNavStyles) || !/display:\s*flex/.test(guideNavStyles) || !/overflow-x:\s*auto/.test(guideNavStyles)) {
+    throw new Error(`${label}: guide navigation must stay visible in one horizontal row`);
+  }
+  const guideNavButtonStyles = styleText.match(/\.guide-nav button\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/flex:\s*0\s+0\s+auto/.test(guideNavButtonStyles) || !/white-space:\s*nowrap/.test(guideNavButtonStyles)) {
+    throw new Error(`${label}: guide navigation buttons must remain in one scrollable row`);
+  }
+  if (!/\.knowledge-dialog\[open\]\.is-visible/.test(styleText) || !/transition:\s*opacity\s+180ms/.test(styleText)) {
+    throw new Error(`${label}: knowledge dialog needs an animated open and close state`);
+  }
 
   if (document.documentElement.lang !== locale) throw new Error(`${label}: incorrect html lang`);
   if (!document.title || document.title.length > 65) throw new Error(`${label}: invalid title length`);
@@ -36,6 +77,7 @@ for (const [locale, route, canonical] of pages) {
   if (!document.querySelector('meta[property="og:image"]')?.content.endsWith("/og-image.png")) throw new Error(`${label}: missing og:image`);
   if (document.querySelector('meta[name="twitter:card"]')?.content !== "summary_large_image") throw new Error(`${label}: missing Twitter card`);
   if (document.querySelectorAll(".cursor-card").length !== 36) throw new Error(`${label}: expected 36 static cards`);
+  if (document.querySelector(".header-status") || document.getElementById("headerStatus")) throw new Error(`${label}: obsolete header overview is still present`);
   if (document.querySelector(".results-bar")) throw new Error(`${label}: redundant results summary row is still present`);
   const groupHeadingStyles = styleText.match(/\.group-heading\s*\{([^}]*)\}/)?.[1] || "";
   if (/border-bottom/.test(groupHeadingStyles)) throw new Error(`${label}: group headings must not have bottom rules`);
@@ -44,26 +86,52 @@ for (const [locale, route, canonical] of pages) {
   if (!/min\(100%,\s*192px\)/.test(cursorGridStyles)) throw new Error(`${label}: cursor cards must use the compact grid width`);
   const pageViewStyles = styleText.match(/\.footer-page-views\s*\{([^}]*)\}/)?.[1] || "";
   if (!/color:\s*inherit/.test(pageViewStyles)) throw new Error(`${label}: page-view count must match adjacent footer text`);
-  if (!styleText.includes("grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)")) {
-    throw new Error(`${label}: overview card is not centered by the header grid`);
-  }
   if (document.querySelector('meta[name="color-scheme"]')?.content !== "dark light") throw new Error(`${label}: incomplete color-scheme support`);
 
-  const languageButton = document.getElementById("languageButton");
-  if (languageButton?.querySelectorAll("svg").length !== 1 || languageButton.textContent.trim()) {
-    throw new Error(`${label}: language button must contain exactly one icon and no visible text`);
+  const headerButtons = [...document.querySelectorAll(".preference-controls .preference-button")];
+  if (headerButtons.map((button) => button.id).join(",") !== "knowledgeButton,languageButton,themeButton") {
+    throw new Error(`${label}: expected knowledge, language, and theme buttons in that order`);
   }
-  const themeButton = document.getElementById("themeButton");
-  if (themeButton?.querySelectorAll("svg").length !== 1 || themeButton.textContent.trim()) {
-    throw new Error(`${label}: theme button must contain exactly one icon and no visible text`);
+  if (headerButtons.some((button) => button.querySelectorAll("svg").length !== 1 || button.textContent.trim())) {
+    throw new Error(`${label}: each header action must contain exactly one icon and no visible text`);
   }
-  const headerOrder = [...document.querySelector(".header-actions")?.children || []].map((element) => element.className);
-  if (headerOrder[0] !== "header-status" || headerOrder[1] !== "preference-controls") {
-    throw new Error(`${label}: preference controls must be the rightmost header group`);
-  }
+  if (document.getElementById("knowledgeButton")?.getAttribute("aria-haspopup") !== "dialog") throw new Error(`${label}: knowledge button must expose its dialog semantics`);
   if (document.querySelectorAll("#themeMenu [data-theme]").length !== 3) throw new Error(`${label}: expected three theme choices`);
   if (!document.documentElement.dataset.theme || !document.documentElement.dataset.themePreference) {
     throw new Error(`${label}: missing initialized theme state`);
+  }
+
+  const knowledgeDialog = document.getElementById("knowledgeDialog");
+  if (knowledgeDialog?.tagName !== "DIALOG" || knowledgeDialog.getAttribute("aria-labelledby") !== "knowledgeTitle") {
+    throw new Error(`${label}: missing accessible Windows pointer knowledge dialog`);
+  }
+  if (!document.getElementById("knowledgeIntro")?.parentElement?.classList.contains("knowledge-content")) {
+    throw new Error(`${label}: guide introduction must scroll with the article content`);
+  }
+  const knowledgeCounts = [...document.querySelectorAll("[data-knowledge-count]")].map((element) => Number(element.dataset.knowledgeCount));
+  if (knowledgeCounts.join(",") !== "17,13,23") throw new Error(`${label}: knowledge summary must show 17, 13, and 23`);
+  if (document.querySelectorAll("#windowsEntryList .knowledge-entry").length !== 17) throw new Error(`${label}: expected all 17 Windows scheme entries`);
+  if (document.querySelectorAll("#directMappingList .knowledge-entry").length !== 13) throw new Error(`${label}: expected all 13 direct CSS mappings`);
+  if (document.querySelectorAll("#windowsOnlyList .knowledge-keyword-pair").length !== 4) throw new Error(`${label}: expected four Windows-only entries`);
+  if (document.querySelectorAll("#cssOnlyList .knowledge-keyword-pair").length !== 23) throw new Error(`${label}: expected all 23 CSS-only keywords with translations`);
+  if (document.querySelectorAll("#pointerJourney > li").length !== 4) throw new Error(`${label}: pointer guide needs a four-step rendering journey`);
+  if (document.querySelectorAll("#foundationParagraphs > p").length !== 4) throw new Error(`${label}: pointer guide needs a four-paragraph conceptual introduction`);
+  if (document.querySelectorAll("#conceptList .concept-item").length !== 4) throw new Error(`${label}: pointer guide needs four foundational concepts`);
+  if (document.querySelectorAll("#conceptList .concept-item[open] > summary").length !== 4) throw new Error(`${label}: foundational concepts must be readable when opened`);
+  if (document.querySelectorAll("#guideNav [data-guide-target]").length !== 9) throw new Error(`${label}: guide navigation must cover all learning sections`);
+  if (document.querySelectorAll("#pointerJourney [data-journey-step][role=button]").length !== 4) throw new Error(`${label}: pointer journey steps must be interactive`);
+  if (document.querySelectorAll("#displayPoints > li").length !== 4) throw new Error(`${label}: pointer guide needs four display and clarity points`);
+  if (document.querySelectorAll("#fileTopics .guide-topic").length !== 2) throw new Error(`${label}: pointer guide needs file-format and DPI topics`);
+  if (document.querySelectorAll("#installTopics .guide-topic").length !== 2) throw new Error(`${label}: pointer guide needs INF and activation topics`);
+  if (document.querySelectorAll("#troubleshootingList details").length !== 6) throw new Error(`${label}: pointer guide needs six symptom-based troubleshooting entries`);
+  if (document.querySelectorAll("#designPoints > li").length !== 3) throw new Error(`${label}: pointer guide needs practical design guidance`);
+  if (document.getElementById("knowledgeDialog").textContent.trim().length < 2200) throw new Error(`${label}: pointer guide is not detailed enough`);
+  if (/知识介绍/.test(knowledgeDialog.textContent)) throw new Error(`${label}: knowledge dialog uses the retired name`);
+  if (/先回答：|先记住一件事/.test(knowledgeDialog.textContent)) throw new Error(`${label}: guide uses a lecture-like opening phrase`);
+  if (locale === "zh-CN") {
+    const definitionCount = knowledgeDialog.textContent.split("鼠标指针是在计算机开始使用鼠标后，为了在图形用户界面中标识鼠标位置而产生的屏幕图形").length - 1;
+    if (definitionCount !== 1) throw new Error(`${label}: foundational mouse-pointer definition must appear exactly once`);
+    if (/箭头/.test(document.getElementById("foundationParagraphs").textContent)) throw new Error(`${label}: foundational explanation overemphasizes the arrow shape`);
   }
   const footerPageViews = document.getElementById("footerPageViews");
   if (!footerPageViews || !footerPageViews.hidden) throw new Error(`${label}: page-view counter must wait for live data`);
@@ -89,6 +157,12 @@ for (const [locale, route, canonical] of pages) {
   if (!appScript.includes("https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats")) {
     throw new Error(`${label}: missing public statistics endpoint`);
   }
+  if (!appScript.includes("https://windows-cursor-simulation-stats.realsilasyang.workers.dev/pageview") || !appScript.includes("method: \"POST\"")) {
+    throw new Error(`${label}: page-view counter must record one page load with POST`);
+  }
+  if (!appScript.includes("recordPageView();")) {
+    throw new Error(`${label}: page-view counter must be called on initial load`);
+  }
   if (!appScript.includes("setInterval(loadTotalPageViews, STATS_REFRESH_INTERVAL_MS)")) {
     throw new Error(`${label}: missing periodic statistics refresh`);
   }
@@ -97,6 +171,18 @@ for (const [locale, route, canonical] of pages) {
   }
   if (!appScript.includes('cache: "no-store"')) {
     throw new Error(`${label}: statistics requests must bypass the browser cache`);
+  }
+  if (!appScript.includes("const KNOWLEDGE_DIALOG_ANIMATION_MS = 180") || !appScript.includes('classList.add("is-visible")')) {
+    throw new Error(`${label}: missing knowledge dialog animation controller`);
+  }
+  if (!appScript.includes("function syncGuideNavigation()") || !appScript.includes("elements.knowledgeContent.addEventListener(\"scroll\", queueGuideNavigationSync")) {
+    throw new Error(`${label}: guide navigation must follow article scrolling`);
+  }
+  if (!appScript.includes("const reachedEnd = Math.ceil(elements.knowledgeContent.scrollTop") || !appScript.includes("setGuideNavigation(buttons.at(-1).dataset.guideTarget)")) {
+    throw new Error(`${label}: final guide section must activate at the bottom boundary`);
+  }
+  if (!appScript.includes('elements.guideNav.addEventListener("wheel", scrollGuideNavigation, { passive: false })') || !appScript.includes("event.preventDefault()")) {
+    throw new Error(`${label}: guide navigation must consume the wheel without scrolling the article`);
   }
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
 
@@ -127,6 +213,11 @@ for (const [, , canonical] of pages) if (!sitemapLocations.includes(canonical)) 
 
 for (const requiredFile of ["robots.txt", "llms.txt", "llms-full.txt", "og-image.png"]) {
   await readFile(join(siteRoot, requiredFile));
+}
+
+const ogImage = await readFile(join(siteRoot, "og-image.png"));
+if (ogImage.readUInt32BE(16) !== 1200 || ogImage.readUInt32BE(20) !== 630) {
+  throw new Error("og-image.png must be exactly 1200 by 630 pixels");
 }
 
 console.log(`Validated ${pages.length} pages, 36 cursor terms per page, hreflang clusters, schema, sitemap, and GEO files.`);

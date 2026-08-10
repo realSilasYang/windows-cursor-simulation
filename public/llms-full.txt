@@ -14,30 +14,32 @@ The site does not fetch or apply cursor image resources. In particular, it does 
 ## Counts
 
 - Total predefined CSS cursor keywords tested: 36
-- Keywords mapped to standard Windows cursor-scheme roles: 13
-- CSS states without a dedicated standard Windows cursor-scheme role: 23
+- Standard configurable Windows cursor-scheme entries: 17
+- CSS keywords mapped directly to Windows cursor-scheme entries: 13
+- Windows-only entries without a dedicated CSS keyword: `NWPen`, `UpArrow`, `Pin`, `Person`
+- CSS states without a dedicated standard Windows cursor-scheme entry: 23
 - Interface languages: 14, plus an automatic browser-language mode
 - Use-case groups: 5
 
-## Windows role mapping
+## Windows cursor-scheme mapping
 
-| CSS keyword | Windows cursor-scheme role | Classification |
+| CSS keyword | Windows cursor-scheme entry | Classification |
 | --- | --- | --- |
 | `auto` | none; browser chooses | CSS state |
-| `default` | `Arrow` | Windows system role |
+| `default` | `Arrow` | Windows scheme entry |
 | `none` | none; pointer hidden | CSS state |
 | `context-menu` | no dedicated standard slot | CSS state |
-| `help` | `Help` | Windows system role |
-| `progress` | `AppStarting` | Windows system role |
-| `wait` | `Wait` | Windows system role |
-| `not-allowed` | `No` | Windows system role |
+| `help` | `Help` | Windows scheme entry |
+| `progress` | `AppStarting` | Windows scheme entry |
+| `wait` | `Wait` | Windows scheme entry |
+| `not-allowed` | `No` | Windows scheme entry |
 | `no-drop` | no dedicated standard slot | CSS state |
-| `pointer` | `Hand` | Windows system role |
-| `text` | `IBeam` | Windows system role |
+| `pointer` | `Hand` | Windows scheme entry |
+| `text` | `IBeam` | Windows scheme entry |
 | `vertical-text` | no dedicated standard slot | CSS state |
-| `crosshair` | `Crosshair` | Windows system role |
+| `crosshair` | `Crosshair` | Windows scheme entry |
 | `cell` | no dedicated standard slot | CSS state |
-| `move` | `SizeAll` | Windows system role |
+| `move` | `SizeAll` | Windows scheme entry |
 | `grab` | no dedicated standard slot | CSS state |
 | `grabbing` | no dedicated standard slot | CSS state |
 | `alias` | no dedicated standard slot | CSS state |
@@ -53,14 +55,14 @@ The site does not fetch or apply cursor image resources. In particular, it does 
 | `nw-resize` | no dedicated standard slot | CSS state |
 | `se-resize` | no dedicated standard slot | CSS state |
 | `sw-resize` | no dedicated standard slot | CSS state |
-| `ns-resize` | `SizeNS` | Windows system role |
-| `ew-resize` | `SizeWE` | Windows system role |
-| `nwse-resize` | `SizeNWSE` | Windows system role |
-| `nesw-resize` | `SizeNESW` | Windows system role |
+| `ns-resize` | `SizeNS` | Windows scheme entry |
+| `ew-resize` | `SizeWE` | Windows scheme entry |
+| `nwse-resize` | `SizeNWSE` | Windows scheme entry |
+| `nesw-resize` | `SizeNESW` | Windows scheme entry |
 | `zoom-in` | no dedicated standard slot | CSS state |
 | `zoom-out` | no dedicated standard slot | CSS state |
 
-The phrases “CSS state” and “no dedicated standard slot” mean that Windows does not expose a separate cursor-scheme entry for that exact CSS semantic role. They do not guarantee identical artwork across browsers or platforms.
+The phrases “CSS state” and “no dedicated standard slot” mean that Windows does not expose a separate cursor-scheme entry for that exact CSS cursor meaning. They do not guarantee identical artwork across browsers or platforms.
 
 ## Use-case groups
 

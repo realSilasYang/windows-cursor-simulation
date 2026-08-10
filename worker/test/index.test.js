@@ -1,53 +1,62 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { CACHE_TTL_SECONDS, STATS_QUERY, buildVariables, normalizeStats } from "../src/index.js";
+import { COUNTER_STORAGE_KEY, PageViewCounter } from "../src/index.js";
 
-test("shared statistics cache refreshes every minute", () => {
-  assert.equal(CACHE_TTL_SECONDS, 60);
-});
-
-test("query requests page views without visit totals", () => {
-  assert.match(STATS_QUERY, /rumPageloadEventsAdaptiveGroups[\s\S]*\bcount\b/);
-  assert.doesNotMatch(STATS_QUERY, /sum\s*\{\s*visits/);
-});
-
-test("buildVariables creates a cumulative window from launch", () => {
-  const now = new Date("2026-08-09T12:00:00.000Z");
-  const variables = buildVariables(now, {
-    CF_ACCOUNT_ID: "account-id",
-    CF_RUM_SITE_TAG: "rum-site-tag"
-  });
-
-  assert.equal(variables.accountTag, "account-id");
-  assert.deepEqual(variables.totalFilter, {
-    siteTag: "rum-site-tag",
-    datetime_geq: "2026-08-09T00:00:00.000Z",
-    datetime_lt: "2026-08-09T12:00:00.000Z"
-  });
-});
-
-test("normalizeStats returns only the cumulative page-view count", () => {
-  const generatedAt = new Date("2026-08-09T12:00:00.000Z");
-  const result = normalizeStats({
-    data: {
-      viewer: {
-        accounts: [{
-          total: [{ count: 20 }, { count: 12 }]
-        }]
-      }
+function createState(initialEntries = []) {
+  const values = new Map(initialEntries);
+  const storage = {
+    async get(key) {
+      return values.get(key);
+    },
+    async put(key, value) {
+      values.set(key, value);
+    },
+    async transaction(callback) {
+      return callback(storage);
     }
-  }, generatedAt);
+  };
+  return { storage, values };
+}
 
-  assert.deepEqual(result, {
-    generatedAt: "2026-08-09T12:00:00.000Z",
-    since: "2026-08-09T00:00:00.000Z",
-    totalPageViews: 32
-  });
+test("counter starts at the configured historical total", async () => {
+  const state = createState();
+  const counter = new PageViewCounter(state, { INITIAL_TOTAL_PAGE_VIEWS: "18" });
+  const response = await counter.fetch(new Request("https://counter.invalid/stats"));
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { totalPageViews: 18 });
 });
 
-test("normalizeStats rejects GraphQL errors", () => {
-  assert.throws(
-    () => normalizeStats({ errors: [{ message: "denied" }] }, new Date()),
-    /query failed/
-  );
+test("page-view requests increment and persist the total", async () => {
+  const state = createState();
+  const counter = new PageViewCounter(state, { INITIAL_TOTAL_PAGE_VIEWS: "18" });
+  const first = await counter.fetch(new Request("https://counter.invalid/pageview", { method: "POST" }));
+  const second = await counter.fetch(new Request("https://counter.invalid/pageview", { method: "POST" }));
+
+  assert.deepEqual(await first.json(), { totalPageViews: 19 });
+  assert.deepEqual(await second.json(), { totalPageViews: 20 });
+  assert.equal(state.values.get(COUNTER_STORAGE_KEY), 20);
+});
+
+test("stored totals take precedence over the historical baseline", async () => {
+  const state = createState([[COUNTER_STORAGE_KEY, 41]]);
+  const counter = new PageViewCounter(state, { INITIAL_TOTAL_PAGE_VIEWS: "18" });
+  const response = await counter.fetch(new Request("https://counter.invalid/pageview", { method: "POST" }));
+
+  assert.deepEqual(await response.json(), { totalPageViews: 42 });
+});
+
+test("invalid historical totals fall back to zero", async () => {
+  const state = createState();
+  const counter = new PageViewCounter(state, { INITIAL_TOTAL_PAGE_VIEWS: "invalid" });
+  const response = await counter.fetch(new Request("https://counter.invalid/stats"));
+
+  assert.deepEqual(await response.json(), { totalPageViews: 0 });
+});
+
+test("unknown counter routes return 404", async () => {
+  const counter = new PageViewCounter(createState(), { INITIAL_TOTAL_PAGE_VIEWS: "18" });
+  const response = await counter.fetch(new Request("https://counter.invalid/unknown"));
+
+  assert.equal(response.status, 404);
 });

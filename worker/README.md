@@ -1,16 +1,13 @@
-# Public site statistics Worker
+# Public page-view counter Worker
 
-This Worker exposes only the cumulative page-view count from Cloudflare Web Analytics. The count starts at the site's analytics launch date. The Cloudflare Analytics API token remains encrypted as a Worker secret and is never sent to the website.
+This Worker exposes the cumulative page-view count shown in the site footer. A Durable Object stores one integer only: no IP address, user agent, cookie, or page content is retained. `INITIAL_TOTAL_PAGE_VIEWS` preserves the count that existed before the counter was made immediate.
 
-Required secrets:
+Endpoints:
 
-```powershell
-npx wrangler secret put CF_ANALYTICS_TOKEN
-```
+- `POST /pageview` records one page load and returns the new total. The request must come from an origin listed in `ALLOWED_ORIGINS`.
+- `GET /stats` returns the current total and is safe to poll from the site.
 
-Create `CF_ANALYTICS_TOKEN` with only `Account → Account Analytics → Read` access, restricted to the account that owns the Web Analytics site.
-
-`CF_RUM_SITE_TAG` is the `siteTag` dimension returned by `rumPageloadEventsAdaptiveGroups`. It is not the public beacon token embedded in the page.
+Cloudflare Web Analytics remains enabled separately for anonymous aggregate analysis. It is not used as the live footer counter, because RUM data can arrive later than the page load and its GraphQL result can be cached at the edge.
 
 Deploy:
 
@@ -20,4 +17,4 @@ npm test
 npm run deploy
 ```
 
-The public endpoint is `https://<worker-host>/stats`. Responses use a one-minute shared cache, are not retained by browsers, and restrict CORS to the production site and local preview origins. Cloudflare Web Analytics ingestion may add a short delay before a new page view appears.
+The public endpoint is `https://<worker-host>/stats`. Both endpoints return `Cache-Control: no-store`; the page-view request is deliberately a `POST` so ordinary browser caching and speculative prefetching cannot create stale or accidental counts.

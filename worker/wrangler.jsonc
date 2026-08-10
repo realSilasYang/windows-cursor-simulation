@@ -6,9 +6,22 @@
   "observability": {
     "enabled": true
   },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "PAGE_VIEW_COUNTER",
+        "class_name": "PageViewCounter"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["PageViewCounter"]
+    }
+  ],
   "vars": {
-    "CF_ACCOUNT_ID": "665544907ddd72a378d40bb9c1a23b4f",
-    "CF_RUM_SITE_TAG": "a515b688f3fa477ca71304343e171f68",
-    "ALLOWED_ORIGINS": "https://realsilasyang.github.io,http://127.0.0.1:8127,http://localhost:8127"
+    "INITIAL_TOTAL_PAGE_VIEWS": "18",
+    "ALLOWED_ORIGINS": "https://realsilasyang.github.io,http://127.0.0.1:8127,http://localhost:8127,http://127.0.0.1:8128,http://localhost:8128"
   }
 }

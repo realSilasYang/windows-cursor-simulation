@@ -2,7 +2,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#25262b">
+  <meta name="theme-color" content="#33343a">
   <script id="themeBootstrap">
     (() => {
       const key = "windows-cursor-simulation.theme";
@@ -17,7 +17,7 @@
       const resolved = preference === "auto" ? (systemDark ? "dark" : "light") : preference;
       document.documentElement.dataset.themePreference = preference;
       document.documentElement.dataset.theme = resolved;
-      document.querySelector('meta[name="theme-color"]').content = resolved === "dark" ? "#25262b" : "#ffffff";
+      document.querySelector('meta[name="theme-color"]').content = resolved === "dark" ? "#33343a" : "#ffffff";
     })();
   </script>
   <meta name="application-name" content="Windows Cursor Simulation">
@@ -64,32 +64,32 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #1d1e22;
-      --chrome: #25262b;
-      --surface: #2c2d32;
-      --surface-raised: #35363c;
-      --border: #454750;
-      --border-strong: #626571;
-      --text: #f5f5f7;
-      --muted: #c3c3c9;
-      --quiet: #999aa3;
-      --teal: #67dbc1;
-      --teal-soft: #254a41;
-      --system-soft: #243f52;
-      --system-border: #416c88;
-      --system-text: #9bd2ff;
-      --amber-soft: #4b3c20;
-      --focus: #91ead6;
-      --selected-text: #c7f3e8;
-      --tab-border: #285849;
-      --tab-text: #a9eadb;
-      --css-border: #604d24;
-      --css-text: #f0c978;
-      --code-text: #b9c3c1;
-      --toolbar-bg: rgba(29, 30, 34, 0.94);
-      --focus-shadow: rgba(140, 226, 208, 0.16);
-      --menu-shadow: rgba(0, 0, 0, 0.34);
-      --clear-hover-border: #53736d;
+      --bg: #303137;
+      --chrome: #3b3c43;
+      --surface: #47484f;
+      --surface-raised: #53545c;
+      --border: #686a73;
+      --border-strong: #84868f;
+      --text: #fffaf5;
+      --muted: #e1d9d2;
+      --quiet: #bcb4ad;
+      --accent: #e5a67b;
+      --accent-soft: #68493a;
+      --system-soft: #634440;
+      --system-border: #a26c60;
+      --system-text: #ffd0c5;
+      --amber-soft: #66542c;
+      --focus: #ffd0a8;
+      --selected-text: #ffe0cb;
+      --tab-border: #a56e50;
+      --tab-text: #ffc19d;
+      --css-border: #927538;
+      --css-text: #ffdc7d;
+      --code-text: #e0d2c6;
+      --toolbar-bg: rgba(48, 49, 55, 0.94);
+      --focus-shadow: rgba(229, 166, 123, 0.18);
+      --menu-shadow: rgba(0, 0, 0, 0.28);
+      --clear-hover-border: #a17158;
       --radius: 7px;
       --content-width: 1540px;
       --footer-height: 38px;
@@ -106,23 +106,23 @@
       --text: #1d2426;
       --muted: #596468;
       --quiet: #727d82;
-      --teal: #087d69;
-      --teal-soft: #d9f1eb;
-      --system-soft: #e4f1fb;
-      --system-border: #83b9dc;
-      --system-text: #155f8c;
+      --accent: #a4522e;
+      --accent-soft: #f7e3d6;
+      --system-soft: #f4e1df;
+      --system-border: #c98d84;
+      --system-text: #8f3f35;
       --amber-soft: #fff2d2;
-      --focus: #0a806d;
-      --selected-text: #075f51;
-      --tab-border: #72ad9f;
-      --tab-text: #086b5b;
+      --focus: #a4522e;
+      --selected-text: #783719;
+      --tab-border: #c68663;
+      --tab-text: #8f4426;
       --css-border: #d3aa50;
       --css-text: #76540a;
-      --code-text: #3f5752;
+      --code-text: #66574f;
       --toolbar-bg: rgba(245, 247, 248, 0.94);
-      --focus-shadow: rgba(10, 128, 109, 0.18);
+      --focus-shadow: rgba(164, 82, 46, 0.18);
       --menu-shadow: rgba(28, 39, 42, 0.18);
-      --clear-hover-border: #69a397;
+      --clear-hover-border: #b2765a;
     }
 
     * {
@@ -163,8 +163,7 @@
 
     .header-inner,
     .toolbar-inner,
-    .main-inner,
-    .footer-inner {
+    .main-inner {
       width: min(100% - 40px, var(--content-width));
       margin-inline: auto;
     }
@@ -173,9 +172,9 @@
       display: grid;
       min-height: 96px;
       align-items: center;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 24px;
-      padding-block: 18px;
+      padding-block: 12px;
     }
 
     .title-block {
@@ -202,12 +201,14 @@
 
     .preference-controls {
       display: flex;
-      grid-column: 3;
+      flex-direction: row;
+      grid-column: 2;
       align-items: center;
       gap: 8px;
       justify-self: end;
     }
 
+    .knowledge-control,
     .language-control,
     .theme-control {
       position: relative;
@@ -223,7 +224,7 @@
       padding: 0;
       border: 0;
       background: transparent;
-      color: var(--teal);
+      color: var(--accent);
       cursor: pointer;
     }
 
@@ -296,7 +297,7 @@
 
     .menu-option[aria-checked="true"],
     .language-option[aria-checked="true"] {
-      background: var(--teal-soft);
+      background: var(--accent-soft);
       color: var(--selected-text);
     }
 
@@ -304,46 +305,479 @@
     .language-option[aria-checked="true"]::after {
       flex: 0 0 auto;
       content: "✓";
-      color: var(--teal);
+      color: var(--accent);
       font-weight: 700;
     }
 
-    .header-status {
-      display: grid;
-      grid-column: 2;
-      grid-template-columns: repeat(3, auto);
-      justify-self: center;
+    .knowledge-dialog {
+      width: min(calc(100% - 32px), 960px);
+      max-height: min(88vh, 820px);
+      grid-template-rows: auto minmax(0, 1fr);
       overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      opacity: 0;
+      padding: 0;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 20px 56px var(--menu-shadow);
+      transform: translateY(14px) scale(0.985);
+      transition: opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .knowledge-dialog[open] {
+      display: grid;
+    }
+
+    .knowledge-dialog[open].is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .knowledge-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.58);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .knowledge-dialog.is-visible::backdrop {
+      opacity: 1;
+    }
+
+    .knowledge-dialog-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 18px;
+      padding: 22px 24px 16px;
       background: var(--surface);
     }
 
-    .status-item {
-      min-width: 102px;
-      padding: 8px 11px;
+    .knowledge-dialog-header h2 {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.3;
     }
 
-    .status-item + .status-item {
-      border-left: 1px solid var(--border);
+    .knowledge-intro {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
     }
 
-    .status-label,
-    .status-value {
+    .dialog-close-button {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .dialog-close-button:hover {
+      color: var(--text);
+    }
+
+    .dialog-close-button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .knowledge-content {
+      min-height: 0;
+      overflow-y: auto;
+      padding: 0 24px 26px;
+    }
+
+    .guide-nav {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      margin: 0 -24px 24px;
+      padding: 10px 24px;
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+      backdrop-filter: blur(10px);
+      scroll-behavior: smooth;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+    }
+
+    .guide-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .guide-nav button {
+      flex: 0 0 auto;
+      min-height: 32px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--surface-raised);
+      color: var(--quiet);
+      padding: 5px 11px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1.35;
+      scroll-snap-align: center;
+      text-align: center;
+      white-space: nowrap;
+      transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+    }
+
+    .guide-nav button:hover,
+    .guide-nav button:focus-visible {
+      border-color: var(--border-strong);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .guide-nav button[aria-current="true"] {
+      border-color: var(--tab-border);
+      background: var(--accent-soft);
+      color: var(--tab-text);
+    }
+
+    .guide-nav button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .knowledge-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding-block: 12px 18px;
+    }
+
+    .knowledge-fact {
+      min-width: 0;
+      text-align: center;
+    }
+
+    .knowledge-fact strong,
+    .knowledge-fact span {
       display: block;
     }
 
-    .status-label {
-      color: var(--quiet);
-      font-size: 11px;
-      text-transform: uppercase;
+    .knowledge-fact strong {
+      color: var(--accent);
+      font-size: 26px;
+      line-height: 1.2;
     }
 
-    .status-value {
-      margin-top: 2px;
-      color: var(--teal);
+    .knowledge-fact span {
+      margin-top: 4px;
+      color: var(--quiet);
       font-size: 13px;
+    }
+
+    .knowledge-section + .knowledge-section {
+      margin-top: 34px;
+    }
+
+    .knowledge-section {
+      scroll-margin-top: 58px;
+    }
+
+    .knowledge-section h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .knowledge-section > p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .guide-prose {
+      margin-top: 10px;
+    }
+
+    .guide-prose p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.78;
+    }
+
+    .guide-prose p + p {
+      margin-top: 10px;
+    }
+
+    .concept-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 28px;
+      margin: 18px 0 0;
+    }
+
+    .concept-item {
+      min-width: 0;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .concept-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 15px;
       font-weight: 650;
+      list-style: none;
+    }
+
+    .concept-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .concept-item summary::after {
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      color: var(--accent);
+      content: "+";
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      text-align: center;
+    }
+
+    .concept-item[open] summary::after {
+      content: "−";
+    }
+
+    .concept-item dd {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.68;
+    }
+
+    .pointer-journey {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: journey;
+    }
+
+    .pointer-journey li {
+      position: relative;
+      min-width: 0;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-strong);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1.55;
+      counter-increment: journey;
+      transition: color 150ms ease, transform 150ms ease;
+    }
+
+    .pointer-journey li:hover,
+    .pointer-journey li:focus-visible,
+    .pointer-journey li.is-active {
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .pointer-journey li:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 4px;
+    }
+
+    .pointer-journey li::before {
+      display: block;
+      margin-bottom: 7px;
+      content: "0" counter(journey);
+      color: var(--accent);
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pointer-journey li.is-active::before {
+      color: var(--tab-text);
+    }
+
+    .pointer-journey li.is-active {
+      border-top-color: var(--accent);
+      border-radius: 6px;
+      background: var(--accent-soft);
+      padding-inline: 10px;
+    }
+
+    .guide-topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 28px;
+      margin-top: 16px;
+    }
+
+    .guide-topic {
+      min-width: 0;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .guide-topic h4,
+    .knowledge-subsection h4 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .guide-topic p,
+    .knowledge-subsection > p,
+    .browser-explanation p,
+    .troubleshooting-list p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .knowledge-subsection {
+      margin-top: 24px;
+    }
+
+    .browser-explanation {
+      margin-top: 12px;
+    }
+
+    .browser-explanation p + p {
+      margin-top: 10px;
+    }
+
+    .troubleshooting-list {
+      margin-top: 14px;
+    }
+
+    .troubleshooting-list details {
+      border-top: 1px dashed var(--border);
+    }
+
+    .troubleshooting-list details:last-child {
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .troubleshooting-list summary {
+      padding: 12px 28px 12px 0;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .troubleshooting-list details[open] summary {
+      color: var(--accent);
+    }
+
+    .troubleshooting-list p {
+      padding: 0 0 15px;
+    }
+
+    .knowledge-entry-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px 22px;
+      margin: 15px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .knowledge-entry {
+      display: flex;
+      min-width: 0;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .knowledge-entry code,
+    .knowledge-keywords code {
+      color: var(--code-text);
+      font-family: Consolas, "Cascadia Mono", monospace;
+    }
+
+    .knowledge-entry span {
+      overflow: hidden;
+      color: var(--quiet);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .knowledge-mapping-list .knowledge-entry {
+      justify-content: flex-start;
+    }
+
+    .knowledge-mapping-arrow {
+      flex: 0 0 auto;
+      color: var(--quiet);
+    }
+
+    .knowledge-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .knowledge-keywords code {
+      padding: 3px 6px;
+      border-radius: 4px;
+      background: var(--surface-raised);
+      font-size: 12px;
+    }
+
+    .knowledge-keyword-pair {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--surface-raised);
+      color: var(--quiet);
+      font-size: 12px;
+    }
+
+    .knowledge-keyword-pair code {
+      padding: 0;
+      background: transparent;
+    }
+
+    .knowledge-points {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .knowledge-points li + li {
+      margin-top: 7px;
     }
 
     .toolbar {
@@ -421,7 +855,7 @@
 
     .tab-button[aria-selected="true"] {
       border-color: var(--tab-border);
-      background: var(--teal-soft);
+      background: var(--accent-soft);
       color: var(--tab-text);
     }
 
@@ -474,21 +908,32 @@
     }
 
     .cursor-card {
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+      position: relative;
       display: grid;
       min-width: 0;
       min-height: 104px;
       grid-template-rows: 1fr auto;
       overflow: hidden;
+      isolation: isolate;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--surface);
       cursor: var(--cursor, default);
-      transition: border-color 140ms ease, background-color 140ms ease;
+      transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+      transform-style: preserve-3d;
+      transition: transform 160ms cubic-bezier(0.2, 0.75, 0.25, 1), border-color 140ms ease, background-color 140ms ease;
     }
 
     .cursor-card:hover {
       border-color: var(--border-strong);
       background: var(--surface-raised);
+    }
+
+    .cursor-card.is-tilting {
+      z-index: 2;
+      will-change: transform;
     }
 
     .card-header {
@@ -500,26 +945,37 @@
     }
 
     .card-title {
-      min-width: 0;
+      display: contents;
     }
 
     .card-title h2 {
+      grid-column: 1;
+      grid-row: 1;
       overflow-wrap: anywhere;
       margin: 0;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 650;
       line-height: 1.3;
     }
 
     .card-title p {
-      margin: 4px 0 0;
+      grid-column: 1 / -1;
+      grid-row: 2;
+      margin: 5px 0 0;
+      overflow: hidden;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.45;
-      overflow-wrap: anywhere;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .role-type {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      justify-self: end;
       min-width: 50px;
       border: 1px solid var(--system-border);
       border-radius: 4px;
@@ -591,7 +1047,7 @@
 
     .clear-button:hover {
       border-color: var(--clear-hover-border);
-      background: var(--teal-soft);
+      background: var(--accent-soft);
     }
 
     .app-footer {
@@ -601,16 +1057,21 @@
       bottom: 0;
       left: 0;
       height: var(--footer-height);
-      background: var(--chrome);
+      background: transparent;
       color: var(--quiet);
     }
 
     .footer-inner {
       display: grid;
+      width: 100%;
       height: 100%;
       align-items: center;
       grid-template-columns: minmax(0, 1fr) auto auto;
       gap: 20px;
+      margin: 0;
+      padding-inline: max(16px, calc((100% - var(--content-width)) / 2 + 16px));
+      border-radius: var(--radius) var(--radius) 0 0;
+      background: var(--chrome);
       font-size: 12px;
     }
 
@@ -631,15 +1092,14 @@
         grid-template-columns: 1fr;
         justify-content: center;
         gap: 2px;
-        padding-block: 8px;
+        padding: 8px 12px;
       }
     }
 
     @media (max-width: 640px) {
       .header-inner,
       .toolbar-inner,
-      .main-inner,
-      .footer-inner {
+      .main-inner {
         width: min(100% - 24px, var(--content-width));
       }
 
@@ -652,7 +1112,7 @@
       }
 
       h1 {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .preference-controls {
@@ -660,15 +1120,36 @@
         grid-row: 1;
       }
 
-      .header-status {
-        grid-column: 1 / -1;
-        width: 100%;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .knowledge-dialog {
+        width: min(calc(100% - 16px), 880px);
+        max-height: 90vh;
       }
 
-      .status-item {
-        min-width: 0;
-        padding-inline: 9px;
+      .knowledge-dialog-header {
+        padding: 18px 18px 14px;
+      }
+
+      .knowledge-content {
+        padding: 0 18px 22px;
+      }
+
+      .guide-nav {
+        margin-inline: -18px;
+        padding-inline: 18px;
+      }
+
+      .knowledge-facts {
+        gap: 8px;
+      }
+
+      .knowledge-fact strong {
+        font-size: 19px;
+      }
+
+      .pointer-journey,
+      .guide-topic-grid,
+      .concept-list {
+        grid-template-columns: 1fr;
       }
 
       .toolbar {
@@ -710,21 +1191,14 @@
         <p class="subtitle" id="appSubtitle">当前系统方案 · 浏览器实时渲染</p>
       </div>
       <div class="header-actions">
-        <div class="header-status" id="headerStatus" aria-label="资源状态">
-          <div class="status-item">
-            <span class="status-label" id="systemRolesLabel">系统角色</span>
-            <span class="status-value" id="systemRoles">13</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label" id="cssStatesLabel">CSS 状态</span>
-            <span class="status-value" id="cssStates">23</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label" id="platformLabel">运行平台</span>
-            <span class="status-value" id="platformValue">Windows</span>
-          </div>
-        </div>
         <div class="preference-controls">
+          <div class="knowledge-control">
+            <button class="preference-button knowledge-button" id="knowledgeButton" type="button" aria-haspopup="dialog" aria-controls="knowledgeDialog" aria-label="打开 Windows 鼠标指针指南" title="打开 Windows 鼠标指针指南">
+              <svg class="preference-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true">
+                <path d="M2.8 5.1a2.2 2.2 0 0 1 2.2-2.2h4.1a3.1 3.1 0 0 1 2.9 1.9 3.1 3.1 0 0 1 2.9-1.9H19a2.2 2.2 0 0 1 2.2 2.2v13.6a1.2 1.2 0 0 1-1.5 1.2l-1.2-.3a14.4 14.4 0 0 0-3.6-.5 3.1 3.1 0 0 0-2.9 1.9 3.1 3.1 0 0 0-2.9-1.9 14.4 14.4 0 0 0-3.6.5l-1.2.3a1.2 1.2 0 0 1-1.5-1.2zM12 4.8v16.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
           <div class="language-control">
             <button class="preference-button language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="languageMenu" aria-label="选择语言" title="选择语言">
               <svg class="preference-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-hidden="true">
@@ -801,9 +1275,98 @@
     </div>
   </header>
 
+  <dialog class="knowledge-dialog" id="knowledgeDialog" aria-labelledby="knowledgeTitle" aria-describedby="knowledgeIntro">
+    <header class="knowledge-dialog-header">
+      <div>
+        <h2 id="knowledgeTitle">Windows 鼠标指针指南</h2>
+      </div>
+      <button class="dialog-close-button" id="knowledgeCloseButton" type="button" aria-label="关闭" title="关闭">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </header>
+    <div class="knowledge-content">
+      <p class="knowledge-intro" id="knowledgeIntro"></p>
+      <nav class="guide-nav" id="guideNav" aria-label="指南章节"></nav>
+
+      <section class="knowledge-section" id="guide-foundation" aria-labelledby="foundationTitle">
+        <h3 id="foundationTitle"></h3>
+        <div class="guide-prose" id="foundationParagraphs"></div>
+        <dl class="concept-list" id="conceptList"></dl>
+      </section>
+
+      <section class="knowledge-section" id="guide-journey" aria-labelledby="journeyTitle">
+        <h3 id="journeyTitle"></h3>
+        <p id="journeyIntro"></p>
+        <ol class="pointer-journey" id="pointerJourney"></ol>
+      </section>
+
+      <section class="knowledge-section" id="guide-files" aria-labelledby="fileTitle">
+        <h3 id="fileTitle"></h3>
+        <div class="guide-topic-grid" id="fileTopics"></div>
+      </section>
+
+      <section class="knowledge-section" id="guide-install" aria-labelledby="installTitle">
+        <h3 id="installTitle"></h3>
+        <div class="guide-topic-grid" id="installTopics"></div>
+      </section>
+
+      <section class="knowledge-section" id="guide-windows" aria-labelledby="systemChapterTitle">
+        <h3 id="systemChapterTitle"></h3>
+        <div class="knowledge-subsection">
+          <h4 id="windowsEntriesTitle"></h4>
+          <p id="windowsEntriesDescription"></p>
+          <ul class="knowledge-entry-list" id="windowsEntryList"></ul>
+        </div>
+        <div class="knowledge-subsection">
+          <h4 id="windowsOnlyTitle"></h4>
+          <p id="windowsOnlyDescription"></p>
+          <div class="knowledge-keywords" id="windowsOnlyList"></div>
+        </div>
+      </section>
+
+      <section class="knowledge-section" id="guide-display" aria-labelledby="displayTitle">
+        <h3 id="displayTitle"></h3>
+        <p id="displayIntro"></p>
+        <ul class="knowledge-points" id="displayPoints"></ul>
+      </section>
+
+      <section class="knowledge-section" id="guide-browser" aria-labelledby="browserTitle">
+        <h3 id="browserTitle"></h3>
+        <div class="browser-explanation">
+          <p id="browserExplanationOne"></p>
+          <p id="browserExplanationTwo"></p>
+        </div>
+        <div class="knowledge-facts" id="knowledgeFacts"></div>
+        <div class="knowledge-subsection">
+          <h4 id="directMappingsTitle"></h4>
+          <p id="directMappingsDescription"></p>
+          <ul class="knowledge-entry-list knowledge-mapping-list" id="directMappingList"></ul>
+        </div>
+        <div class="knowledge-subsection">
+          <h4 id="cssOnlyTitle"></h4>
+          <p id="cssOnlyDescription"></p>
+          <div class="knowledge-keywords" id="cssOnlyList"></div>
+        </div>
+      </section>
+
+      <section class="knowledge-section" id="guide-design" aria-labelledby="designTitle">
+        <h3 id="designTitle"></h3>
+        <p id="designIntro"></p>
+        <ul class="knowledge-points" id="designPoints"></ul>
+      </section>
+
+      <section class="knowledge-section" id="guide-troubleshooting" aria-labelledby="troubleshootingTitle">
+        <h3 id="troubleshootingTitle"></h3>
+        <div class="troubleshooting-list" id="troubleshootingList"></div>
+      </section>
+    </div>
+  </dialog>
+
   <div class="toolbar">
     <div class="toolbar-inner">
-      <input class="search-field" id="searchInput" type="search" placeholder="搜索名称、系统角色或 CSS 值" autocomplete="off" aria-label="搜索指针样式">
+      <input class="search-field" id="searchInput" type="search" placeholder="搜索名称、Windows 对应项或 CSS 值" autocomplete="off" aria-label="搜索指针样式">
       <div class="filter-tabs" id="filterTabs" role="tablist" aria-label="指针样式分类">
         <button class="tab-button" type="button" role="tab" data-category="all" aria-selected="true">全部</button>
         <button class="tab-button" type="button" role="tab" data-category="standard" aria-selected="false">常规</button>
@@ -1333,7 +1896,7 @@
   <footer class="app-footer">
     <div class="footer-inner">
       <span id="footerSpec">光标关键字依据 <strong>CSS Basic User Interface Module Level 4</strong> 规范</span>
-      <span id="footerCounts">13 种系统角色 · 23 种 CSS 状态</span>
+      <span id="footerCounts">13 个 Windows 对应项 · 23 种 CSS 扩展状态</span>
       <span class="footer-page-views" id="footerPageViews" aria-live="polite" hidden="">总浏览量：0</span>
     </div>
   </footer>
@@ -1378,6 +1941,14 @@
       { id: "zoomOut", role: "zoom-out", css: "zoom-out", category: "extended", source: "css" }
     ];
 
+    const windowsCursorEntries = [
+      "Arrow", "Help", "AppStarting", "Wait", "Crosshair", "IBeam", "NWPen", "No", "SizeNS",
+      "SizeWE", "SizeNWSE", "SizeNESW", "SizeAll", "UpArrow", "Hand", "Pin", "Person"
+    ];
+    const directCursorMappings = cursorDefinitions.filter((cursor) => cursor.source === "system");
+    const windowsOnlyEntries = ["NWPen", "UpArrow", "Pin", "Person"];
+    const cssOnlyKeywords = cursorDefinitions.filter((cursor) => cursor.source === "css").map((cursor) => cursor.css);
+
     const categoryIds = ["standard", "text", "move", "resize", "extended"];
 
     const localeOptions = [
@@ -1411,9 +1982,7 @@
           themeAuto: "自动（跟随系统）",
           themeDark: "深色",
           themeLight: "浅色",
-          statusAria: "资源状态",
-          status: ["系统角色", "CSS 状态", "运行平台"],
-          searchPlaceholder: "搜索名称、系统角色或 CSS 值",
+          searchPlaceholder: "搜索名称、Windows 对应项或 CSS 值",
           searchAria: "搜索指针样式",
           filtersAria: "指针样式分类",
           tabs: ["全部", "常规", "文本", "移动", "调整大小", "视图缩放"],
@@ -1426,7 +1995,7 @@
           cardAria: "{name}，cursor：{css}",
           footerSpec: "光标关键字依据 {spec} 规范",
           totalPageViews: "总浏览量：{count}",
-          footerCounts: "{system} 种系统角色 · {css} 种 CSS 状态"
+          footerCounts: "{system} 个 Windows 对应项 · {css} 种 CSS 扩展状态"
         },
         cursors: [
           ["自动判定", "根据当前元素自动选择"],
@@ -1479,9 +2048,7 @@
           themeAuto: "自動（跟隨系統）",
           themeDark: "深色",
           themeLight: "淺色",
-          statusAria: "資源狀態",
-          status: ["系統角色", "CSS 狀態", "執行平台"],
-          searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
+          searchPlaceholder: "搜尋名稱、Windows 對應項目或 CSS 值",
           searchAria: "搜尋指標樣式",
           filtersAria: "指標樣式分類",
           tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
@@ -1494,7 +2061,7 @@
           cardAria: "{name}，cursor：{css}",
           footerSpec: "指標關鍵字依據 {spec} 規範",
           totalPageViews: "總瀏覽量：{count}",
-          footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
+          footerCounts: "{system} 個 Windows 對應項目 · {css} 種 CSS 延伸狀態"
         },
         cursors: [
           ["自動判斷", "按目前元素由瀏覽器自動選擇"],
@@ -1547,9 +2114,7 @@
           themeAuto: "自動（跟隨系統）",
           themeDark: "深色",
           themeLight: "淺色",
-          statusAria: "資源狀態",
-          status: ["系統角色", "CSS 狀態", "執行平台"],
-          searchPlaceholder: "搜尋名稱、系統角色或 CSS 值",
+          searchPlaceholder: "搜尋名稱、Windows 對應項目或 CSS 值",
           searchAria: "搜尋游標樣式",
           filtersAria: "游標樣式分類",
           tabs: ["全部", "一般", "文字", "移動", "調整大小", "檢視縮放"],
@@ -1562,7 +2127,7 @@
           cardAria: "{name}，cursor：{css}",
           footerSpec: "游標關鍵字依據 {spec} 規範",
           totalPageViews: "總瀏覽量：{count}",
-          footerCounts: "{system} 種系統角色 · {css} 種 CSS 狀態"
+          footerCounts: "{system} 個 Windows 對應項目 · {css} 種 CSS 擴充狀態"
         },
         cursors: [
           ["自動選擇", "依目前元素由瀏覽器自動選擇"],
@@ -1615,9 +2180,7 @@
           themeAuto: "Automatic (follow system)",
           themeDark: "Dark",
           themeLight: "Light",
-          statusAria: "Resource status",
-          status: ["System roles", "CSS states", "Platform"],
-          searchPlaceholder: "Search by name, system role, or CSS value",
+          searchPlaceholder: "Search by name, Windows mapping, or CSS value",
           searchAria: "Search pointer styles",
           filtersAria: "Pointer style categories",
           tabs: ["All", "General", "Text", "Move", "Resize", "View zoom"],
@@ -1630,7 +2193,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Cursor keywords follow the {spec} specification",
           totalPageViews: "Total page views: {count}",
-          footerCounts: "{system} system roles · {css} CSS states"
+          footerCounts: "{system} Windows mappings · {css} additional CSS states"
         },
         cursors: [
           ["Automatic", "Let the browser choose for the current element"],
@@ -1683,9 +2246,7 @@
           themeAuto: "自動（システム設定に合わせる）",
           themeDark: "ダーク",
           themeLight: "ライト",
-          statusAria: "リソースの状態",
-          status: ["システムの役割", "CSS の状態", "実行環境"],
-          searchPlaceholder: "名前、システムの役割、CSS 値を検索",
+          searchPlaceholder: "名前、Windows 対応項目、CSS 値を検索",
           searchAria: "ポインター形式を検索",
           filtersAria: "ポインター形式の分類",
           tabs: ["すべて", "一般", "テキスト", "移動", "サイズ変更", "表示倍率"],
@@ -1698,7 +2259,7 @@
           cardAria: "{name}、cursor: {css}",
           footerSpec: "カーソルキーワードは {spec} 仕様に準拠",
           totalPageViews: "総ページビュー数：{count}",
-          footerCounts: "システムの役割 {system} 種類 · CSS 状態 {css} 種類"
+          footerCounts: "Windows 対応項目 {system} 種類 · CSS 拡張状態 {css} 種類"
         },
         cursors: [
           ["自動選択", "要素に応じてブラウザーが自動で選択"],
@@ -1751,9 +2312,7 @@
           themeAuto: "Tự động (theo hệ thống)",
           themeDark: "Tối",
           themeLight: "Sáng",
-          statusAria: "Trạng thái tài nguyên",
-          status: ["Vai trò hệ thống", "Trạng thái CSS", "Nền tảng"],
-          searchPlaceholder: "Tìm theo tên, vai trò hệ thống hoặc giá trị CSS",
+          searchPlaceholder: "Tìm theo tên, ánh xạ Windows hoặc giá trị CSS",
           searchAria: "Tìm kiểu con trỏ",
           filtersAria: "Danh mục kiểu con trỏ",
           tabs: ["Tất cả", "Chung", "Văn bản", "Di chuyển", "Đổi kích thước", "Thu phóng"],
@@ -1766,7 +2325,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Các từ khóa con trỏ tuân theo đặc tả {spec}",
           totalPageViews: "Tổng lượt xem trang: {count}",
-          footerCounts: "{system} vai trò hệ thống · {css} trạng thái CSS"
+          footerCounts: "{system} ánh xạ Windows · {css} trạng thái CSS mở rộng"
         },
         cursors: [
           ["Tự động", "Để trình duyệt tự chọn theo phần tử hiện tại"],
@@ -1819,9 +2378,7 @@
           themeAuto: "자동(시스템 설정 사용)",
           themeDark: "어둡게",
           themeLight: "밝게",
-          statusAria: "리소스 상태",
-          status: ["시스템 역할", "CSS 상태", "플랫폼"],
-          searchPlaceholder: "이름, 시스템 역할 또는 CSS 값 검색",
+          searchPlaceholder: "이름, Windows 대응 항목 또는 CSS 값 검색",
           searchAria: "포인터 스타일 검색",
           filtersAria: "포인터 스타일 분류",
           tabs: ["전체", "일반", "텍스트", "이동", "크기 조절", "화면 확대/축소"],
@@ -1834,7 +2391,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "커서 키워드는 {spec} 사양을 따릅니다",
           totalPageViews: "총 페이지 조회 수: {count}",
-          footerCounts: "시스템 역할 {system}개 · CSS 상태 {css}개"
+          footerCounts: "Windows 대응 항목 {system}개 · 추가 CSS 상태 {css}개"
         },
         cursors: [
           ["자동 선택", "현재 요소에 맞게 브라우저가 자동 선택"],
@@ -1887,9 +2444,7 @@
           themeAuto: "Automático (según el sistema)",
           themeDark: "Oscuro",
           themeLight: "Claro",
-          statusAria: "Estado de los recursos",
-          status: ["Roles del sistema", "Estados CSS", "Plataforma"],
-          searchPlaceholder: "Buscar por nombre, rol del sistema o valor CSS",
+          searchPlaceholder: "Buscar por nombre, correspondencia con Windows o valor CSS",
           searchAria: "Buscar estilos de puntero",
           filtersAria: "Categorías de estilos de puntero",
           tabs: ["Todos", "General", "Texto", "Movimiento", "Redimensionar", "Zoom"],
@@ -1902,7 +2457,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Las palabras clave de cursor siguen la especificación {spec}",
           totalPageViews: "Total de páginas vistas: {count}",
-          footerCounts: "{system} roles del sistema · {css} estados CSS"
+          footerCounts: "{system} correspondencias con Windows · {css} estados CSS adicionales"
         },
         cursors: [
           ["Selección automática", "El navegador elige según el elemento actual"],
@@ -1955,9 +2510,7 @@
           themeAuto: "Automatique (selon le système)",
           themeDark: "Sombre",
           themeLight: "Clair",
-          statusAria: "État des ressources",
-          status: ["Rôles système", "États CSS", "Plateforme"],
-          searchPlaceholder: "Rechercher par nom, rôle système ou valeur CSS",
+          searchPlaceholder: "Rechercher par nom, correspondance Windows ou valeur CSS",
           searchAria: "Rechercher des styles de pointeur",
           filtersAria: "Catégories de styles de pointeur",
           tabs: ["Tous", "Général", "Texte", "Déplacement", "Redimensionnement", "Zoom"],
@@ -1970,7 +2523,7 @@
           cardAria: "{name}, cursor : {css}",
           footerSpec: "Les mots-clés cursor suivent la spécification {spec}",
           totalPageViews: "Nombre total de pages vues : {count}",
-          footerCounts: "{system} rôles système · {css} états CSS"
+          footerCounts: "{system} correspondances Windows · {css} états CSS supplémentaires"
         },
         cursors: [
           ["Sélection automatique", "Le navigateur choisit selon l’élément survolé"],
@@ -2023,9 +2576,7 @@
           themeAuto: "Automático (seguir o sistema)",
           themeDark: "Escuro",
           themeLight: "Claro",
-          statusAria: "Status dos recursos",
-          status: ["Funções do sistema", "Estados CSS", "Plataforma"],
-          searchPlaceholder: "Buscar por nome, função do sistema ou valor CSS",
+          searchPlaceholder: "Buscar por nome, mapeamento do Windows ou valor CSS",
           searchAria: "Buscar estilos de ponteiro",
           filtersAria: "Categorias de estilos de ponteiro",
           tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionamento", "Zoom"],
@@ -2038,7 +2589,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
           totalPageViews: "Total de visualizações de página: {count}",
-          footerCounts: "{system} funções do sistema · {css} estados CSS"
+          footerCounts: "{system} mapeamentos do Windows · {css} estados CSS adicionais"
         },
         cursors: [
           ["Seleção automática", "O navegador escolhe conforme o elemento atual"],
@@ -2091,9 +2642,7 @@
           themeAuto: "Automático (seguir o sistema)",
           themeDark: "Escuro",
           themeLight: "Claro",
-          statusAria: "Estado dos recursos",
-          status: ["Funções do sistema", "Estados CSS", "Plataforma"],
-          searchPlaceholder: "Pesquisar por nome, função do sistema ou valor CSS",
+          searchPlaceholder: "Pesquisar por nome, mapeamento do Windows ou valor CSS",
           searchAria: "Pesquisar estilos de ponteiro",
           filtersAria: "Categorias de estilos de ponteiro",
           tabs: ["Todos", "Geral", "Texto", "Movimento", "Redimensionar", "Zoom"],
@@ -2106,7 +2655,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "As palavras-chave de cursor seguem a especificação {spec}",
           totalPageViews: "Total de visualizações de páginas: {count}",
-          footerCounts: "{system} funções do sistema · {css} estados CSS"
+          footerCounts: "{system} mapeamentos do Windows · {css} estados CSS adicionais"
         },
         cursors: [
           ["Seleção automática", "O navegador escolhe de acordo com o elemento atual"],
@@ -2159,9 +2708,7 @@
           themeAuto: "Автоматически (настройка системы)",
           themeDark: "Тёмная",
           themeLight: "Светлая",
-          statusAria: "Состояние ресурсов",
-          status: ["Системные роли", "Состояния CSS", "Платформа"],
-          searchPlaceholder: "Поиск по названию, системной роли или значению CSS",
+          searchPlaceholder: "Поиск по названию, сопоставлению с Windows или значению CSS",
           searchAria: "Поиск стилей указателя",
           filtersAria: "Категории стилей указателя",
           tabs: ["Все", "Основные", "Текст", "Перемещение", "Изменение размера", "Масштаб"],
@@ -2174,7 +2721,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Ключевые слова cursor соответствуют спецификации {spec}",
           totalPageViews: "Всего просмотров страниц: {count}",
-          footerCounts: "Системных ролей: {system} · состояний CSS: {css}"
+          footerCounts: "Сопоставлений с Windows: {system} · дополнительных состояний CSS: {css}"
         },
         cursors: [
           ["Автоматический выбор", "Браузер выбирает указатель для текущего элемента"],
@@ -2227,9 +2774,7 @@
           themeAuto: "Automatisch (Systemeinstellung)",
           themeDark: "Dunkel",
           themeLight: "Hell",
-          statusAria: "Ressourcenstatus",
-          status: ["Systemrollen", "CSS-Zustände", "Plattform"],
-          searchPlaceholder: "Nach Name, Systemrolle oder CSS-Wert suchen",
+          searchPlaceholder: "Nach Name, Windows-Zuordnung oder CSS-Wert suchen",
           searchAria: "Zeigerstile durchsuchen",
           filtersAria: "Kategorien der Zeigerstile",
           tabs: ["Alle", "Allgemein", "Text", "Bewegen", "Größe ändern", "Zoom"],
@@ -2242,7 +2787,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Die cursor-Schlüsselwörter entsprechen der Spezifikation {spec}",
           totalPageViews: "Seitenaufrufe insgesamt: {count}",
-          footerCounts: "{system} Systemrollen · {css} CSS-Zustände"
+          footerCounts: "{system} Windows-Zuordnungen · {css} zusätzliche CSS-Zustände"
         },
         cursors: [
           ["Automatische Auswahl", "Der Browser wählt passend zum aktuellen Element"],
@@ -2295,9 +2840,7 @@
           themeAuto: "Automatico (segui il sistema)",
           themeDark: "Scuro",
           themeLight: "Chiaro",
-          statusAria: "Stato delle risorse",
-          status: ["Ruoli di sistema", "Stati CSS", "Piattaforma"],
-          searchPlaceholder: "Cerca per nome, ruolo di sistema o valore CSS",
+          searchPlaceholder: "Cerca per nome, corrispondenza Windows o valore CSS",
           searchAria: "Cerca stili del puntatore",
           filtersAria: "Categorie degli stili del puntatore",
           tabs: ["Tutti", "Generali", "Testo", "Movimento", "Ridimensionamento", "Zoom"],
@@ -2310,7 +2853,7 @@
           cardAria: "{name}, cursor: {css}",
           footerSpec: "Le parole chiave cursor seguono la specifica {spec}",
           totalPageViews: "Visualizzazioni di pagina totali: {count}",
-          footerCounts: "{system} ruoli di sistema · {css} stati CSS"
+          footerCounts: "{system} corrispondenze Windows · {css} stati CSS aggiuntivi"
         },
         cursors: [
           ["Selezione automatica", "Il browser sceglie in base all’elemento corrente"],
@@ -2353,17 +2896,740 @@
       }
     };
 
+    const knowledgeMessages = {
+      "zh-CN": {
+        button: "打开 Windows 鼠标指针指南",
+        close: "关闭",
+        title: "Windows 鼠标指针指南",
+        intro: "移动鼠标时，屏幕上的指针会把手的动作变成可以看见的定位，也会用形状变化提示这里能够点击、输入、拖动还是调整大小。本指南从输入设备如何产生屏幕坐标讲起，再解释指针文件、Windows 方案、显示清晰度，以及网页为什么有时不会跟随系统。",
+        facts: ["Windows 固定位置", "能直接对应 CSS（层叠样式表）", "由浏览器处理的 CSS（层叠样式表）关键字"],
+        windowsTitle: "Windows 提供的 17 个固定位置",
+        windowsDescription: "这 17 个位置就是 Windows 指针方案的完整清单，也是系统设置允许你逐项更换的范围。下面保留注册表实际使用的英文代码，并在其后标明中文用途。",
+        mappingTitle: "其中 13 个能和 CSS（层叠样式表）直接对应",
+        mappingDescription: "浏览器读取 CSS（层叠样式表）的 cursor（光标）属性后，会把其中一部分含义交给 Windows 的固定位置处理。更换这 13 个位置时，使用相应含义的网页指针通常也会随之变化。",
+        windowsOnlyTitle: "Windows 多出的 4 个位置",
+        windowsOnlyDescription: "NWPen（手写）、UpArrow（其他选择）、Pin（位置选择）和 Person（人员选择）是 Windows 自己保留的项目。CSS（层叠样式表）没有对应的专属关键字，但桌面应用仍可通过系统接口调用。",
+        cssOnlyTitle: "由网页处理的 23 个 CSS（层叠样式表）关键字",
+        cssOnlyDescription: "这些关键字没有独立的 Windows 固定位置，浏览器会自行选择或绘制图形。例如 grab（抓取）和 grabbing（抓取中）表达的是网页交互状态，安装系统指针方案通常不会改变它们。",
+        notesTitle: "装好却没变化？从这里找答案",
+        windowsOnlyNames: { NWPen: "手写", UpArrow: "其他选择", Pin: "位置选择", Person: "人员选择" },
+        notes: [
+          "Windows 的指针方案只有上面这 17 个固定位置。INF（安装信息）文件可以复制 .cur（Windows 静态光标文件）和 .ani（Windows 动画光标文件），再把它们分配给已有位置，却不能创建第 18 个系统位置。",
+          "当前用户的指针设置保存在 HKCU\\Control Panel\\Cursors（当前用户的光标配置路径），命名方案保存在它的 Schemes（方案）子项中。安装只是把文件和方案登记到位，最后还要到 Windows 设置中选中并应用方案。",
+          ".cur（Windows 静态光标文件）保存静止图形，.ani（Windows 动画光标文件）保存连续动画；两者还会记录热点坐标，也就是系统真正执行点击的位置。热点写错时，图形看着正确，实际点击却会偏移。",
+          "清晰度取决于三个环节：文件是否包含合适的原生尺寸、当前 DPI（每英寸点数）是多少，以及图形在显示前经历了几次缩放。准备多种原生尺寸，通常比把一张小图硬拉大更清楚。",
+          "网页元素会通过 CSS（层叠样式表）的 cursor（光标）属性说明需要哪一种指针含义。遇到 grab（抓取）、grabbing（抓取中）或 zoom-in（放大）时，浏览器发现 Windows 指针方案没有对应的固定位置，便会使用自己的图形。因此，单独安装系统指针方案不会自动替换这些网页状态。",
+          "网页或扩展设置页可以使用 CSS（层叠样式表）的 url（资源地址）函数，明确提供指针文件、热点和备用关键字。资源必须能被页面访问并符合内容安全策略；普通网页或扩展不能借此修改 Firefox（火狐浏览器）的浏览器外壳和内部页面。",
+          "换完方案还看到旧图形？重新应用一次方案，再重启相关应用。正在运行的程序可能已经把系统指针缓存住了。"
+        ]
+      },
+      "zh-HK": {
+        button: "開啟 Windows 滑鼠指標指南",
+        close: "關閉",
+        title: "Windows 滑鼠指標指南",
+        intro: "為甚麼 Windows 設定只有 17 項，網頁上卻能看到 36 種指標？因為兩者採用相關但不同的清單。掌握這個分別，就更容易明白安裝後為何有些指標會改變、有些卻不會。",
+        facts: ["Windows 固定項目", "可直接對應 CSS", "由瀏覽器處理的 CSS 關鍵字"],
+        windowsTitle: "Windows 的 17 個可設定項目",
+        windowsDescription: "這些是 Windows 指標配置的固定項目，也是控制台可逐項指定的最大集合。項目名稱是系統內部採用的登錄值名稱。",
+        mappingTitle: "13 個直接對應關係",
+        mappingDescription: "瀏覽器要求這些 CSS 關鍵字時，Windows 通常會提供相應配置項目目前指定的指標。",
+        windowsOnlyTitle: "4 個只在 Windows 配置中存在的項目",
+        windowsOnlyDescription: "這些項目沒有專屬的 CSS cursor 預設關鍵字，但 Windows 應用程式仍可透過系統介面使用它們。",
+        cssOnlyTitle: "23 個沒有獨立 Windows 配置項目的 CSS 關鍵字",
+        cssOnlyDescription: "瀏覽器會自行選擇或繪製這些指標，因此更換 Windows 指標配置通常不會改變它們。",
+        notesTitle: "安裝、顯示與自訂要點",
+        windowsOnlyNames: { NWPen: "手寫", UpArrow: "其他選擇", Pin: "位置選擇", Person: "人物選擇" },
+        notes: [
+          "Windows 配置只有上述 17 個固定項目。INF 檔案可以複製 .cur、.ani 檔案並寫入這些項目，但不能建立第 18 個系統項目。",
+          "目前使用者的項目值位於 HKCU\\Control Panel\\Cursors；命名配置記錄位於其 Schemes 子項。安裝配置後，仍須在系統設定中選取並套用。",
+          ".cur 是靜態指標，.ani 是動畫指標。熱點座標儲存在檔案內，決定實際點按位置；熱點錯誤會令圖形與點按位置偏離。",
+          "清晰度取決於檔案內嵌的像素尺寸、目標 DPI，以及瀏覽器或系統的縮放流程。包含合適的多種尺寸，通常比放大單一小圖更清晰。",
+          "瀏覽器先解析 CSS cursor，再向作業系統或自身介面層要求圖形。grab、grabbing、zoom-in 等沒有專屬 Windows 項目，因此不會自動採用 INF 額外放入但未由系統項目引用的檔案。",
+          "網頁或擴充功能頁面可用 CSS url（…）指定隨附指標，並提供熱點與後備關鍵字；資源必須隨頁面提供並符合內容安全政策。一般網頁或擴充功能不能藉此改寫 Firefox 的瀏覽器介面與內部頁面。",
+          "修改配置後，若個別應用程式仍顯示舊圖形，可重新套用配置並重啟該應用程式；執行中的程式可能會快取已取得的系統指標。"
+        ]
+      },
+      "zh-TW": {
+        button: "開啟 Windows 滑鼠游標指南",
+        close: "關閉",
+        title: "Windows 滑鼠游標指南",
+        intro: "為什麼 Windows 設定只有 17 項，網頁上卻能看到 36 種游標？因為兩者採用彼此相關、但不相同的清單。弄懂這個差別，就能看出安裝後哪些游標會改變、哪些不會。",
+        facts: ["Windows 固定項目", "可直接對應 CSS", "由瀏覽器處理的 CSS 關鍵字"],
+        windowsTitle: "Windows 的 17 個可設定項目",
+        windowsDescription: "這些是 Windows 游標配置中的固定項目，也是控制台可逐項指定的最大集合。項目名稱是系統內部使用的登錄值名稱。",
+        mappingTitle: "13 個直接對應關係",
+        mappingDescription: "瀏覽器要求這些 CSS 關鍵字時，Windows 通常會提供相應配置項目目前指定的游標。",
+        windowsOnlyTitle: "4 個只存在於 Windows 配置中的項目",
+        windowsOnlyDescription: "這些項目沒有專屬的 CSS cursor 預先定義關鍵字，但 Windows 應用程式仍可透過系統介面使用。",
+        cssOnlyTitle: "23 個沒有獨立 Windows 配置項目的 CSS 關鍵字",
+        cssOnlyDescription: "瀏覽器會自行選擇或繪製這些游標，因此更換 Windows 游標配置通常不會改變它們。",
+        notesTitle: "安裝、顯示與自訂要點",
+        windowsOnlyNames: { NWPen: "手寫", UpArrow: "替代選取", Pin: "位置選取", Person: "人員選取" },
+        notes: [
+          "Windows 配置只有上述 17 個固定項目。INF 檔可以複製 .cur、.ani 檔並寫入這些項目，但不能建立第 18 個系統項目。",
+          "目前使用者的項目值位於 HKCU\\Control Panel\\Cursors；命名配置記錄位於其 Schemes 子項。安裝配置後，仍須在系統設定中選取並套用。",
+          ".cur 是靜態游標，.ani 是動畫游標。作用點座標儲存在檔案內，決定實際點選位置；作用點錯誤會讓圖形與點選位置偏移。",
+          "清晰度取決於檔案內嵌的像素尺寸、目標 DPI，以及瀏覽器或系統的縮放路徑。包含合適的多種尺寸，通常比放大單一小圖更清晰。",
+          "瀏覽器先解析 CSS cursor，再向作業系統或自身介面層要求圖形。grab、grabbing、zoom-in 等沒有專屬 Windows 項目，因此不會自動採用 INF 額外放入、但未由系統項目參照的檔案。",
+          "網頁或擴充功能頁面可用 CSS url（…）指定隨附游標，並提供作用點與後援關鍵字；資源必須隨頁面提供且符合內容安全政策。一般網頁或擴充功能不能藉此改寫 Firefox 的瀏覽器介面與內部頁面。",
+          "修改配置後，若個別應用程式仍顯示舊圖形，可重新套用配置並重新啟動該應用程式；執行中的程式可能會快取已取得的系統游標。"
+        ]
+      },
+      en: {
+        button: "Open the Windows mouse pointer guide",
+        close: "Close",
+        title: "Windows mouse pointer guide",
+        intro: "Windows pointer schemes and CSS cursor use two related but distinct classifications. This reference shows every mapping and the mechanisms that govern installation, rendering, and sharpness.",
+        facts: ["Windows scheme entries", "Direct CSS mappings", "CSS keywords without a Windows entry"],
+        windowsTitle: "The 17 configurable Windows entries",
+        windowsDescription: "These fixed entries are the complete set exposed by a Windows pointer scheme and Control Panel. Each code is the registry value name used internally by Windows.",
+        mappingTitle: "The 13 direct mappings",
+        mappingDescription: "When a browser requests one of these CSS keywords, Windows will normally supply the pointer currently assigned to the corresponding scheme entry.",
+        windowsOnlyTitle: "Four Windows-only scheme entries",
+        windowsOnlyDescription: "These entries have no dedicated predefined CSS cursor keyword, although Windows applications can still request them through system APIs.",
+        cssOnlyTitle: "23 CSS keywords without a dedicated Windows entry",
+        cssOnlyDescription: "Browsers select or draw these pointers themselves, so changing the Windows pointer scheme will not usually replace them.",
+        notesTitle: "Installation, rendering, and customization",
+        windowsOnlyNames: { NWPen: "Handwriting", UpArrow: "Alternate Select", Pin: "Location Select", Person: "Person Select" },
+        notes: [
+          "A Windows scheme has only the 17 fixed entries above. An INF file can copy .cur and .ani files and assign those entries, but it cannot create an eighteenth system entry.",
+          "Per-user values live under HKCU\\Control Panel\\Cursors; named schemes are stored in its Schemes subkey. Installing a scheme does not activate it: the user must still select and apply it in Windows settings.",
+          ".cur stores a static pointer and .ani stores an animated pointer. The hotspot is embedded in the file and defines the actual click coordinate; an incorrect hotspot makes the artwork and click position diverge.",
+          "Sharpness depends on the embedded pixel sizes, the target DPI, and the scaling path used by Windows or the browser. Supplying suitable native sizes is generally clearer than enlarging one small bitmap.",
+          "A browser resolves CSS cursor first, then asks the operating system or its own UI layer for artwork. Keywords such as grab, grabbing, and zoom-in have no dedicated Windows entry, so they cannot discover extra files that an INF copied but no system entry references.",
+          "A web page or extension page can use CSS url(...) with a hotspot and fallback keyword to ship its own cursor. The asset must be available to the page and allowed by its content security policy. This does not let an ordinary page or extension restyle Firefox chrome or internal pages.",
+          "If an application keeps showing an older pointer after a scheme change, apply the scheme again and restart that application; running processes may cache system pointer handles."
+        ]
+      },
+      ja: {
+        button: "Windows マウスポインターガイドを開く",
+        close: "閉じる",
+        title: "Windows マウスポインターガイド",
+        intro: "Windows のポインター設定と CSS cursor は、関連はあるものの別々の分類体系です。ここでは、すべての対応関係と、インストール、表示、鮮明さを左右する仕組みを説明します。",
+        facts: ["Windows の設定項目", "CSS との直接対応", "Windows 項目を持たない CSS キーワード"],
+        windowsTitle: "Windows で設定できる 17 項目",
+        windowsDescription: "この 17 項目が Windows のポインター設定とコントロール パネルで扱える固定項目のすべてです。各コードは Windows が内部で使うレジストリ値名です。",
+        mappingTitle: "13 個の直接対応",
+        mappingDescription: "ブラウザーがこれらの CSS キーワードを要求すると、通常は対応する Windows 設定項目に現在割り当てられたポインターが使われます。",
+        windowsOnlyTitle: "Windows 設定だけにある 4 項目",
+        windowsOnlyDescription: "専用の CSS cursor 定義済みキーワードはありませんが、Windows アプリはシステム API を介して利用できます。",
+        cssOnlyTitle: "専用の Windows 項目を持たない 23 個の CSS キーワード",
+        cssOnlyDescription: "これらはブラウザー自身が選択または描画するため、Windows のポインター設定を変更しても通常は置き換わりません。",
+        notesTitle: "インストール、表示、カスタマイズの要点",
+        windowsOnlyNames: { NWPen: "手書き", UpArrow: "代替選択", Pin: "場所の選択", Person: "人物の選択" },
+        notes: [
+          "Windows の設定項目は上記 17 個で固定されています。INF ファイルは .cur と .ani をコピーして各項目へ割り当てられますが、18 番目のシステム項目は追加できません。",
+          "ユーザーごとの値は HKCU\\Control Panel\\Cursors にあり、名前付き設定はその Schemes サブキーに保存されます。インストールしただけでは有効にならないため、Windows の設定で選択して適用する必要があります。",
+          ".cur は静止ポインター、.ani はアニメーション ポインターです。実際のクリック位置を決めるホットスポットはファイル内に記録されており、設定を誤ると図形とクリック位置がずれます。",
+          "鮮明さは、埋め込まれたピクセル寸法、対象 DPI、Windows やブラウザーの拡大経路で決まります。小さな画像を拡大するより、適切なネイティブ寸法を複数収録する方が通常は鮮明です。",
+          "ブラウザーは CSS cursor を解決してから、OS または独自の UI 層に図形を要求します。grab、grabbing、zoom-in などには専用の Windows 項目がないため、INF がコピーしただけでシステム項目から参照されていないファイルは使われません。",
+          "Web ページや拡張機能のページでは、CSS の url(...) にホットスポットと代替キーワードを添えて独自ポインターを指定できます。素材はページから参照でき、コンテンツ セキュリティ ポリシーで許可されている必要があります。通常のページや拡張機能から Firefox のブラウザー UI や内部ページを変更することはできません。",
+          "設定変更後も古い図形が残るアプリでは、設定を再適用してアプリを再起動してください。実行中のプロセスがシステム ポインターをキャッシュしている場合があります。"
+        ]
+      },
+      vi: {
+        button: "Mở cẩm nang con trỏ chuột Windows",
+        close: "Đóng",
+        title: "Cẩm nang con trỏ chuột Windows",
+        intro: "Lược đồ con trỏ của Windows và thuộc tính CSS cursor dùng hai hệ phân loại có liên quan nhưng không giống nhau. Phần này trình bày đầy đủ các ánh xạ và cơ chế chi phối việc cài đặt, hiển thị và độ sắc nét.",
+        facts: ["Mục trong lược đồ Windows", "Ánh xạ trực tiếp với CSS", "Từ khóa CSS không có mục Windows"],
+        windowsTitle: "17 mục có thể cấu hình trong Windows",
+        windowsDescription: "Đây là toàn bộ các mục cố định mà lược đồ con trỏ và Control Panel của Windows cho phép cấu hình. Mỗi mã là tên giá trị Registry mà Windows dùng nội bộ.",
+        mappingTitle: "13 ánh xạ trực tiếp",
+        mappingDescription: "Khi trình duyệt yêu cầu một trong các từ khóa CSS này, Windows thường cung cấp con trỏ đang được gán cho mục lược đồ tương ứng.",
+        windowsOnlyTitle: "Bốn mục chỉ có trong lược đồ Windows",
+        windowsOnlyDescription: "Các mục này không có từ khóa CSS cursor định sẵn riêng, nhưng ứng dụng Windows vẫn có thể gọi chúng qua API hệ thống.",
+        cssOnlyTitle: "23 từ khóa CSS không có mục Windows riêng",
+        cssOnlyDescription: "Trình duyệt tự chọn hoặc vẽ các con trỏ này, vì vậy việc đổi lược đồ con trỏ Windows thường không thay thế được chúng.",
+        notesTitle: "Cài đặt, hiển thị và tùy chỉnh",
+        windowsOnlyNames: { NWPen: "Viết tay", UpArrow: "Chọn thay thế", Pin: "Chọn vị trí", Person: "Chọn người" },
+        notes: [
+          "Một lược đồ Windows chỉ có 17 mục cố định nêu trên. Tệp INF có thể sao chép tệp .cur, .ani và gán cho các mục đó, nhưng không thể tạo mục hệ thống thứ 18.",
+          "Các giá trị của từng người dùng nằm tại HKCU\\Control Panel\\Cursors; lược đồ có tên được lưu trong khóa con Schemes. Cài đặt lược đồ chưa làm nó hoạt động: người dùng vẫn phải chọn và áp dụng trong phần cài đặt Windows.",
+          ".cur chứa con trỏ tĩnh, còn .ani chứa con trỏ động. Điểm nóng được lưu bên trong tệp và xác định tọa độ nhấp thực tế; điểm nóng sai sẽ làm hình ảnh lệch khỏi vị trí nhấp.",
+          "Độ sắc nét phụ thuộc vào kích thước điểm ảnh được nhúng, DPI đích và cách Windows hoặc trình duyệt co giãn hình ảnh. Cung cấp nhiều kích thước gốc phù hợp thường rõ hơn việc phóng to một ảnh nhỏ.",
+          "Trình duyệt phân giải CSS cursor trước, rồi yêu cầu hệ điều hành hoặc lớp giao diện riêng cung cấp hình ảnh. Các từ khóa như grab, grabbing và zoom-in không có mục Windows riêng, nên chúng không thể dùng những tệp bổ sung mà INF chỉ sao chép nhưng không được mục hệ thống nào tham chiếu.",
+          "Trang web hoặc trang của tiện ích mở rộng có thể dùng CSS url(...) kèm điểm nóng và từ khóa dự phòng để cung cấp con trỏ riêng. Tài nguyên phải truy cập được từ trang và được chính sách bảo mật nội dung cho phép. Cách này không cho phép trang hay tiện ích thông thường đổi giao diện trình duyệt hoặc trang nội bộ của Firefox.",
+          "Nếu ứng dụng vẫn hiện con trỏ cũ sau khi đổi lược đồ, hãy áp dụng lại lược đồ và khởi động lại ứng dụng; tiến trình đang chạy có thể đã lưu bộ nhớ đệm của con trỏ hệ thống."
+        ]
+      },
+      ko: {
+        button: "Windows 마우스 포인터 가이드 열기",
+        close: "닫기",
+        title: "Windows 마우스 포인터 가이드",
+        intro: "Windows 포인터 구성표와 CSS cursor는 서로 관련되어 있지만 동일하지 않은 분류 체계를 사용합니다. 여기서는 전체 대응 관계와 설치, 표시, 선명도에 영향을 주는 원리를 설명합니다.",
+        facts: ["Windows 구성표 항목", "CSS 직접 대응", "Windows 항목이 없는 CSS 키워드"],
+        windowsTitle: "Windows에서 설정할 수 있는 17개 항목",
+        windowsDescription: "Windows 포인터 구성표와 제어판에서 제공하는 고정 항목은 이 17개가 전부입니다. 각 코드는 Windows 내부에서 사용하는 레지스트리 값 이름입니다.",
+        mappingTitle: "13개의 직접 대응 관계",
+        mappingDescription: "브라우저가 이 CSS 키워드 중 하나를 요청하면 Windows는 일반적으로 대응하는 구성표 항목에 현재 지정된 포인터를 제공합니다.",
+        windowsOnlyTitle: "Windows 구성표에만 있는 4개 항목",
+        windowsOnlyDescription: "전용 CSS cursor 사전 정의 키워드는 없지만 Windows 앱은 시스템 API를 통해 이 항목을 사용할 수 있습니다.",
+        cssOnlyTitle: "전용 Windows 항목이 없는 CSS 키워드 23개",
+        cssOnlyDescription: "이 포인터는 브라우저가 직접 선택하거나 그리므로 Windows 포인터 구성표를 바꿔도 일반적으로 교체되지 않습니다.",
+        notesTitle: "설치, 표시 및 사용자 지정 핵심 사항",
+        windowsOnlyNames: { NWPen: "필기", UpArrow: "대체 선택", Pin: "위치 선택", Person: "사용자 선택" },
+        notes: [
+          "Windows 구성표에는 위의 고정 항목 17개만 있습니다. INF 파일은 .cur 및 .ani 파일을 복사해 이 항목에 지정할 수 있지만 18번째 시스템 항목을 만들 수는 없습니다.",
+          "사용자별 값은 HKCU\\Control Panel\\Cursors에 있으며 이름 있는 구성표는 그 아래 Schemes 키에 저장됩니다. 구성표를 설치해도 바로 활성화되지는 않으므로 Windows 설정에서 직접 선택하고 적용해야 합니다.",
+          ".cur는 정적 포인터, .ani는 애니메이션 포인터를 저장합니다. 실제 클릭 좌표를 정하는 핫스폿은 파일 안에 들어 있으며, 값이 잘못되면 그림과 클릭 위치가 어긋납니다.",
+          "선명도는 파일에 포함된 픽셀 크기, 대상 DPI, Windows 또는 브라우저의 크기 조정 방식에 좌우됩니다. 작은 비트맵 하나를 확대하는 것보다 적절한 원본 크기를 여러 개 제공하는 편이 일반적으로 더 선명합니다.",
+          "브라우저는 CSS cursor를 먼저 해석한 뒤 운영 체제나 자체 UI 계층에 그림을 요청합니다. grab, grabbing, zoom-in 같은 키워드에는 전용 Windows 항목이 없으므로 INF가 복사만 하고 시스템 항목에서 참조하지 않은 추가 파일은 사용할 수 없습니다.",
+          "웹 페이지나 확장 프로그램 페이지는 CSS url(...)에 핫스폿과 대체 키워드를 함께 지정해 자체 포인터를 제공할 수 있습니다. 리소스는 페이지에서 접근 가능하고 콘텐츠 보안 정책에서 허용되어야 합니다. 이 방법으로 일반 페이지나 확장 프로그램이 Firefox 브라우저 UI 또는 내부 페이지를 바꿀 수는 없습니다.",
+          "구성표 변경 뒤에도 앱이 예전 포인터를 표시하면 구성표를 다시 적용하고 해당 앱을 재시작하십시오. 실행 중인 프로세스가 시스템 포인터를 캐시했을 수 있습니다."
+        ]
+      },
+      es: {
+        button: "Acerca de los punteros de Windows",
+        close: "Cerrar",
+        title: "Guía de punteros del ratón de Windows",
+        intro: "Los esquemas de puntero de Windows y CSS cursor utilizan dos clasificaciones relacionadas, pero distintas. Esta guía recoge todas las correspondencias y explica cómo funcionan la instalación, la representación y la nitidez.",
+        facts: ["Entradas del esquema de Windows", "Correspondencias directas con CSS", "Palabras CSS sin entrada de Windows"],
+        windowsTitle: "Las 17 entradas configurables de Windows",
+        windowsDescription: "Estas entradas fijas forman el conjunto completo que exponen los esquemas de puntero y el Panel de control de Windows. Cada código es el nombre del valor del Registro que Windows utiliza internamente.",
+        mappingTitle: "Las 13 correspondencias directas",
+        mappingDescription: "Cuando un navegador solicita una de estas palabras clave de CSS, Windows suele proporcionar el puntero asignado en ese momento a la entrada correspondiente del esquema.",
+        windowsOnlyTitle: "Cuatro entradas exclusivas del esquema de Windows",
+        windowsOnlyDescription: "No tienen una palabra clave predefinida propia en CSS cursor, aunque las aplicaciones de Windows pueden solicitarlas mediante las API del sistema.",
+        cssOnlyTitle: "23 palabras clave de CSS sin una entrada propia en Windows",
+        cssOnlyDescription: "El navegador elige o dibuja estos punteros, por lo que cambiar el esquema de Windows normalmente no los sustituye.",
+        notesTitle: "Instalación, representación y personalización",
+        windowsOnlyNames: { NWPen: "Escritura a mano", UpArrow: "Selección alternativa", Pin: "Selección de ubicación", Person: "Selección de persona" },
+        notes: [
+          "Un esquema de Windows solo dispone de las 17 entradas fijas anteriores. Un archivo INF puede copiar archivos .cur y .ani y asignarlos a esas entradas, pero no puede crear una decimoctava entrada del sistema.",
+          "Los valores de cada usuario se encuentran en HKCU\\Control Panel\\Cursors; los esquemas con nombre se guardan en la subclave Schemes. Instalar un esquema no lo activa: el usuario debe seleccionarlo y aplicarlo en la configuración de Windows.",
+          ".cur almacena un puntero estático y .ani, uno animado. El punto activo se guarda dentro del archivo y define la coordenada real del clic; si es incorrecto, la imagen y la posición del clic no coincidirán.",
+          "La nitidez depende de los tamaños en píxeles incluidos, del DPI de destino y del proceso de escalado de Windows o del navegador. Incluir tamaños nativos adecuados suele dar mejor resultado que ampliar un único mapa de bits pequeño.",
+          "El navegador resuelve primero CSS cursor y después solicita la imagen al sistema operativo o a su propia capa de interfaz. Palabras como grab, grabbing y zoom-in no tienen una entrada propia en Windows, por lo que no pueden encontrar archivos adicionales que un INF haya copiado sin asociarlos a una entrada del sistema.",
+          "Una página web o de extensión puede usar CSS url(...) con un punto activo y una palabra de reserva para incluir su propio puntero. El recurso debe estar disponible para la página y permitido por su política de seguridad de contenido. Esto no permite que una página o extensión normal modifique la interfaz ni las páginas internas de Firefox.",
+          "Si una aplicación sigue mostrando un puntero antiguo tras cambiar el esquema, vuelva a aplicarlo y reinicie la aplicación; los procesos en ejecución pueden conservar en caché los punteros del sistema."
+        ]
+      },
+      fr: {
+        button: "À propos des pointeurs Windows",
+        close: "Fermer",
+        title: "Guide des pointeurs de souris Windows",
+        intro: "Les modèles de pointeurs Windows et CSS cursor reposent sur deux classifications liées, mais distinctes. Ce guide présente toutes les correspondances et les mécanismes qui régissent l’installation, l’affichage et la netteté.",
+        facts: ["Entrées du modèle Windows", "Correspondances CSS directes", "Mots-clés CSS sans entrée Windows"],
+        windowsTitle: "Les 17 entrées configurables de Windows",
+        windowsDescription: "Ces entrées fixes constituent l’ensemble complet proposé par un modèle de pointeurs et le Panneau de configuration de Windows. Chaque code est le nom de valeur de Registre utilisé en interne par Windows.",
+        mappingTitle: "Les 13 correspondances directes",
+        mappingDescription: "Lorsqu’un navigateur demande l’un de ces mots-clés CSS, Windows fournit normalement le pointeur actuellement affecté à l’entrée correspondante du modèle.",
+        windowsOnlyTitle: "Quatre entrées propres aux modèles Windows",
+        windowsOnlyDescription: "Elles n’ont pas de mot-clé prédéfini CSS cursor dédié, mais les applications Windows peuvent tout de même les demander par l’intermédiaire des API système.",
+        cssOnlyTitle: "23 mots-clés CSS sans entrée Windows dédiée",
+        cssOnlyDescription: "Le navigateur choisit ou dessine lui-même ces pointeurs ; changer le modèle Windows ne les remplace donc généralement pas.",
+        notesTitle: "Installation, affichage et personnalisation",
+        windowsOnlyNames: { NWPen: "Écriture manuscrite", UpArrow: "Sélection secondaire", Pin: "Sélection d’emplacement", Person: "Sélection de personne" },
+        notes: [
+          "Un modèle Windows ne comporte que les 17 entrées fixes ci-dessus. Un fichier INF peut copier des fichiers .cur et .ani et les affecter à ces entrées, mais il ne peut pas créer une dix-huitième entrée système.",
+          "Les valeurs propres à l’utilisateur se trouvent sous HKCU\\Control Panel\\Cursors ; les modèles nommés sont stockés dans sa sous-clé Schemes. Installer un modèle ne l’active pas : l’utilisateur doit encore le sélectionner et l’appliquer dans les paramètres Windows.",
+          ".cur contient un pointeur statique et .ani un pointeur animé. Le point actif est enregistré dans le fichier et définit la coordonnée réelle du clic ; s’il est incorrect, le dessin et la position du clic seront décalés.",
+          "La netteté dépend des dimensions en pixels intégrées, du DPI cible et du mode de mise à l’échelle employé par Windows ou le navigateur. Fournir plusieurs dimensions natives adaptées est généralement plus net que d’agrandir une seule petite image matricielle.",
+          "Le navigateur interprète d’abord CSS cursor, puis demande le dessin au système d’exploitation ou à sa propre couche d’interface. Des mots-clés tels que grab, grabbing et zoom-in n’ont pas d’entrée Windows dédiée : ils ne peuvent donc pas utiliser des fichiers supplémentaires qu’un INF a seulement copiés sans les associer à une entrée système.",
+          "Une page web ou une page d’extension peut utiliser CSS url(...) avec un point actif et un mot-clé de repli pour fournir son propre pointeur. La ressource doit être accessible à la page et autorisée par sa politique de sécurité du contenu. Cela ne permet pas à une page ou extension ordinaire de modifier l’interface ou les pages internes de Firefox.",
+          "Si une application conserve un ancien pointeur après le changement de modèle, réappliquez le modèle puis redémarrez l’application ; les processus en cours peuvent mettre les pointeurs système en cache."
+        ]
+      },
+      "pt-BR": {
+        button: "Sobre os ponteiros do Windows",
+        close: "Fechar",
+        title: "Guia de ponteiros do mouse do Windows",
+        intro: "Os esquemas de ponteiro do Windows e o CSS cursor usam duas classificações relacionadas, mas distintas. Este guia reúne todos os mapeamentos e explica os mecanismos de instalação, renderização e nitidez.",
+        facts: ["Entradas do esquema do Windows", "Mapeamentos diretos com CSS", "Palavras-chave CSS sem entrada do Windows"],
+        windowsTitle: "As 17 entradas configuráveis do Windows",
+        windowsDescription: "Essas entradas fixas formam o conjunto completo oferecido pelos esquemas de ponteiro e pelo Painel de Controle do Windows. Cada código é o nome do valor do Registro usado internamente pelo Windows.",
+        mappingTitle: "Os 13 mapeamentos diretos",
+        mappingDescription: "Quando o navegador solicita uma dessas palavras-chave CSS, o Windows normalmente fornece o ponteiro atribuído naquele momento à entrada correspondente do esquema.",
+        windowsOnlyTitle: "Quatro entradas exclusivas do esquema do Windows",
+        windowsOnlyDescription: "Elas não têm uma palavra-chave predefinida própria em CSS cursor, embora aplicativos do Windows ainda possam solicitá-las pelas APIs do sistema.",
+        cssOnlyTitle: "23 palavras-chave CSS sem uma entrada própria no Windows",
+        cssOnlyDescription: "O navegador escolhe ou desenha esses ponteiros, portanto trocar o esquema do Windows normalmente não os substitui.",
+        notesTitle: "Instalação, renderização e personalização",
+        windowsOnlyNames: { NWPen: "Escrita à mão", UpArrow: "Seleção alternativa", Pin: "Seleção de local", Person: "Seleção de pessoa" },
+        notes: [
+          "Um esquema do Windows tem somente as 17 entradas fixas acima. Um arquivo INF pode copiar arquivos .cur e .ani e atribuí-los a essas entradas, mas não pode criar uma décima oitava entrada do sistema.",
+          "Os valores de cada usuário ficam em HKCU\\Control Panel\\Cursors; os esquemas nomeados são armazenados na subchave Schemes. Instalar um esquema não o ativa: o usuário ainda precisa selecioná-lo e aplicá-lo nas configurações do Windows.",
+          ".cur armazena um ponteiro estático e .ani, um ponteiro animado. O ponto ativo fica incorporado ao arquivo e define a coordenada real do clique; se estiver incorreto, a imagem e a posição do clique ficarão desalinhadas.",
+          "A nitidez depende dos tamanhos em pixels incluídos, do DPI de destino e do processo de escala do Windows ou do navegador. Fornecer tamanhos nativos adequados costuma ser mais nítido do que ampliar um único bitmap pequeno.",
+          "O navegador resolve primeiro o CSS cursor e depois solicita a imagem ao sistema operacional ou à própria camada de interface. Palavras como grab, grabbing e zoom-in não têm entrada própria no Windows, portanto não encontram arquivos extras que um INF apenas copiou sem associar a uma entrada do sistema.",
+          "Uma página web ou de extensão pode usar CSS url(...) com um ponto ativo e uma palavra-chave alternativa para fornecer seu próprio ponteiro. O recurso precisa estar disponível para a página e ser permitido pela política de segurança de conteúdo. Isso não permite que uma página ou extensão comum altere a interface ou as páginas internas do Firefox.",
+          "Se um aplicativo continuar mostrando um ponteiro antigo após a troca do esquema, aplique o esquema novamente e reinicie o aplicativo; processos em execução podem manter ponteiros do sistema em cache."
+        ]
+      },
+      "pt-PT": {
+        button: "Acerca dos ponteiros do Windows",
+        close: "Fechar",
+        title: "Guia de ponteiros do rato do Windows",
+        intro: "Os esquemas de ponteiros do Windows e a propriedade CSS cursor usam duas classificações relacionadas, mas distintas. Este guia reúne todas as correspondências e explica os mecanismos de instalação, apresentação e nitidez.",
+        facts: ["Entradas do esquema do Windows", "Correspondências diretas com CSS", "Palavras-chave CSS sem entrada do Windows"],
+        windowsTitle: "As 17 entradas configuráveis do Windows",
+        windowsDescription: "Estas entradas fixas constituem o conjunto completo disponibilizado pelos esquemas de ponteiros e pelo Painel de Controlo do Windows. Cada código é o nome do valor de Registo usado internamente pelo Windows.",
+        mappingTitle: "As 13 correspondências diretas",
+        mappingDescription: "Quando o navegador pede uma destas palavras-chave CSS, o Windows fornece normalmente o ponteiro atribuído nesse momento à entrada correspondente do esquema.",
+        windowsOnlyTitle: "Quatro entradas exclusivas dos esquemas do Windows",
+        windowsOnlyDescription: "Não têm uma palavra-chave predefinida própria em CSS cursor, embora as aplicações do Windows ainda possam pedi-las através das API do sistema.",
+        cssOnlyTitle: "23 palavras-chave CSS sem uma entrada própria no Windows",
+        cssOnlyDescription: "O navegador escolhe ou desenha estes ponteiros, pelo que alterar o esquema do Windows normalmente não os substitui.",
+        notesTitle: "Instalação, apresentação e personalização",
+        windowsOnlyNames: { NWPen: "Escrita manual", UpArrow: "Seleção alternativa", Pin: "Seleção de localização", Person: "Seleção de pessoa" },
+        notes: [
+          "Um esquema do Windows tem apenas as 17 entradas fixas acima. Um ficheiro INF pode copiar ficheiros .cur e .ani e atribuí-los a essas entradas, mas não pode criar uma décima oitava entrada do sistema.",
+          "Os valores de cada utilizador encontram-se em HKCU\\Control Panel\\Cursors; os esquemas com nome são guardados na subchave Schemes. Instalar um esquema não o ativa: o utilizador ainda tem de o selecionar e aplicar nas definições do Windows.",
+          ".cur guarda um ponteiro estático e .ani, um ponteiro animado. O ponto ativo fica incorporado no ficheiro e define a coordenada real do clique; se estiver incorreto, a imagem e a posição do clique ficam desalinhadas.",
+          "A nitidez depende dos tamanhos em píxeis incluídos, do DPI de destino e do processo de escala do Windows ou do navegador. Disponibilizar tamanhos nativos adequados costuma ser mais nítido do que ampliar uma única imagem pequena.",
+          "O navegador interpreta primeiro CSS cursor e depois pede a imagem ao sistema operativo ou à sua própria camada de interface. Palavras como grab, grabbing e zoom-in não têm uma entrada própria no Windows, pelo que não encontram ficheiros adicionais que um INF apenas copiou sem associar a uma entrada do sistema.",
+          "Uma página Web ou de extensão pode usar CSS url(...) com um ponto ativo e uma palavra-chave alternativa para fornecer o seu próprio ponteiro. O recurso tem de estar disponível para a página e ser permitido pela política de segurança de conteúdo. Isto não permite que uma página ou extensão comum altere a interface ou as páginas internas do Firefox.",
+          "Se uma aplicação continuar a mostrar um ponteiro antigo depois de mudar o esquema, aplique novamente o esquema e reinicie a aplicação; os processos em execução podem manter os ponteiros do sistema em cache."
+        ]
+      },
+      ru: {
+        button: "О курсорах Windows",
+        close: "Закрыть",
+        title: "Справочник по указателям мыши Windows",
+        intro: "Схемы указателей Windows и свойство CSS cursor используют две связанные, но не одинаковые классификации. Здесь приведены все сопоставления и описаны механизмы установки, отображения и чёткости.",
+        facts: ["Элементы схемы Windows", "Прямые соответствия CSS", "Ключевые слова CSS без элемента Windows"],
+        windowsTitle: "17 настраиваемых элементов Windows",
+        windowsDescription: "Это полный набор фиксированных элементов, доступных в схеме указателей и Панели управления Windows. Каждый код является именем параметра реестра, которое Windows использует внутри системы.",
+        mappingTitle: "13 прямых соответствий",
+        mappingDescription: "Когда браузер запрашивает одно из этих ключевых слов CSS, Windows обычно предоставляет указатель, назначенный соответствующему элементу текущей схемы.",
+        windowsOnlyTitle: "Четыре элемента только для схем Windows",
+        windowsOnlyDescription: "Для них нет отдельных предопределённых ключевых слов CSS cursor, однако приложения Windows могут запрашивать их через системные API.",
+        cssOnlyTitle: "23 ключевых слова CSS без отдельного элемента Windows",
+        cssOnlyDescription: "Браузер сам выбирает или рисует эти указатели, поэтому смена схемы Windows обычно их не заменяет.",
+        notesTitle: "Установка, отображение и настройка",
+        windowsOnlyNames: { NWPen: "Рукописный ввод", UpArrow: "Альтернативный выбор", Pin: "Выбор местоположения", Person: "Выбор пользователя" },
+        notes: [
+          "В схеме Windows есть только 17 фиксированных элементов, перечисленных выше. INF-файл может скопировать файлы .cur и .ani и назначить их этим элементам, но не может создать восемнадцатый системный элемент.",
+          "Пользовательские значения находятся в HKCU\\Control Panel\\Cursors, а именованные схемы — в его подразделе Schemes. Установка схемы не активирует её: пользователь должен выбрать и применить её в параметрах Windows.",
+          ".cur хранит статический указатель, а .ani — анимированный. Активная точка записана в самом файле и задаёт фактические координаты щелчка; при ошибочном значении изображение и место щелчка расходятся.",
+          "Чёткость зависит от встроенных размеров в пикселях, целевого DPI и способа масштабирования в Windows или браузере. Подходящие исходные размеры обычно выглядят лучше, чем увеличение одного маленького растрового изображения.",
+          "Браузер сначала обрабатывает CSS cursor, а затем запрашивает изображение у операционной системы или собственного слоя интерфейса. Для grab, grabbing и zoom-in нет отдельных элементов Windows, поэтому они не смогут использовать дополнительные файлы, которые INF лишь скопировал, но не связал с системным элементом.",
+          "Веб-страница или страница расширения может указать собственный курсор через CSS url(...) вместе с активной точкой и резервным ключевым словом. Ресурс должен быть доступен странице и разрешён её политикой безопасности содержимого. Это не позволяет обычной странице или расширению изменить интерфейс и внутренние страницы Firefox.",
+          "Если после смены схемы приложение показывает старый указатель, примените схему ещё раз и перезапустите приложение: работающий процесс мог закэшировать системные указатели."
+        ]
+      },
+      de: {
+        button: "Windows-Mauszeigerleitfaden öffnen",
+        close: "Schließen",
+        title: "Leitfaden zu Windows-Mauszeigern",
+        intro: "Windows-Zeigerschemata und CSS cursor verwenden zwei verwandte, aber unterschiedliche Einteilungen. Diese Übersicht zeigt alle Zuordnungen und erklärt die Mechanismen hinter Installation, Darstellung und Schärfe.",
+        facts: ["Einträge im Windows-Schema", "Direkte CSS-Zuordnungen", "CSS-Schlüsselwörter ohne Windows-Eintrag"],
+        windowsTitle: "Die 17 konfigurierbaren Windows-Einträge",
+        windowsDescription: "Diese festen Einträge bilden den vollständigen Umfang eines Windows-Zeigerschemas und der Systemsteuerung. Jeder Code ist der intern von Windows verwendete Name des Registrierungswerts.",
+        mappingTitle: "Die 13 direkten Zuordnungen",
+        mappingDescription: "Fordert ein Browser eines dieser CSS-Schlüsselwörter an, liefert Windows normalerweise den Zeiger, der dem zugehörigen Schemaeintrag aktuell zugewiesen ist.",
+        windowsOnlyTitle: "Vier Einträge nur im Windows-Schema",
+        windowsOnlyDescription: "Für sie gibt es kein eigenes vordefiniertes CSS-cursor-Schlüsselwort; Windows-Anwendungen können sie jedoch über System-APIs anfordern.",
+        cssOnlyTitle: "23 CSS-Schlüsselwörter ohne eigenen Windows-Eintrag",
+        cssOnlyDescription: "Diese Zeiger werden vom Browser selbst ausgewählt oder gezeichnet. Ein anderes Windows-Zeigerschema ersetzt sie daher in der Regel nicht.",
+        notesTitle: "Installation, Darstellung und Anpassung",
+        windowsOnlyNames: { NWPen: "Handschrift", UpArrow: "Alternative Auswahl", Pin: "Standortauswahl", Person: "Personenauswahl" },
+        notes: [
+          "Ein Windows-Schema besitzt nur die 17 oben aufgeführten festen Einträge. Eine INF-Datei kann .cur- und .ani-Dateien kopieren und diesen Einträgen zuweisen, aber keinen achtzehnten Systemeintrag anlegen.",
+          "Benutzerspezifische Werte liegen unter HKCU\\Control Panel\\Cursors; benannte Schemata werden im Unterschlüssel Schemes gespeichert. Durch die Installation wird ein Schema nicht aktiviert: Es muss in den Windows-Einstellungen ausgewählt und angewendet werden.",
+          ".cur enthält einen statischen, .ani einen animierten Zeiger. Der im Zeiger gespeicherte Hotspot bestimmt die tatsächliche Klickposition; bei einem falschen Hotspot stimmen Grafik und Klickposition nicht überein.",
+          "Die Schärfe hängt von den eingebetteten Pixelgrößen, der Ziel-DPI und dem Skalierungsweg in Windows oder im Browser ab. Geeignete native Größen sind meist schärfer als das Vergrößern einer einzigen kleinen Bitmap.",
+          "Der Browser wertet zuerst CSS cursor aus und fordert die Grafik anschließend beim Betriebssystem oder seiner eigenen UI-Schicht an. Für Schlüsselwörter wie grab, grabbing und zoom-in gibt es keinen eigenen Windows-Eintrag. Daher können sie zusätzliche Dateien, die eine INF nur kopiert, aber keinem Systemeintrag zugeordnet hat, nicht verwenden.",
+          "Eine Webseite oder Erweiterungsseite kann mit CSS url(...) sowie Hotspot und Rückfall-Schlüsselwort einen eigenen Zeiger bereitstellen. Die Ressource muss für die Seite erreichbar und von ihrer Content Security Policy erlaubt sein. Die Browseroberfläche und interne Firefox-Seiten lassen sich damit durch eine normale Seite oder Erweiterung nicht umgestalten.",
+          "Zeigt eine Anwendung nach dem Schemawechsel noch den alten Zeiger, wenden Sie das Schema erneut an und starten Sie die Anwendung neu. Laufende Prozesse können Systemzeiger zwischenspeichern."
+        ]
+      },
+      it: {
+        button: "Informazioni sui puntatori di Windows",
+        close: "Chiudi",
+        title: "Guida ai puntatori del mouse di Windows",
+        intro: "Gli schemi di puntatori di Windows e CSS cursor usano due classificazioni correlate, ma distinte. Questa guida raccoglie tutte le corrispondenze e spiega i meccanismi di installazione, visualizzazione e nitidezza.",
+        facts: ["Voci dello schema Windows", "Corrispondenze dirette con CSS", "Parole chiave CSS senza voce Windows"],
+        windowsTitle: "Le 17 voci configurabili di Windows",
+        windowsDescription: "Queste voci fisse costituiscono l’intero insieme disponibile in uno schema di puntatori e nel Pannello di controllo di Windows. Ogni codice è il nome del valore del Registro usato internamente da Windows.",
+        mappingTitle: "Le 13 corrispondenze dirette",
+        mappingDescription: "Quando un browser richiede una di queste parole chiave CSS, Windows fornisce normalmente il puntatore attualmente assegnato alla voce corrispondente dello schema.",
+        windowsOnlyTitle: "Quattro voci esclusive degli schemi Windows",
+        windowsOnlyDescription: "Non hanno una parola chiave predefinita dedicata in CSS cursor, ma le applicazioni Windows possono comunque richiederle tramite le API di sistema.",
+        cssOnlyTitle: "23 parole chiave CSS senza una voce Windows dedicata",
+        cssOnlyDescription: "Il browser sceglie o disegna autonomamente questi puntatori, quindi cambiare lo schema di Windows in genere non li sostituisce.",
+        notesTitle: "Installazione, visualizzazione e personalizzazione",
+        windowsOnlyNames: { NWPen: "Scrittura a mano", UpArrow: "Selezione alternativa", Pin: "Selezione posizione", Person: "Selezione persona" },
+        notes: [
+          "Uno schema Windows dispone soltanto delle 17 voci fisse elencate sopra. Un file INF può copiare file .cur e .ani e assegnarli a queste voci, ma non può creare una diciottesima voce di sistema.",
+          "I valori del singolo utente si trovano in HKCU\\Control Panel\\Cursors; gli schemi con nome sono archiviati nella relativa sottochiave Schemes. Installare uno schema non lo attiva: l’utente deve ancora selezionarlo e applicarlo nelle impostazioni di Windows.",
+          ".cur contiene un puntatore statico e .ani un puntatore animato. Il punto attivo è incorporato nel file e definisce le coordinate reali del clic; se è errato, la figura e la posizione del clic non coincidono.",
+          "La nitidezza dipende dalle dimensioni in pixel incluse, dal DPI di destinazione e dal percorso di ridimensionamento usato da Windows o dal browser. Fornire dimensioni native adeguate è in genere più nitido che ingrandire un’unica bitmap piccola.",
+          "Il browser interpreta prima CSS cursor, poi richiede la figura al sistema operativo o al proprio livello di interfaccia. Parole chiave come grab, grabbing e zoom-in non hanno una voce Windows dedicata, quindi non possono trovare file aggiuntivi che un INF ha soltanto copiato senza associarli a una voce di sistema.",
+          "Una pagina web o di estensione può usare CSS url(...) con un punto attivo e una parola chiave di riserva per fornire un puntatore personalizzato. La risorsa deve essere accessibile alla pagina e consentita dai criteri di sicurezza dei contenuti. Questo non permette a una normale pagina o estensione di modificare l’interfaccia o le pagine interne di Firefox.",
+          "Se un’applicazione continua a mostrare un vecchio puntatore dopo il cambio di schema, applicare di nuovo lo schema e riavviare l’applicazione; i processi in esecuzione possono conservare i puntatori di sistema nella cache."
+        ]
+      }
+    };
+
+    const guideStructureMessages = {
+      "zh-CN": {
+        chapters: ["一枚指针怎样走到屏幕上", "文件里究竟装了什么", "安装方案时 Windows 做了什么", "Windows 能换哪些指针", "为什么网页和浏览器不总是跟随 Windows", "遇到问题：按症状找原因", "设计一套真正好用的指针"],
+        journeyIntro: "把指针想成一场接力：文件提供图形，方案给它安排用途，应用提出请求，Windows 最后按当前 DPI（每英寸点数）把它放到屏幕上。中间任何一棒没接住，看到的就可能不是你准备的那一枚。",
+        journeySteps: ["文件提供图形（.cur（静态光标文件）或 .ani（动画光标文件））", "方案把图形分配给 Windows 用途", "应用请求某个用途", "Windows 按 DPI（每英寸点数）和缩放显示"],
+        topicLabels: [".cur（静态光标文件）与 .ani（动画光标文件）", "热点、DPI（每英寸点数）与多尺寸", "INF（安装信息）安装范围", "注册表与方案激活"],
+        troubleshootingQuestions: ["我右键安装了 INF（安装信息）文件，为什么设置里没有变化？", "为什么系统设置最多只看到 17 个项目？", "为什么 grab（抓取）、grabbing（抓取中）还是浏览器默认指针？", "为什么同一枚指针在高 DPI（每英寸点数）下变糊？", "为什么图形看着对，点击位置却偏了？", "为什么只有某个应用仍然显示旧指针？"],
+        designIntro: "好看的指针只是起点；真正耐用的指针还要在小尺寸、浅色背景、放大显示和动画状态下都读得出来。",
+        designNotes: ["轮廓应该先于装饰被看懂：在 16 至 32 像素的常用尺寸里，外形要一眼可辨，细线和过多内饰只会变成噪点。", "热点要符合图形表达的动作位置：带有明确指向端的图形取尖端，十字线取中心，手形取指尖；不同尺寸与动画帧必须保持同一个逻辑位置。", "动画要稳定而克制：帧尺寸、热点和节奏都要一致，并在默认指针大小与辅助功能的放大指针下分别测试。"]
+      },
+      "zh-HK": {
+        chapters: ["一枚指標如何走到螢幕上", "檔案內究竟包含甚麼", "安裝配置時 Windows 做了甚麼", "Windows 可以更換哪些指標", "為甚麼網頁和瀏覽器不完全跟隨 Windows", "遇到問題，先按現象找原因", "設計一套真正好用的指標"],
+        journeyIntro: "把指標想成一場接力：檔案提供圖形，配置替它安排用途，應用程式提出要求，Windows 最後按目前 DPI 將它顯示在螢幕上。任何一棒接不上，畫面就可能不是你準備的那一枚。",
+        journeySteps: ["檔案提供圖形（.cur 或 .ani）", "配置把圖形分配給 Windows 用途", "應用程式要求某個用途", "Windows 按 DPI 和縮放顯示"],
+        topicLabels: [".cur 與 .ani", "熱點、DPI 與多種尺寸", "INF 的安裝範圍", "登錄與配置啟用"],
+        troubleshootingQuestions: ["我已右鍵安裝 INF，為甚麼設定沒有改變？", "為甚麼系統設定最多只看到 17 個項目？", "為甚麼 grab、grabbing 仍然是瀏覽器的預設指標？", "為甚麼同一枚指標在高 DPI 下變得模糊？", "為甚麼圖形看似正確，點按位置卻偏了？", "為甚麼只有某個應用程式仍顯示舊指標？"],
+        designIntro: "好看的指標只是起點；真正耐用的指標還要在小尺寸、淺色背景、放大顯示及動畫狀態下都清楚易認。",
+        designNotes: ["先看輪廓，再看裝飾：在 16 至 32 像素的常用尺寸中，輪廓要一眼可辨，過細線條和太多細節只會變成雜訊。", "讓熱點符合圖形表達的動作位置：有明確指向端的圖形取尖端、十字線取中心、手形取指尖；不同尺寸和動畫影格都要保持同一個邏輯位置。", "動畫要穩定而克制：影格尺寸、熱點和節奏都要一致，並分別測試預設指標大小及協助工具的放大指標。"]
+      },
+      "zh-TW": {
+        chapters: ["一個游標如何走到螢幕上", "檔案裡究竟裝了什麼", "安裝配置時 Windows 做了什麼", "Windows 可以更換哪些游標", "為什麼網頁和瀏覽器不一定跟著 Windows", "遇到問題，先按症狀找原因", "設計一套真正好用的游標"],
+        journeyIntro: "把游標想成一場接力：檔案提供圖形，配置替它安排用途，應用程式提出請求，Windows 最後依目前 DPI 將它顯示在螢幕上。中間任何一棒沒接好，看到的就可能不是你準備的那一枚。",
+        journeySteps: ["檔案提供圖形（.cur 或 .ani）", "配置把圖形分配給 Windows 用途", "應用程式請求某個用途", "Windows 依 DPI 與縮放顯示"],
+        topicLabels: [".cur 與 .ani", "作用點、DPI 與多種尺寸", "INF 的安裝範圍", "登錄與配置啟用"],
+        troubleshootingQuestions: ["我已右鍵安裝 INF，為什麼設定沒有改變？", "為什麼系統設定最多只看到 17 個項目？", "為什麼 grab、grabbing 還是瀏覽器的預設游標？", "為什麼同一個游標在高 DPI 下變得模糊？", "為什麼圖形看起來正確，點選位置卻偏了？", "為什麼只有某個應用程式仍顯示舊游標？"],
+        designIntro: "好看的游標只是起點；真正耐用的游標還要在小尺寸、淺色背景、放大顯示與動畫狀態下都清楚易辨。",
+        designNotes: ["先看輪廓，再看裝飾：在 16 至 32 像素的常用尺寸裡，輪廓要一眼可辨，過細線條和太多細節只會變成雜訊。", "讓作用點符合圖形表達的動作位置：有明確指向端的圖形取尖端、十字線取中心、手形取指尖；不同尺寸與動畫影格都要保持同一個邏輯位置。", "動畫要穩定而克制：影格尺寸、作用點和節奏都要一致，並分別測試預設游標大小與輔助功能的放大游標。"]
+      },
+      en: {
+        chapters: ["How a pointer reaches the screen", "What a cursor file actually contains", "What Windows does when you install a scheme", "Which pointers Windows can replace", "Why the web does not always follow Windows", "Troubleshoot by symptom", "Design a pointer set that works"],
+        journeyIntro: "Think of a pointer as a relay race: the file supplies artwork, the scheme gives it a Windows role, the application asks for that role, and Windows finally renders it for the current DPI. Drop one handoff and the pointer on screen may not be the file you prepared.",
+        journeySteps: ["A file supplies artwork (.cur or .ani)", "The scheme assigns it a Windows role", "An application requests a role", "Windows renders it for DPI and scale"],
+        topicLabels: [".cur and .ani", "Hotspots, DPI, and multiple sizes", "What an INF can install", "Registry values and activation"],
+        troubleshootingQuestions: ["I installed the INF from the context menu. Why did nothing change?", "Why does Windows settings show only 17 entries?", "Why are grab and grabbing still the browser default?", "Why does the same pointer look blurry at high DPI?", "Why does the artwork look right but click in the wrong place?", "Why does one application still show the old pointer?"],
+        designIntro: "A good-looking pointer is only the beginning. A dependable set must remain legible at small sizes, on light backgrounds, with enlarged pointers, and through every animation frame.",
+        designNotes: ["Read the silhouette first: at common 16–32 pixel sizes, the outline must be unmistakable. Thin strokes and busy interiors quickly turn into noise.", "Make the hotspot intuitive: use the tip for an arrow, the center for a crosshair, and the fingertip for a hand. Keep that logic consistent across sizes and frames.", "Keep animation restrained: frame dimensions, hotspots, and timing should stay stable. Test both the default pointer size and enlarged accessibility pointers."]
+      },
+      ja: {
+        chapters: ["ポインターが画面に届くまで", "カーソル ファイルの中身", "設定をインストールすると Windows は何をするか", "Windows で置き換えられるポインター", "Web とブラウザーが Windows に完全には従わない理由", "症状からトラブルを解決する", "実用的なポインターセットの設計"],
+        journeyIntro: "ポインターをリレーにたとえると分かりやすくなります。ファイルが図形を用意し、設定が Windows の役割を割り当て、アプリがその役割を要求し、Windows が現在の DPI に合わせて画面へ描画します。どこかで受け渡しに失敗すると、用意したファイルとは違う図形が表示されます。",
+        journeySteps: ["ファイルが図形を用意（.cur または .ani）", "設定が Windows の役割を割り当てる", "アプリが役割を要求する", "Windows が DPI と倍率に合わせて表示"],
+        topicLabels: [".cur と .ani", "ホットスポット、DPI、複数サイズ", "INF ができること", "レジストリ値と適用"],
+        troubleshootingQuestions: ["INF を右クリックでインストールしたのに、なぜ変わらないのですか？", "Windows の設定に 17 項目しかないのはなぜですか？", "grab と grabbing がブラウザーの標準のままなのはなぜですか？", "高 DPI で同じポインターがぼやけるのはなぜですか？", "図形は合っているのにクリック位置がずれるのはなぜですか？", "特定のアプリだけ古いポインターを表示するのはなぜですか？"],
+        designIntro: "見た目が良いだけでは十分ではありません。小さなサイズ、明るい背景、拡大表示、アニメーションの各フレームでも、形がすぐ読み取れることが大切です。",
+        designNotes: ["まず輪郭を読み取れるようにします。一般的な 16～32 ピクセルでは外形を明確にし、細すぎる線や情報過多の内側を避けます。", "ホットスポットは直感に合わせます。矢印は先端、十字線は中心、手形は指先です。サイズやフレームが変わっても位置の意味を揃えます。", "アニメーションは控えめに安定させます。フレーム寸法、ホットスポット、速度を揃え、標準サイズとアクセシビリティ用の拡大サイズで確認します。"]
+      },
+      "vi": {
+        chapters: ["Một con trỏ đi đến màn hình như thế nào", "Bên trong tệp con trỏ có gì", "Windows làm gì khi bạn cài một lược đồ", "Những con trỏ Windows có thể thay thế", "Vì sao web không phải lúc nào cũng theo Windows", "Khắc phục theo triệu chứng", "Thiết kế một bộ con trỏ dùng được lâu dài"],
+        journeyIntro: "Hãy hình dung con trỏ như một cuộc chạy tiếp sức: tệp cung cấp hình ảnh, lược đồ gán vai trò cho Windows, ứng dụng yêu cầu vai trò đó, rồi Windows hiển thị theo DPI hiện tại. Chỉ cần một lần bàn giao không đúng, con trỏ trên màn hình có thể không phải tệp bạn đã chuẩn bị.",
+        journeySteps: ["Tệp cung cấp hình ảnh（.cur hoặc .ani）", "Lược đồ gán vai trò trong Windows", "Ứng dụng yêu cầu một vai trò", "Windows hiển thị theo DPI và tỉ lệ"],
+        topicLabels: [".cur và .ani", "Điểm nóng, DPI và nhiều kích thước", "INF có thể cài gì", "Giá trị Registry và kích hoạt"],
+        troubleshootingQuestions: ["Tôi đã cài INF từ menu chuột phải, vì sao không có gì thay đổi?", "Vì sao phần cài đặt Windows chỉ có 17 mục?", "Vì sao grab và grabbing vẫn là con trỏ mặc định của trình duyệt?", "Vì sao cùng một con trỏ lại mờ ở DPI cao?", "Vì sao hình ảnh đúng nhưng vị trí nhấp lại lệch?", "Vì sao chỉ một ứng dụng vẫn hiện con trỏ cũ?"],
+        designIntro: "Một con trỏ đẹp mới chỉ là điểm bắt đầu. Một bộ con trỏ đáng tin cậy phải dễ nhận ra ở kích thước nhỏ, trên nền sáng, khi phóng to và trong mọi khung hình động.",
+        designNotes: ["Hãy làm rõ đường bao trước: ở kích thước thường 16–32 pixel, hình dáng phải nhận ra ngay. Nét quá mảnh và phần ruột quá nhiều chi tiết sẽ thành nhiễu.", "Đặt điểm nóng theo trực giác: đầu mũi tên, tâm dấu cộng, đầu ngón tay. Giữ cùng ý nghĩa đó ở mọi kích thước và khung hình.", "Giữ hoạt ảnh ổn định và vừa phải: kích thước khung, điểm nóng và nhịp đều cần nhất quán. Hãy thử cả kích thước mặc định lẫn con trỏ phóng to cho khả năng tiếp cận."]
+      },
+      "ko": {
+        chapters: ["포인터가 화면에 나타나기까지", "커서 파일 안에는 무엇이 들어 있나", "구성표를 설치할 때 Windows가 하는 일", "Windows에서 바꿀 수 있는 포인터", "웹과 브라우저가 항상 Windows를 따르지 않는 이유", "증상으로 문제 해결하기", "실제로 쓰기 좋은 포인터 세트 만들기"],
+        journeyIntro: "포인터를 릴레이 경주에 비유하면 이해하기 쉽습니다. 파일이 그림을 제공하고, 구성표가 Windows 역할을 정하며, 앱이 그 역할을 요청하고, Windows가 현재 DPI에 맞춰 화면에 표시합니다. 어느 한 단계라도 어긋나면 화면의 포인터가 준비한 파일과 달라질 수 있습니다.",
+        journeySteps: ["파일이 그림을 제공（.cur 또는 .ani）", "구성표가 Windows 역할을 지정", "앱이 역할을 요청", "Windows가 DPI와 배율에 맞춰 표시"],
+        topicLabels: [".cur와 .ani", "핫스폿, DPI와 여러 크기", "INF가 설치할 수 있는 범위", "레지스트리 값과 적용"],
+        troubleshootingQuestions: ["INF를 마우스 오른쪽 버튼으로 설치했는데 왜 바뀌지 않나요?", "Windows 설정에는 왜 17개 항목만 있나요?", "grab과 grabbing은 왜 브라우저 기본 포인터 그대로인가요?", "높은 DPI에서 같은 포인터가 왜 흐릿해지나요?", "그림은 맞는데 클릭 위치가 왜 어긋나나요?", "특정 앱만 왜 예전 포인터를 계속 표시하나요?"],
+        designIntro: "보기 좋은 포인터는 시작일 뿐입니다. 좋은 포인터 세트는 작은 크기, 밝은 배경, 확대 표시, 모든 애니메이션 프레임에서도 형태가 분명해야 합니다.",
+        designNotes: ["먼저 실루엣을 읽기 쉽게 만드세요. 일반적인 16–32픽셀에서는 외곽선이 분명해야 하며, 너무 가는 선과 복잡한 내부 장식은 노이즈가 됩니다.", "핫스폿은 직관적으로 정하세요. 화살표는 끝, 십자선은 중앙, 손 모양은 손끝입니다. 크기와 프레임이 달라도 같은 의미를 유지하세요.", "애니메이션은 안정적이고 절제되게 만드세요. 프레임 크기, 핫스폿, 속도를 맞추고 기본 크기와 접근성용 확대 포인터에서 각각 확인하세요."]
+      },
+      "es": {
+        chapters: ["Cómo llega un puntero a la pantalla", "Qué contiene realmente un archivo de cursor", "Qué hace Windows al instalar un esquema", "Qué punteros puede sustituir Windows", "Por qué la web no siempre sigue a Windows", "Solución de problemas por síntoma", "Diseñar un conjunto de punteros que funcione"],
+        journeyIntro: "Piensa en el puntero como una carrera de relevos: el archivo aporta la imagen, el esquema le asigna una función de Windows, la aplicación solicita esa función y Windows la muestra según el DPI actual. Si falla un relevo, el puntero de la pantalla puede no ser el archivo que preparaste.",
+        journeySteps: ["El archivo aporta la imagen（.cur o .ani）", "El esquema asigna una función de Windows", "La aplicación solicita una función", "Windows muestra el puntero según DPI y escala"],
+        topicLabels: [".cur y .ani", "Punto activo, DPI y varios tamaños", "Qué puede instalar un INF", "Valores del Registro y activación"],
+        troubleshootingQuestions: ["He instalado el INF desde el menú contextual. ¿Por qué no cambia nada?", "¿Por qué la configuración de Windows solo muestra 17 entradas?", "¿Por qué grab y grabbing siguen siendo los punteros del navegador?", "¿Por qué el mismo puntero se ve borroso con DPI alto?", "¿Por qué la imagen parece correcta, pero el clic queda desplazado?", "¿Por qué una aplicación sigue mostrando el puntero antiguo?"],
+        designIntro: "Un puntero bonito es solo el principio. Un conjunto fiable debe seguir siendo legible en tamaños pequeños, sobre fondos claros, con punteros ampliados y en todos los fotogramas de una animación.",
+        designNotes: ["Haz que se lea primero la silueta: en tamaños habituales de 16–32 píxeles, el contorno debe reconocerse al instante. Las líneas finas y los interiores recargados se convierten en ruido.", "Coloca el punto activo de forma intuitiva: la punta en una flecha, el centro en una cruz y la yema en una mano. Mantén esa lógica en todos los tamaños y fotogramas.", "Mantén la animación estable y contenida: iguala dimensiones, puntos activos y ritmo, y prueba tanto el tamaño predeterminado como los punteros ampliados de accesibilidad."]
+      },
+      "fr": {
+        chapters: ["Comment un pointeur arrive à l’écran", "Ce que contient réellement un fichier de curseur", "Ce que fait Windows lors de l’installation d’un modèle", "Les pointeurs que Windows peut remplacer", "Pourquoi le Web ne suit pas toujours Windows", "Dépanner à partir du symptôme", "Concevoir un jeu de pointeurs vraiment utilisable"],
+        journeyIntro: "Imaginez le pointeur comme un relais : le fichier fournit le dessin, le modèle lui attribue un rôle Windows, l’application demande ce rôle, puis Windows l’affiche selon le DPI courant. Si un passage échoue, le pointeur à l’écran peut ne pas être celui que vous avez préparé.",
+        journeySteps: ["Le fichier fournit le dessin（.cur ou .ani）", "Le modèle attribue un rôle Windows", "L’application demande un rôle", "Windows affiche selon le DPI et l’échelle"],
+        topicLabels: [".cur et .ani", "Point actif, DPI et plusieurs tailles", "Ce qu’un INF peut installer", "Valeurs du Registre et activation"],
+        troubleshootingQuestions: ["J’ai installé l’INF depuis le menu contextuel. Pourquoi rien ne change-t-il ?", "Pourquoi les paramètres Windows ne montrent-ils que 17 entrées ?", "Pourquoi grab et grabbing restent-ils les pointeurs du navigateur ?", "Pourquoi le même pointeur devient-il flou avec un DPI élevé ?", "Pourquoi le dessin est-il correct mais le clic décalé ?", "Pourquoi une seule application affiche-t-elle encore l’ancien pointeur ?"],
+        designIntro: "Un pointeur réussi ne se résume pas à son apparence. Un jeu fiable doit rester lisible en petit, sur fond clair, avec un pointeur agrandi et dans chaque image d’une animation.",
+        designNotes: ["Faites lire la silhouette en premier : aux tailles courantes de 16 à 32 pixels, le contour doit être immédiat. Les traits trop fins et les intérieurs chargés deviennent vite du bruit.", "Placez le point actif intuitivement : la pointe pour une flèche, le centre pour une croix, le bout du doigt pour une main. Gardez cette logique à toutes les tailles et dans chaque image.", "Restez mesuré pour l’animation : dimensions, points actifs et rythme doivent rester stables. Testez la taille par défaut et les pointeurs agrandis d’accessibilité."]
+      },
+      "pt-BR": {
+        chapters: ["Como um ponteiro chega à tela", "O que um arquivo de cursor realmente contém", "O que o Windows faz ao instalar um esquema", "Quais ponteiros o Windows consegue substituir", "Por que a web nem sempre segue o Windows", "Solucione pelo sintoma", "Projete um conjunto de ponteiros que funcione"],
+        journeyIntro: "Pense no ponteiro como uma corrida de revezamento: o arquivo fornece a imagem, o esquema atribui uma função do Windows, o aplicativo solicita essa função e o Windows a exibe conforme o DPI atual. Se uma passagem falhar, o ponteiro na tela pode não ser o arquivo que você preparou.",
+        journeySteps: ["O arquivo fornece a imagem（.cur ou .ani）", "O esquema atribui uma função do Windows", "O aplicativo solicita uma função", "O Windows exibe conforme DPI e escala"],
+        topicLabels: [".cur e .ani", "Ponto ativo, DPI e vários tamanhos", "O que um INF pode instalar", "Valores do Registro e ativação"],
+        troubleshootingQuestions: ["Instalei o INF pelo menu de contexto. Por que nada mudou?", "Por que as configurações do Windows mostram apenas 17 entradas?", "Por que grab e grabbing continuam com o ponteiro padrão do navegador?", "Por que o mesmo ponteiro fica borrado em DPI alto?", "Por que a imagem está certa, mas o clique fica deslocado?", "Por que apenas um aplicativo ainda mostra o ponteiro antigo?"],
+        designIntro: "Um ponteiro bonito é só o começo. Um conjunto confiável precisa continuar legível em tamanhos pequenos, sobre fundos claros, com ponteiros ampliados e em todos os quadros da animação.",
+        designNotes: ["Faça a silhueta ser lida primeiro: nos tamanhos comuns de 16–32 pixels, o contorno precisa ser reconhecido de imediato. Linhas finas e interiores carregados viram ruído.", "Posicione o ponto ativo de modo intuitivo: a ponta na seta, o centro na mira e a ponta do dedo na mão. Mantenha essa lógica em todos os tamanhos e quadros.", "Mantenha a animação estável e discreta: dimensões, pontos ativos e ritmo devem permanecer consistentes. Teste o tamanho padrão e os ponteiros ampliados de acessibilidade."]
+      },
+      "pt-PT": {
+        chapters: ["Como chega um ponteiro ao ecrã", "O que contém realmente um ficheiro de ponteiro", "O que faz o Windows ao instalar um esquema", "Que ponteiros pode o Windows substituir", "Porque é que a Web nem sempre segue o Windows", "Resolver problemas pelo sintoma", "Conceber um conjunto de ponteiros que funcione"],
+        journeyIntro: "Pense no ponteiro como uma corrida de estafetas: o ficheiro fornece a imagem, o esquema atribui-lhe uma função do Windows, a aplicação pede essa função e o Windows apresenta-a de acordo com o DPI atual. Se uma passagem falhar, o ponteiro no ecrã pode não ser o ficheiro que preparou.",
+        journeySteps: ["O ficheiro fornece a imagem（.cur ou .ani）", "O esquema atribui uma função do Windows", "A aplicação pede uma função", "O Windows apresenta conforme o DPI e a escala"],
+        topicLabels: [".cur e .ani", "Ponto ativo, DPI e vários tamanhos", "O que um INF pode instalar", "Valores do Registo e ativação"],
+        troubleshootingQuestions: ["Instalei o INF pelo menu de contexto. Porque é que nada mudou?", "Porque é que as definições do Windows mostram apenas 17 entradas?", "Porque é que grab e grabbing continuam com o ponteiro predefinido do navegador?", "Porque é que o mesmo ponteiro fica desfocado com DPI elevado?", "Porque é que a imagem está certa, mas o clique fica deslocado?", "Porque é que apenas uma aplicação continua a mostrar o ponteiro antigo?"],
+        designIntro: "Um ponteiro bonito é apenas o princípio. Um conjunto fiável deve continuar legível em tamanhos pequenos, sobre fundos claros, com ponteiros ampliados e em todos os fotogramas da animação.",
+        designNotes: ["Faça a silhueta ser lida primeiro: nos tamanhos comuns de 16–32 píxeis, o contorno deve ser reconhecido de imediato. Linhas finas e interiores carregados tornam-se ruído.", "Posicione o ponto ativo de forma intuitiva: a ponta numa seta, o centro numa mira e a ponta do dedo numa mão. Mantenha essa lógica em todos os tamanhos e fotogramas.", "Mantenha a animação estável e moderada: dimensões, pontos ativos e ritmo devem ser consistentes. Teste o tamanho predefinido e os ponteiros ampliados de acessibilidade."]
+      },
+      ru: {
+        chapters: ["Как указатель попадает на экран", "Что на самом деле находится в файле курсора", "Что делает Windows при установке схемы", "Какие указатели может заменить Windows", "Почему веб не всегда следует настройкам Windows", "Устранение проблем по симптомам", "Как создать действительно удобную схему указателей"],
+        journeyIntro: "Представьте указатель как эстафету: файл предоставляет изображение, схема назначает ему роль Windows, приложение запрашивает эту роль, а Windows отображает её с учётом текущего DPI. Если передача на одном этапе нарушена, на экране может оказаться не тот файл, который вы подготовили.",
+        journeySteps: ["Файл предоставляет изображение（.cur или .ani）", "Схема назначает роль Windows", "Приложение запрашивает роль", "Windows отображает с учётом DPI и масштаба"],
+        topicLabels: [".cur и .ani", "Активная точка, DPI и разные размеры", "Что может установить INF", "Параметры реестра и активация"],
+        troubleshootingQuestions: ["Я установил INF через контекстное меню. Почему ничего не изменилось?", "Почему в параметрах Windows отображаются только 17 элементов?", "Почему grab и grabbing остаются указателями браузера по умолчанию?", "Почему тот же указатель становится размытым при высоком DPI?", "Почему изображение выглядит правильно, но щелчок попадает не туда?", "Почему только одно приложение продолжает показывать старый указатель?"],
+        designIntro: "Красивый указатель — только начало. Надёжная схема должна оставаться различимой в маленьком размере, на светлом фоне, при увеличении и в каждом кадре анимации.",
+        designNotes: ["Сначала сделайте читаемый силуэт: в обычных размерах 16–32 пикселя контур должен распознаваться сразу. Тонкие линии и перегруженная внутренняя часть превращаются в шум.", "Размещайте активную точку интуитивно: кончик у стрелки, центр у перекрестия, кончик пальца у руки. Сохраняйте эту логику во всех размерах и кадрах.", "Делайте анимацию стабильной и умеренной: размеры кадров, активные точки и темп должны совпадать. Проверьте стандартный и увеличенный указатель для специальных возможностей."]
+      },
+      "de": {
+        chapters: ["Wie ein Zeiger auf den Bildschirm gelangt", "Was tatsächlich in einer Cursor-Datei steckt", "Was Windows bei der Installation eines Schemas tut", "Welche Zeiger Windows ersetzen kann", "Warum das Web Windows nicht immer folgt", "Probleme nach Symptom lösen", "Ein wirklich brauchbares Zeigerset entwerfen"],
+        journeyIntro: "Stellen Sie sich den Zeiger als Staffellauf vor: Die Datei liefert das Bild, das Schema weist ihm eine Windows-Funktion zu, die Anwendung fordert diese Funktion an, und Windows stellt sie passend zur aktuellen DPI dar. Wenn eine Übergabe scheitert, kann auf dem Bildschirm ein anderer Zeiger erscheinen als der vorbereitete.",
+        journeySteps: ["Die Datei liefert das Bild（.cur oder .ani）", "Das Schema weist eine Windows-Funktion zu", "Die Anwendung fordert eine Funktion an", "Windows zeigt sie für DPI und Skalierung an"],
+        topicLabels: [".cur und .ani", "Hotspot, DPI und mehrere Größen", "Was eine INF installieren kann", "Registrierungswerte und Aktivierung"],
+        troubleshootingQuestions: ["Ich habe die INF über das Kontextmenü installiert. Warum ändert sich nichts?", "Warum zeigen die Windows-Einstellungen nur 17 Einträge?", "Warum bleiben grab und grabbing die Standardzeiger des Browsers?", "Warum wird derselbe Zeiger bei hoher DPI unscharf?", "Warum stimmt die Grafik, aber die Klickposition nicht?", "Warum zeigt nur eine Anwendung weiterhin den alten Zeiger?"],
+        designIntro: "Ein schöner Zeiger ist nur der Anfang. Ein zuverlässiges Set muss in kleinen Größen, auf hellen Hintergründen, bei vergrößerten Zeigern und in jedem Animationsbild lesbar bleiben.",
+        designNotes: ["Lassen Sie zuerst die Silhouette sprechen: Bei den üblichen Größen von 16–32 Pixeln muss der Umriss sofort erkennbar sein. Zu dünne Linien und überladene Innenflächen werden schnell zu Rauschen.", "Setzen Sie den Hotspot intuitiv: an die Spitze eines Pfeils, in die Mitte eines Fadenkreuzes und an die Fingerspitze einer Hand. Diese Logik muss in allen Größen und Bildern gleich bleiben.", "Halten Sie Animationen stabil und zurückhaltend: Bildgrößen, Hotspots und Tempo sollten konstant sein. Testen Sie die Standardgröße und vergrößerte Zeiger für die Barrierefreiheit."]
+      },
+      it: {
+        chapters: ["Come arriva un puntatore sullo schermo", "Che cosa contiene davvero un file cursore", "Che cosa fa Windows quando installi uno schema", "Quali puntatori può sostituire Windows", "Perché il Web non segue sempre Windows", "Risolvi i problemi partendo dal sintomo", "Progettare un set di puntatori davvero utilizzabile"],
+        journeyIntro: "Immagina il puntatore come una staffetta: il file fornisce l’immagine, lo schema assegna un ruolo di Windows, l’applicazione richiede quel ruolo e Windows lo mostra in base al DPI corrente. Se un passaggio non riesce, sullo schermo può comparire un puntatore diverso dal file preparato.",
+        journeySteps: ["Il file fornisce l’immagine（.cur o .ani）", "Lo schema assegna un ruolo Windows", "L’applicazione richiede un ruolo", "Windows mostra il puntatore per DPI e scala"],
+        topicLabels: [".cur e .ani", "Punto attivo, DPI e più dimensioni", "Che cosa può installare un INF", "Valori del Registro e attivazione"],
+        troubleshootingQuestions: ["Ho installato l’INF dal menu contestuale. Perché non è cambiato nulla?", "Perché le impostazioni di Windows mostrano solo 17 voci?", "Perché grab e grabbing restano i puntatori predefiniti del browser?", "Perché lo stesso puntatore diventa sfocato con DPI elevato?", "Perché l’immagine è corretta ma il clic risulta spostato?", "Perché una sola applicazione continua a mostrare il vecchio puntatore?"],
+        designIntro: "Un puntatore bello è solo l’inizio. Un set affidabile deve restare leggibile in dimensioni ridotte, su sfondi chiari, con puntatori ingranditi e in ogni fotogramma dell’animazione.",
+        designNotes: ["Fai leggere prima la sagoma: nelle dimensioni comuni di 16–32 pixel il contorno deve essere riconoscibile subito. Linee sottili e interni troppo ricchi diventano rumore.", "Posiziona il punto attivo in modo intuitivo: la punta per una freccia, il centro per un mirino, la punta del dito per una mano. Mantieni la stessa logica in tutte le dimensioni e i fotogrammi.", "Mantieni l’animazione stabile e discreta: dimensioni dei fotogrammi, punti attivi e ritmo devono restare coerenti. Prova sia la dimensione predefinita sia i puntatori ingranditi per l’accessibilità."]
+      }
+    };
+
+    const guideFoundationMessages = {
+      "zh-CN": {
+        foundationTitle: "鼠标指针：让看不见的移动变得可见",
+        foundationParagraphs: [
+          "鼠标指针是在计算机开始使用鼠标后，为了在图形用户界面中标识鼠标位置而产生的屏幕图形。鼠标在桌面上移动时，传感器只报告相对位移；操作系统把这些位移换算成屏幕坐标，再用可见图形标出当前位置。",
+          "这件事并不是“画一个会移动的图形”这么简单。1960 年代的鼠标研究、1968 年 Engelbart（恩格尔巴特）的公开演示，以及后来 Xerox Alto（施乐奥拓计算机）、Apple Macintosh（苹果麦金塔计算机）和 Windows（微软操作系统）的图形界面，都在解决同一个问题：当屏幕上同时有窗口、按钮、文字和对象时，用户必须知道下一次点击会落在哪里。鼠标指针正是连接手部动作与屏幕目标的视觉反馈。",
+          "日常语言里“光标”常常泛指屏幕上的位置标记，但严格来说，鼠标指针、文本插入符和 CSS（层叠样式表）的 cursor（光标）属性并不是同一个东西。理解它们的边界，才能解释为什么 Windows（微软操作系统）设置能更换系统指针，而网页声明 grab（抓取）时仍需要浏览器自己准备相应图形。",
+          "指针还有第二层任务：告诉你当前动作是否可行。常规选择图形用于定位，手形暗示可以点击，I 形表示可以选取文字，禁止符号表示操作被拒绝，成对的方向标记则提示边界可以拖动。指针的形状没有固定成某一种轮廓；只要位置、热点和含义清楚，它就能同时标识位置并传递状态。"
+        ],
+        concepts: [
+          ["鼠标", "一种把手的移动和按键操作传给计算机的输入设备。传感器报告的是相对位移，操作系统再把这段位移累积成屏幕上的坐标。"],
+          ["鼠标指针", "跟随屏幕坐标移动的可见图形，负责让人知道下一次操作会落在哪里。它通常由操作系统或应用的界面层绘制，形状还会随着当前动作改变。"],
+          ["文本插入符", "点击文字区域后闪烁的竖线，表示键盘输入将要插入的位置。它属于文本编辑器的状态标记，不是鼠标指针本身。"],
+          ["指针方案", "按用途命名的一组指针资源，以及它们与文件之间的分配关系。Windows 把这些用途保存为固定项目，所以安装文件不能任意增加新的系统槽位。"]
+        ],
+        displayTitle: "从像素到观感：尺寸、DPI（每英寸点数）与清晰度",
+        displayIntro: "Windows 指针文件看起来像一个小图标，实际更接近“带元数据的图像容器”：除了像素，还要记录热点、尺寸和动画信息。它们不是可无限放大的矢量图，清晰度取决于资源准备得是否完整。",
+        displayPoints: [
+          "优先提供多种原生尺寸，让系统在不同指针大小与 DPI（每英寸点数）下选择接近的图像；只有一张小图时，放大就会把边缘抹软。",
+          "DPI（每英寸点数）不是屏幕分辨率。Windows 会把逻辑坐标、显示缩放和指针大小设置一起考虑；多显示器之间切换时，同一文件可能经过不同的缩放路径。",
+          "高质量重绘应先从连续曲线和干净轮廓开始，再导出多尺寸光栅资源；重采样和锐化只能掩盖像素不足，不能补回原本不存在的形状信息。",
+          "清晰不等于刺眼。浅色与深色背景都要有足够对比，边缘要有稳定的明暗层次，动画帧的尺寸与热点也要完全一致。"
+        ]
+      },
+      "zh-HK": {
+        foundationTitle: "滑鼠指標：讓看不見的移動變得可見",
+        foundationParagraphs: [
+          "滑鼠指標是在電腦開始使用滑鼠後，為了在圖形使用者介面中標示滑鼠位置而產生的螢幕圖形。滑鼠在桌面上移動時，感應器只會回報相對位移；作業系統把位移換算成螢幕座標，再以可見圖形標出目前位置。",
+          "這不只是「畫一個會移動的圖形」那麼簡單。1960 年代的滑鼠研究、1968 年 Engelbart 的公開示範，以及後來 Xerox Alto、Apple Macintosh 和 Windows 的圖形介面，都在處理同一個問題：當螢幕上同時有視窗、按鈕、文字和物件時，使用者必須知道下一次點按會落在哪裡。指標就是連接手部動作和螢幕目標的視覺回饋。",
+          "日常用語中的「游標」有時會泛指螢幕上的位置標記，但嚴格來說，滑鼠指標、文字插入點和 CSS cursor 並不是同一件事。分清它們，才明白 Windows 設定可以更換系統指標，卻不能讓網頁的 grab 自動找到另一個 .cur 檔案。",
+          "指標還會傳達目前動作是否可行：一般選取圖形用於定位，手形暗示可以按下，I 形表示可選取文字，禁止符號表示操作被拒絕，成對的方向標記則表示邊界可以拖動。指標不必固定成某一種輪廓；只要位置、熱點和含義清楚，它便能同時標示位置和傳遞狀態。"
+        ],
+        concepts: [
+          ["滑鼠", "一種輸入裝置；感應器、按鍵和滾輪會把手的移動與操作回報給作業系統。"],
+          ["滑鼠指標", "隨指標座標移動的可見圖形，通常由作業系統或應用程式的介面層繪製。"],
+          ["文字插入點", "編輯文字時閃動的直線，表示下一次輸入會落在哪裡；它不是滑鼠指標。"],
+          ["指標配置", "按用途命名的指標資源與檔案分配關係。Windows 配置有固定項目，不是任意數量的檔案清單。"]
+        ],
+        displayTitle: "從像素到觀感：尺寸、DPI 與清晰度",
+        displayIntro: "Windows 指標檔案看似一張小圖，實際更像「帶有中繼資料的圖像容器」：除了像素，還要記錄熱點、尺寸和動畫資訊。它們不是可以無限放大的向量圖，清晰度取決於資源是否準備完整。",
+        displayPoints: [
+          "優先提供多種原生尺寸，讓系統在不同指標大小和 DPI 下選取接近的圖像；只有一張小圖時，放大會令邊緣變軟。",
+          "DPI 並不等於螢幕解析度。Windows 會一起考慮邏輯座標、顯示縮放和指標大小；在多螢幕之間切換時，同一檔案可能經過不同的縮放流程。",
+          "高品質重繪應先從連續曲線和乾淨輪廓開始，再匯出多種尺寸的點陣資源；重取樣和銳化無法補回原本不存在的形狀資訊。",
+          "清晰不等於刺眼。淺色和深色背景都要有足夠對比，邊緣要有穩定的明暗層次，動畫影格的尺寸與熱點也要完全一致。"
+        ]
+      },
+      "zh-TW": {
+        foundationTitle: "滑鼠游標：讓看不見的移動變得可見",
+        foundationParagraphs: [
+          "滑鼠游標是在電腦開始使用滑鼠後，為了在圖形使用者介面中標示滑鼠位置而產生的螢幕圖形。滑鼠在桌面上移動時，感測器只會回報相對位移；作業系統把位移換算成螢幕座標，再以可見圖形標出目前位置。",
+          "這不只是「畫一個會移動的圖形」那麼簡單。1960 年代的滑鼠研究、1968 年 Engelbart 的公開示範，以及後來 Xerox Alto、Apple Macintosh 和 Windows 的圖形介面，都在處理同一個問題：當螢幕上同時有視窗、按鈕、文字和物件時，使用者必須知道下一次點選會落在哪裡。游標就是連接手部動作與螢幕目標的視覺回饋。",
+          "日常用語中的「光標」有時會泛指螢幕上的位置標記，但嚴格來說，滑鼠游標、文字插入點和 CSS cursor 並不是同一件事。分清它們，才能明白 Windows 設定可以更換系統游標，卻不能讓網頁的 grab 自動找到另一個 .cur 檔案。",
+          "游標還會傳達目前動作是否可行：一般選取圖形用於定位，手形暗示可以按下，I 形表示可選取文字，禁止符號表示操作被拒絕，成對的方向標記則表示邊界可以拖動。游標不必固定成某一種輪廓；只要位置、作用點和含義清楚，它就能同時標示位置並傳遞狀態。"
+        ],
+        concepts: [
+          ["滑鼠", "一種輸入裝置；感測器、按鍵和滾輪會把手的移動與操作回報給作業系統。"],
+          ["滑鼠游標", "隨游標座標移動的可見圖形，通常由作業系統或應用程式的介面層繪製。"],
+          ["文字插入點", "編輯文字時閃動的直線，表示下一次輸入會落在哪裡；它不是滑鼠游標。"],
+          ["游標配置", "按用途命名的游標資源與檔案分配關係。Windows 配置有固定項目，不是任意數量的檔案清單。"]
+        ],
+        displayTitle: "從像素到觀感：尺寸、DPI 與清晰度",
+        displayIntro: "Windows 游標檔案看似一張小圖，實際更像「帶有中繼資料的影像容器」：除了像素，還要記錄作用點、尺寸和動畫資訊。它們不是可以無限放大的向量圖，清晰度取決於資源是否準備完整。",
+        displayPoints: [
+          "優先提供多種原生尺寸，讓系統在不同游標大小和 DPI 下選取接近的影像；只有一張小圖時，放大會讓邊緣變軟。",
+          "DPI 並不等於螢幕解析度。Windows 會一起考慮邏輯座標、顯示縮放和游標大小；在多螢幕之間切換時，同一檔案可能經過不同的縮放流程。",
+          "高品質重繪應先從連續曲線和乾淨輪廓開始，再輸出多種尺寸的點陣資源；重取樣和銳化無法補回原本不存在的形狀資訊。",
+          "清晰不等於刺眼。淺色和深色背景都要有足夠對比，邊緣要有穩定的明暗層次，動畫影格的尺寸與作用點也要完全一致。"
+        ]
+      },
+      en: {
+        foundationTitle: "Start here: what is a mouse pointer?",
+        foundationParagraphs: [
+          "A mouse pointer is the on-screen mark created to identify the mouse position in a graphical user interface. When the mouse moves across a desk, its sensor reports relative motion; the arrow turns that invisible input into something visible and targetable on the screen.",
+          "That is more than drawing an arrow. Mouse research in the 1960s, Engelbart’s 1968 public demonstration, and later graphical systems such as Xerox Alto, Apple Macintosh, and Windows all faced the same problem: when windows, buttons, text, and objects share a screen, a person needs to know exactly where the next click will land. The pointer is the visual trace that follows the hand.",
+          "In everyday speech, cursor may refer to any position marker, but a mouse pointer, a text caret, and a CSS cursor are different things. That distinction explains why Windows can change the arrow while a web page’s grab keyword does not automatically discover another .cur file.",
+          "A pointer also communicates state. An arrow means ordinary targeting, a hand suggests activation, the I-beam indicates selectable text, the barred circle rejects an action, and a resize arrow says that a boundary can move. The pointer marks a position and narrates what can happen there."
+        ],
+        concepts: [
+          ["Mouse", "An input device whose sensor, buttons, and wheel report movement and actions to the operating system."],
+          ["Mouse pointer", "The visible artwork that follows pointer coordinates, usually drawn by the operating system or an application UI layer."],
+          ["Text caret", "The blinking insertion mark in an editor. It shows where typed text will go; it is not the mouse pointer."],
+          ["Pointer scheme", "A named set of pointer assets and role assignments. Windows exposes fixed entries rather than an unlimited file list."]
+        ],
+        displayTitle: "From pixels to perception: size, DPI, and sharpness",
+        displayIntro: "A Windows pointer file looks like a tiny picture, but it is closer to an image container with metadata: pixels are accompanied by a hotspot, sizes, and sometimes animation data. These are not infinitely scalable vector files, so sharpness depends on how completely the resources were prepared.",
+        displayPoints: [
+          "Supply several native sizes so Windows can choose a close image for different pointer sizes and DPI values. Enlarging one small bitmap is what turns clean edges soft.",
+          "DPI is not the same as screen resolution. Windows combines logical coordinates, display scaling, and pointer-size settings; moving between monitors can send the same asset through different scaling paths.",
+          "For a high-quality redraw, start with continuous curves and a clean silhouette, then export multiple raster sizes. Resampling and sharpening cannot recover shape information that was never drawn.",
+          "Sharp does not mean harsh. Use enough contrast on both light and dark backgrounds, keep edge tones stable, and keep animation-frame dimensions and hotspots identical."
+        ]
+      },
+      "ja": {
+        foundationTitle: "まず知っておきたい：マウスポインターとは",
+        foundationParagraphs: [
+          "マウスポインターは、マウスを使うコンピューターで、グラフィカルユーザーインターフェース上のマウス位置を示すために生まれた画面上の図形です。マウスのセンサーが報告するのは机の上の相対移動であり、画面上の矢印はその見えない入力を見える対象に変換します。",
+          "これは単に矢印を描くことではありません。1960 年代のマウス研究、Engelbart による 1968 年の公開デモ、そして Xerox Alto、Apple Macintosh、Windows へ続く GUI は、ウィンドウやボタン、文字、オブジェクトが同じ画面にあるとき、次のクリック位置をどう伝えるかを解決してきました。",
+          "日常会話では cursor が位置を示すもの全般を指すことがありますが、マウスポインター、テキストのキャレット、CSS cursor は別のものです。この区別が分かると、Windows の矢印は変えられても Web ページの grab が別の .cur を自動で見つけない理由が理解できます。",
+          "ポインターは状態も伝えます。矢印は通常の対象指定、手はクリック可能、I ビームは文字選択、禁止マークは操作拒否、両方向矢印は境界を動かせることを示します。位置を示すだけでなく、そこで可能な操作を語っているのです。"
+        ],
+        concepts: [["マウス", "センサー、ボタン、ホイールで移動と操作を OS に伝える入力デバイスです。"], ["マウスポインター", "座標に従って動く見える図形で、通常は OS またはアプリの UI 層が描画します。"], ["テキストキャレット", "入力位置を示す点滅する縦線です。マウスポインターではありません。"], ["ポインター設定", "ポインターの資産と役割の割り当てをまとめたものです。Windows の項目数は固定されています。"]],
+        displayTitle: "ピクセルから見た目へ：サイズ、DPI、鮮明さ",
+        displayIntro: "Windows のポインターファイルは小さな画像に見えますが、実際にはホットスポット、サイズ、アニメーション情報を伴う画像コンテナーです。無限に拡大できるベクターではないため、準備したリソースの質が鮮明さを決めます。",
+        displayPoints: ["複数のネイティブサイズを用意すると、異なるポインターサイズや DPI に近い画像を選べます。小さな画像を拡大するだけでは輪郭がぼやけます。", "DPI は画面解像度とは別の概念です。Windows は論理座標、表示倍率、ポインターサイズを組み合わせ、モニター間の移動で異なる拡大経路を使うことがあります。", "高品質な描き直しは連続した曲線と明快なシルエットから始め、複数のラスターサイズへ書き出します。再サンプリングやシャープ化だけでは、描かれていない形を取り戻せません。", "鮮明さは刺激の強さではありません。明るい背景と暗い背景の両方で十分なコントラストを保ち、アニメーションの各フレームでサイズとホットスポットを揃えます。"]
+      },
+      "vi": {
+        foundationTitle: "Bắt đầu từ khái niệm: con trỏ chuột là gì?",
+        foundationParagraphs: [
+          "Con trỏ chuột là hình ảnh trên màn hình được tạo ra để đánh dấu vị trí của chuột trong giao diện đồ họa. Khi chuột di chuyển trên mặt bàn, cảm biến chỉ báo độ dịch chuyển tương đối; mũi tên trên màn hình biến tín hiệu vô hình đó thành một mục tiêu có thể nhìn thấy.",
+          "Đây không chỉ là việc vẽ một mũi tên. Nghiên cứu chuột trong thập niên 1960, màn trình diễn công khai của Engelbart năm 1968, rồi Xerox Alto, Apple Macintosh và Windows đều giải quyết một câu hỏi: khi cửa sổ, nút, chữ và đối tượng cùng xuất hiện, người dùng cần biết lần nhấp tiếp theo sẽ rơi vào đâu.",
+          "Trong lời nói thường ngày, cursor đôi khi chỉ mọi dấu đánh dấu vị trí, nhưng con trỏ chuột, dấu chèn văn bản và CSS cursor là những khái niệm khác nhau. Phân biệt chúng sẽ giải thích vì sao Windows đổi được mũi tên nhưng từ khóa grab trên trang web không tự tìm một tệp .cur khác.",
+          "Con trỏ còn truyền đạt trạng thái: mũi tên là định vị thông thường, bàn tay gợi ý có thể kích hoạt, chữ I cho biết có thể chọn văn bản, biểu tượng cấm từ chối thao tác và mũi tên hai chiều cho biết có thể kéo biên."
+        ],
+        concepts: [["Chuột", "Thiết bị nhập báo chuyển động và thao tác của tay cho hệ điều hành qua cảm biến, nút và bánh xe."], ["Con trỏ chuột", "Hình ảnh nhìn thấy đi theo tọa độ con trỏ, thường do hệ điều hành hoặc lớp giao diện ứng dụng vẽ."], ["Dấu chèn văn bản", "Vạch nhấp nháy cho biết vị trí nhập chữ trong trình soạn thảo; nó không phải con trỏ chuột."], ["Lược đồ con trỏ", "Tập tài nguyên và vai trò được đặt tên. Windows cung cấp các mục cố định, không phải danh sách tệp vô hạn."]],
+        displayTitle: "Từ điểm ảnh đến cảm nhận: kích thước, DPI và độ sắc nét",
+        displayIntro: "Tệp con trỏ Windows giống một hình nhỏ nhưng thực chất là một hộp hình ảnh có siêu dữ liệu: điểm ảnh đi cùng điểm nóng, kích thước và đôi khi là dữ liệu hoạt ảnh. Đây không phải hình vector có thể phóng to vô hạn.",
+        displayPoints: ["Cung cấp nhiều kích thước gốc để Windows chọn hình gần nhất theo cỡ con trỏ và DPI. Phóng to một bitmap nhỏ là nguyên nhân làm mềm cạnh.", "DPI không phải độ phân giải màn hình. Windows kết hợp tọa độ logic, tỉ lệ hiển thị và cỡ con trỏ; chuyển giữa các màn hình có thể dùng các đường co giãn khác nhau.", "Bản vẽ lại chất lượng cao nên bắt đầu bằng đường cong liên tục và đường bao sạch, sau đó xuất nhiều kích thước raster. Lấy mẫu lại không thể tạo ra hình dạng chưa từng được vẽ.", "Sắc nét không có nghĩa là chói. Hãy giữ tương phản đủ trên nền sáng và tối, đồng thời giữ cùng kích thước và điểm nóng ở mọi khung hình."]
+      },
+      "ko": {
+        foundationTitle: "먼저 알아보기: 마우스 포인터란 무엇인가",
+        foundationParagraphs: [
+          "마우스 포인터는 그래픽 사용자 인터페이스에서 마우스 위치를 표시하기 위해 생겨난 화면의 그림입니다. 마우스 센서는 책상 위의 상대적인 움직임을 보고하고, 화면의 화살표는 보이지 않는 입력을 눈에 보이고 지정할 수 있는 대상으로 바꿉니다.",
+          "단순히 화살표를 그리는 일이 아닙니다. 1960년대의 마우스 연구, 1968년 Engelbart의 공개 시연, 이후 Xerox Alto와 Apple Macintosh, Windows의 GUI는 창과 버튼, 문자, 개체가 함께 있을 때 다음 클릭 위치를 어떻게 알려 줄지 해결해 왔습니다.",
+          "일상적으로 cursor라는 말은 위치 표시를 두루 뜻하기도 하지만, 마우스 포인터와 텍스트 캐럿, CSS cursor는 서로 다른 개념입니다. 이 차이를 알아야 Windows 화살표는 바꿀 수 있어도 웹의 grab이 다른 .cur 파일을 자동으로 찾지 않는 이유를 이해할 수 있습니다.",
+          "포인터는 상태도 알려 줍니다. 화살표는 일반적인 대상 지정, 손 모양은 활성화 가능, I 모양은 문자 선택, 금지 표시는 작업 거부, 양방향 화살표는 경계를 끌 수 있음을 뜻합니다."
+        ],
+        concepts: [["마우스", "센서, 버튼, 휠로 손의 움직임과 동작을 운영 체제에 전달하는 입력 장치입니다."], ["마우스 포인터", "포인터 좌표를 따라 움직이는 화면 그림으로, 보통 운영 체제나 앱 UI 계층이 그립니다."], ["텍스트 캐럿", "편집기에서 입력 위치를 나타내는 깜박이는 선입니다. 마우스 포인터가 아닙니다."], ["포인터 구성표", "포인터 리소스와 역할 할당을 묶은 설정입니다. Windows의 항목 수는 고정되어 있습니다."]],
+        displayTitle: "픽셀에서 화면 인상까지: 크기, DPI와 선명도",
+        displayIntro: "Windows 포인터 파일은 작은 그림처럼 보이지만 핫스폿, 크기, 애니메이션 정보를 함께 가진 이미지 컨테이너에 가깝습니다. 무한히 확대할 수 있는 벡터 파일이 아니므로 리소스를 얼마나 완전하게 준비했는지가 선명도를 결정합니다.",
+        displayPoints: ["여러 원본 크기를 제공하면 Windows가 포인터 크기와 DPI에 가까운 그림을 고를 수 있습니다. 작은 비트맵 하나를 확대하면 가장자리가 흐려집니다.", "DPI는 화면 해상도와 다릅니다. Windows는 논리 좌표, 디스플레이 배율, 포인터 크기를 함께 고려하며 모니터를 옮길 때 다른 크기 조정 경로를 사용할 수 있습니다.", "고품질 재작성은 연속적인 곡선과 깨끗한 실루엣에서 시작해 여러 래스터 크기로 내보내야 합니다. 리샘플링과 선명화만으로는 그리지 않은 형태를 되살릴 수 없습니다.", "선명함이 곧 자극적임을 뜻하지는 않습니다. 밝고 어두운 배경 모두에서 충분한 대비를 유지하고 애니메이션 프레임의 크기와 핫스폿을 맞추세요."]
+      },
+      "es": {
+        foundationTitle: "Empecemos por el concepto: ¿qué es un puntero?",
+        foundationParagraphs: [
+          "El puntero del ratón es la imagen en pantalla que nació para señalar la posición del ratón en una interfaz gráfica. El sensor solo informa del movimiento relativo sobre la mesa; la flecha convierte esa entrada invisible en un objetivo visible y localizable.",
+          "No se trata simplemente de dibujar una flecha. La investigación de los años sesenta, la demostración pública de Engelbart en 1968 y sistemas posteriores como Xerox Alto, Apple Macintosh y Windows respondían a una misma necesidad: cuando ventanas, botones, texto y objetos comparten pantalla, hay que saber dónde caerá el próximo clic.",
+          "En el habla cotidiana, cursor puede referirse a cualquier marcador de posición, pero el puntero del ratón, el cursor de texto y CSS cursor son conceptos distintos. Esa diferencia explica por qué Windows puede cambiar la flecha, pero grab no descubre automáticamente otro archivo .cur en una página web.",
+          "El puntero también comunica estado: la flecha indica apuntado normal, la mano sugiere activación, la I permite seleccionar texto, el símbolo de prohibición rechaza una acción y las flechas de tamaño indican que un borde se puede arrastrar."
+        ],
+        concepts: [["Ratón", "Dispositivo de entrada que comunica al sistema el movimiento y las acciones mediante sensor, botones y rueda."], ["Puntero del ratón", "Imagen visible que sigue a las coordenadas del puntero, dibujada normalmente por el sistema o la interfaz de una aplicación."], ["Cursor de texto", "Marca parpadeante que indica dónde se insertará el texto. No es el puntero del ratón."], ["Esquema de punteros", "Conjunto de recursos y funciones asignadas por nombre. Windows expone entradas fijas, no una lista ilimitada de archivos."]],
+        displayTitle: "De los píxeles a la percepción: tamaño, DPI y nitidez",
+        displayIntro: "Un archivo de puntero de Windows parece una imagen pequeña, pero se acerca más a un contenedor con metadatos: incluye punto activo, tamaños y, a veces, animación. No es un vector que pueda ampliarse sin límite.",
+        displayPoints: ["Incluye varios tamaños nativos para que Windows elija el más cercano al tamaño del puntero y al DPI. Ampliar un único mapa de bits suaviza los bordes.", "DPI no es lo mismo que resolución. Windows combina coordenadas lógicas, escala de pantalla y tamaño del puntero; al cambiar de monitor puede usar otra ruta de escalado.", "Un redibujo de calidad debe empezar con curvas continuas y una silueta limpia, y después exportarse a varios tamaños raster. El remuestreo no crea formas que nunca se dibujaron.", "La nitidez no debe resultar agresiva: conserva contraste suficiente sobre fondos claros y oscuros y mantén iguales el tamaño y el punto activo en cada fotograma."]
+      },
+      "fr": {
+        foundationTitle: "Commençons par le concept : qu’est-ce qu’un pointeur ?",
+        foundationParagraphs: [
+          "Le pointeur de souris est le dessin à l’écran créé pour signaler la position de la souris dans une interface graphique. Le capteur ne rapporte que le déplacement relatif sur le bureau ; la flèche transforme cette entrée invisible en cible visible et repérable.",
+          "Ce n’est pas simplement une flèche. Les recherches des années 1960, la démonstration publique d’Engelbart en 1968, puis Xerox Alto, Apple Macintosh et Windows répondaient à une même question : lorsque fenêtres, boutons, texte et objets cohabitent, où le prochain clic va-t-il tomber ?",
+          "Dans le langage courant, cursor peut désigner tout marqueur de position, mais pointeur de souris, curseur de texte et CSS cursor sont différents. Cette distinction explique pourquoi Windows peut modifier la flèche alors que grab ne découvre pas automatiquement un autre fichier .cur dans une page Web.",
+          "Le pointeur communique aussi un état : la flèche indique le ciblage normal, la main l’activation possible, le I la sélection de texte, le symbole interdit le refus d’une action et les doubles flèches le déplacement d’une bordure."
+        ],
+        concepts: [["Souris", "Périphérique d’entrée dont le capteur, les boutons et la molette transmettent les actions au système."], ["Pointeur de souris", "Dessin visible qui suit les coordonnées du pointeur, généralement rendu par le système ou une couche d’interface."], ["Curseur de texte", "Repère clignotant indiquant où le texte sera inséré. Ce n’est pas le pointeur de souris."], ["Modèle de pointeurs", "Ensemble nommé de ressources et d’affectations. Windows expose des entrées fixes, pas une liste infinie de fichiers."]],
+        displayTitle: "Des pixels à la perception : taille, DPI et netteté",
+        displayIntro: "Un fichier de pointeur Windows ressemble à une petite image, mais c’est plutôt un conteneur d’image avec métadonnées : point actif, tailles et parfois animation. Ce n’est pas un dessin vectoriel extensible à l’infini.",
+        displayPoints: ["Fournissez plusieurs tailles natives afin que Windows choisisse une image proche de la taille du pointeur et du DPI. Agrandir une petite image matricielle adoucit les contours.", "Le DPI ne se confond pas avec la résolution. Windows combine coordonnées logiques, échelle d’affichage et taille du pointeur ; changer de moniteur peut modifier le chemin de mise à l’échelle.", "Un redessin de qualité commence par des courbes continues et une silhouette nette, puis produit plusieurs tailles matricielles. Le rééchantillonnage ne peut pas inventer une forme jamais dessinée.", "La netteté ne doit pas être agressive : gardez un contraste suffisant sur fonds clairs et sombres et identiques la taille et le point actif de chaque image."]
+      },
+      "pt-BR": {
+        foundationTitle: "Comece pelo conceito: o que é um ponteiro?",
+        foundationParagraphs: [
+          "O ponteiro do mouse é a imagem na tela criada para indicar a posição do mouse em uma interface gráfica. O sensor informa apenas o movimento relativo sobre a mesa; a seta transforma essa entrada invisível em um alvo visível e localizável.",
+          "Não é apenas desenhar uma seta. As pesquisas dos anos 1960, a demonstração pública de Engelbart em 1968 e sistemas posteriores como Xerox Alto, Apple Macintosh e Windows enfrentaram a mesma questão: quando janelas, botões, texto e objetos dividem a tela, onde o próximo clique vai cair?",
+          "No uso cotidiano, cursor pode significar qualquer marcador de posição, mas ponteiro do mouse, cursor de texto e CSS cursor são conceitos diferentes. Essa distinção explica por que o Windows muda a seta, mas grab não encontra automaticamente outro arquivo .cur em uma página web.",
+          "O ponteiro também comunica estado: a seta indica apontamento normal, a mão sugere ativação, o I permite selecionar texto, o símbolo de proibido recusa uma ação e as setas de redimensionamento indicam que uma borda pode ser arrastada."
+        ],
+        concepts: [["Mouse", "Dispositivo de entrada que envia movimentos e ações ao sistema por meio de sensor, botões e roda."], ["Ponteiro do mouse", "Imagem visível que acompanha as coordenadas, normalmente desenhada pelo sistema ou pela camada de interface do aplicativo."], ["Cursor de texto", "Marca piscante que indica onde o texto será inserido. Não é o ponteiro do mouse."], ["Esquema de ponteiros", "Conjunto nomeado de recursos e atribuições. O Windows expõe entradas fixas, não uma lista ilimitada de arquivos."]],
+        displayTitle: "Dos pixels à percepção: tamanho, DPI e nitidez",
+        displayIntro: "Um arquivo de ponteiro do Windows parece uma imagem pequena, mas funciona como um contêiner com metadados: inclui ponto ativo, tamanhos e, às vezes, animação. Não é um desenho vetorial que possa ser ampliado sem limite.",
+        displayPoints: ["Forneça vários tamanhos nativos para que o Windows escolha uma imagem próxima ao tamanho do ponteiro e ao DPI. Ampliar um bitmap pequeno suaviza as bordas.", "DPI não é o mesmo que resolução. O Windows combina coordenadas lógicas, escala da tela e tamanho do ponteiro; trocar de monitor pode mudar o caminho de escala.", "Um redesenho de qualidade começa com curvas contínuas e uma silhueta limpa, e depois exporta vários tamanhos raster. Reamostragem não cria uma forma que nunca foi desenhada.", "Nitidez não precisa ser agressiva: mantenha contraste suficiente em fundos claros e escuros e preserve tamanho e ponto ativo em todos os quadros."]
+      },
+      "pt-PT": {
+        foundationTitle: "Comece pelo conceito: o que é um ponteiro?",
+        foundationParagraphs: [
+          "O ponteiro do rato é a imagem no ecrã criada para indicar a posição do rato numa interface gráfica. O sensor comunica apenas o movimento relativo sobre a mesa; a seta transforma essa entrada invisível num alvo visível e localizável.",
+          "Não se trata apenas de desenhar uma seta. A investigação dos anos 1960, a demonstração pública de Engelbart em 1968 e sistemas posteriores como Xerox Alto, Apple Macintosh e Windows procuravam resolver a mesma questão: quando janelas, botões, texto e objetos partilham o ecrã, onde cairá o próximo clique?",
+          "No uso corrente, cursor pode designar qualquer marcador de posição, mas ponteiro do rato, cursor de texto e CSS cursor são conceitos diferentes. É essa distinção que explica por que razão o Windows altera a seta, mas grab não encontra automaticamente outro ficheiro .cur numa página Web.",
+          "O ponteiro também comunica estado: a seta indica apontamento normal, a mão sugere ativação, o I permite selecionar texto, o símbolo de proibição recusa uma ação e as setas de redimensionamento indicam que uma margem pode ser arrastada."
+        ],
+        concepts: [["Rato", "Dispositivo de entrada que envia movimentos e ações ao sistema através do sensor, dos botões e da roda."], ["Ponteiro do rato", "Imagem visível que acompanha as coordenadas, normalmente desenhada pelo sistema ou pela camada de interface da aplicação."], ["Cursor de texto", "Marca intermitente que indica onde o texto será inserido. Não é o ponteiro do rato."], ["Esquema de ponteiros", "Conjunto nomeado de recursos e atribuições. O Windows expõe entradas fixas, não uma lista ilimitada de ficheiros."]],
+        displayTitle: "Dos píxeis à perceção: tamanho, DPI e nitidez",
+        displayIntro: "Um ficheiro de ponteiro do Windows parece uma imagem pequena, mas funciona como um contentor com metadados: inclui ponto ativo, tamanhos e, por vezes, animação. Não é um desenho vetorial que possa ser ampliado sem limite.",
+        displayPoints: ["Forneça vários tamanhos nativos para que o Windows escolha uma imagem próxima do tamanho do ponteiro e do DPI. Ampliar um bitmap pequeno suaviza as margens.", "DPI não é o mesmo que resolução. O Windows combina coordenadas lógicas, escala do ecrã e tamanho do ponteiro; mudar de monitor pode alterar o percurso de escala.", "Um redesenho de qualidade começa com curvas contínuas e uma silhueta limpa, exportando depois vários tamanhos raster. A reamostragem não cria uma forma que nunca foi desenhada.", "Nitidez não significa agressividade: mantenha contraste suficiente em fundos claros e escuros e conserve tamanho e ponto ativo em todos os fotogramas."]
+      },
+      "ru": {
+        foundationTitle: "Начнём с понятия: что такое указатель мыши?",
+        foundationParagraphs: [
+          "Указатель мыши — это изображение на экране, созданное для обозначения положения мыши в графическом интерфейсе. Датчик сообщает только относительное движение по столу, а стрелка превращает невидимый ввод в видимую и точно указываемую цель.",
+          "Это не просто нарисованная стрелка. Исследования мыши в 1960-х, публичная демонстрация Энгельбарта в 1968 году, а затем Xerox Alto, Apple Macintosh и Windows решали один вопрос: когда на экране одновременно находятся окна, кнопки, текст и объекты, где окажется следующий щелчок?",
+          "В обычной речи cursor иногда означает любой маркер положения, но указатель мыши, текстовый курсор и CSS cursor — разные понятия. Поэтому Windows может изменить стрелку, но ключевое слово grab на веб-странице не находит автоматически другой файл .cur.",
+          "Указатель передаёт и состояние: стрелка означает обычное наведение, рука — возможность активации, I — выбор текста, знак запрета — отказ в действии, а стрелки изменения размера — возможность перетащить границу."
+        ],
+        concepts: [["Мышь", "Устройство ввода, которое сообщает системе движение и действия через датчик, кнопки и колёсико."], ["Указатель мыши", "Видимое изображение, следующее за координатами; обычно его рисует ОС или слой интерфейса приложения."], ["Текстовый курсор", "Мигающая отметка места ввода текста. Это не указатель мыши."], ["Схема указателей", "Именованный набор ресурсов и назначений. Windows предоставляет фиксированные элементы, а не бесконечный список файлов."]],
+        displayTitle: "От пикселей к восприятию: размер, DPI и чёткость",
+        displayIntro: "Файл указателя Windows похож на маленькую картинку, но ближе к контейнеру изображения с метаданными: он содержит активную точку, размеры и иногда данные анимации. Это не векторный рисунок, который можно бесконечно увеличивать.",
+        displayPoints: ["Подготовьте несколько исходных размеров, чтобы Windows выбрала изображение, близкое к размеру указателя и DPI. Увеличение одной маленькой растровой картинки смягчает края.", "DPI не равен разрешению экрана. Windows учитывает логические координаты, масштаб дисплея и размер указателя; при переходе между мониторами путь масштабирования может измениться.", "Качественная перерисовка начинается с непрерывных кривых и чистого силуэта, после чего экспортируются разные растровые размеры. Ресемплинг не создаёт форму, которую не нарисовали.", "Чёткость не должна быть резкой для глаз: обеспечьте контраст на светлом и тёмном фоне, а размеры и активные точки всех кадров сохраняйте одинаковыми."]
+      },
+      "de": {
+        foundationTitle: "Zuerst der Begriff: Was ist ein Mauszeiger?",
+        foundationParagraphs: [
+          "Der Mauszeiger ist das Bildschirmbild, das die Position der Maus in einer grafischen Benutzeroberfläche markiert. Der Sensor meldet nur die relative Bewegung auf dem Tisch; der Pfeil macht diese unsichtbare Eingabe sichtbar und zielgenau.",
+          "Das ist mehr als ein gezeichneter Pfeil. Die Mausforschung der 1960er, Engelbarts öffentliche Demonstration von 1968 und spätere Systeme wie Xerox Alto, Apple Macintosh und Windows lösten dieselbe Aufgabe: Wenn Fenster, Schaltflächen, Text und Objekte den Bildschirm teilen, muss klar sein, wo der nächste Klick landet.",
+          "Im Alltag kann cursor jeden Positionsmarker meinen, doch Mauszeiger, Text-Caret und CSS cursor sind verschiedene Dinge. Deshalb kann Windows den Pfeil ändern, während grab auf einer Webseite nicht automatisch eine andere .cur-Datei findet.",
+          "Der Zeiger zeigt außerdem den Zustand an: Der Pfeil steht für normales Zielen, die Hand für Aktivierbarkeit, das I für Textauswahl, das Verbotssymbol für eine abgelehnte Aktion und Doppelpfeile für eine verschiebbare Grenze."
+        ],
+        concepts: [["Maus", "Eingabegerät, das Bewegung und Aktionen über Sensor, Tasten und Rad an das Betriebssystem meldet."], ["Mauszeiger", "Sichtbare Grafik, die den Zeigerkoordinaten folgt und meist von Betriebssystem oder UI-Schicht gezeichnet wird."], ["Text-Caret", "Blinkende Einfügemarke im Editor. Sie ist nicht der Mauszeiger."], ["Zeigerschema", "Benannter Satz von Ressourcen und Zuordnungen. Windows stellt feste Einträge bereit, keine unbegrenzte Dateiliste."]],
+        displayTitle: "Von Pixeln zur Wahrnehmung: Größe, DPI und Schärfe",
+        displayIntro: "Eine Windows-Zeigerdatei sieht wie ein kleines Bild aus, ist aber eher ein Bildcontainer mit Metadaten: Hotspot, Größen und manchmal Animationsdaten gehören dazu. Es handelt sich nicht um eine beliebig skalierbare Vektorgrafik.",
+        displayPoints: ["Stellen Sie mehrere native Größen bereit, damit Windows eine zum Zeigermaß und zur DPI passende Grafik wählen kann. Das Vergrößern einer kleinen Bitmap macht Kanten weich.", "DPI ist nicht die Bildschirmauflösung. Windows kombiniert logische Koordinaten, Anzeigeskalierung und Zeigergröße; beim Wechsel zwischen Monitoren kann ein anderer Skalierungsweg greifen.", "Eine hochwertige Neuzeichnung beginnt mit kontinuierlichen Kurven und einer klaren Silhouette und exportiert anschließend mehrere Rastergrößen. Resampling erzeugt keine Form, die nie gezeichnet wurde.", "Schärfe soll nicht unangenehm wirken: Sorgen Sie auf hellen und dunklen Hintergründen für Kontrast und halten Sie Größe und Hotspot in jedem Animationsbild gleich."]
+      },
+      "it": {
+        foundationTitle: "Partiamo dal concetto: cos’è un puntatore del mouse?",
+        foundationParagraphs: [
+          "Il puntatore del mouse è l’immagine sullo schermo nata per indicare la posizione del mouse in un’interfaccia grafica. Il sensore comunica solo lo spostamento relativo sul piano; la freccia trasforma quell’input invisibile in un obiettivo visibile e preciso.",
+          "Non è soltanto una freccia disegnata. Le ricerche degli anni Sessanta, la dimostrazione pubblica di Engelbart del 1968 e sistemi successivi come Xerox Alto, Apple Macintosh e Windows affrontavano la stessa domanda: quando finestre, pulsanti, testo e oggetti condividono lo schermo, dove cadrà il prossimo clic?",
+          "Nel linguaggio comune cursor può indicare qualsiasi marcatore di posizione, ma puntatore del mouse, cursore di testo e CSS cursor sono concetti diversi. Per questo Windows può cambiare la freccia, mentre grab in una pagina web non trova automaticamente un altro file .cur.",
+          "Il puntatore comunica anche lo stato: la freccia indica il puntamento normale, la mano suggerisce l’attivazione, la I la selezione del testo, il simbolo di divieto rifiuta un’azione e le frecce di ridimensionamento indicano che un bordo può essere trascinato."
+        ],
+        concepts: [["Mouse", "Dispositivo di input che comunica al sistema movimenti e azioni tramite sensore, pulsanti e rotella."], ["Puntatore del mouse", "Immagine visibile che segue le coordinate, di solito disegnata dal sistema o dal livello UI dell’applicazione."], ["Cursore di testo", "Indicatore lampeggiante che mostra dove verrà inserito il testo. Non è il puntatore del mouse."], ["Schema di puntatori", "Insieme nominato di risorse e assegnazioni. Windows espone voci fisse, non un elenco illimitato di file."]],
+        displayTitle: "Dai pixel alla percezione: dimensione, DPI e nitidezza",
+        displayIntro: "Un file puntatore di Windows sembra una piccola immagine, ma è più simile a un contenitore con metadati: include punto attivo, dimensioni e talvolta dati di animazione. Non è una grafica vettoriale ingrandibile senza limiti.",
+        displayPoints: ["Fornisci più dimensioni native, così Windows può scegliere l’immagine più vicina alla dimensione del puntatore e al DPI. Ingrandire una bitmap piccola ammorbidisce i bordi.", "Il DPI non è la risoluzione dello schermo. Windows combina coordinate logiche, scala del display e dimensione del puntatore; passando da un monitor all’altro può cambiare percorso di scala.", "Una ridisegnatura di qualità parte da curve continue e una sagoma pulita, poi esporta più dimensioni raster. Il ricampionamento non può creare una forma mai disegnata.", "La nitidezza non deve essere aggressiva: mantieni contrasto su sfondi chiari e scuri e conserva dimensioni e punti attivi uguali in ogni fotogramma."]
+      }
+    };
+
     const STORAGE_KEY = "windows-cursor-simulation.locale";
     const THEME_STORAGE_KEY = "windows-cursor-simulation.theme";
     const SITE_URL = "https://realsilasyang.github.io/windows-cursor-simulation/";
     const STATS_ENDPOINT = "https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats";
+    const PAGE_VIEW_ENDPOINT = "https://windows-cursor-simulation-stats.realsilasyang.workers.dev/pageview";
     const STATS_REFRESH_INTERVAL_MS = 60 * 1000;
     const SOURCE_URL = "https://github.com/realSilasYang/windows-cursor-simulation";
     const SPEC_URL = "https://www.w3.org/TR/css-ui-4/#cursor";
     const LAST_MODIFIED = "2026-08-10";
     const SPEC_NAME = "CSS Basic User Interface Module Level 4";
-    const SYSTEM_ROLE_COUNT = cursorDefinitions.filter((cursor) => cursor.source === "system").length;
-    const CSS_STATE_COUNT = cursorDefinitions.length - SYSTEM_ROLE_COUNT;
+    const WINDOWS_CURSOR_COUNT = windowsCursorEntries.length;
+    const SYSTEM_CURSOR_COUNT = cursorDefinitions.filter((cursor) => cursor.source === "system").length;
+    const CSS_STATE_COUNT = cursorDefinitions.length - SYSTEM_CURSOR_COUNT;
     const supportedLocales = new Set(Object.keys(localeMessages));
     const localeRoutes = new Map([
       ["zh-CN", "zh-cn"],
@@ -2383,6 +3649,13 @@
     ]);
     const routeLocales = new Map([...localeRoutes].map(([locale, route]) => [route, locale]));
     const themeMedia = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    const reducedMotionMedia = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    const KNOWLEDGE_DIALOG_ANIMATION_MS = 180;
+    const GUIDE_NAVIGATION_LOCK_FALLBACK_MS = 900;
+    let knowledgeDialogCloseTimer = null;
+    let guideNavigationFrame = null;
+    let guideNavigationUnlockTimer = null;
+    let guideNavigationClickLock = null;
 
     function localeFromPath() {
       const segments = window.location.pathname.split("/").filter(Boolean);
@@ -2411,19 +3684,52 @@
     const elements = {
       title: document.getElementById("appTitle"),
       subtitle: document.getElementById("appSubtitle"),
+      knowledgeButton: document.getElementById("knowledgeButton"),
+      knowledgeDialog: document.getElementById("knowledgeDialog"),
+      knowledgeCloseButton: document.getElementById("knowledgeCloseButton"),
+      knowledgeTitle: document.getElementById("knowledgeTitle"),
+      knowledgeIntro: document.getElementById("knowledgeIntro"),
+      knowledgeContent: document.querySelector(".knowledge-content"),
+      guideNav: document.getElementById("guideNav"),
+      foundationTitle: document.getElementById("foundationTitle"),
+      foundationParagraphs: document.getElementById("foundationParagraphs"),
+      conceptList: document.getElementById("conceptList"),
+      journeyTitle: document.getElementById("journeyTitle"),
+      journeyIntro: document.getElementById("journeyIntro"),
+      pointerJourney: document.getElementById("pointerJourney"),
+      fileTitle: document.getElementById("fileTitle"),
+      fileTopics: document.getElementById("fileTopics"),
+      installTitle: document.getElementById("installTitle"),
+      installTopics: document.getElementById("installTopics"),
+      systemChapterTitle: document.getElementById("systemChapterTitle"),
+      knowledgeFacts: document.getElementById("knowledgeFacts"),
+      windowsEntriesTitle: document.getElementById("windowsEntriesTitle"),
+      windowsEntriesDescription: document.getElementById("windowsEntriesDescription"),
+      windowsEntryList: document.getElementById("windowsEntryList"),
+      directMappingsTitle: document.getElementById("directMappingsTitle"),
+      directMappingsDescription: document.getElementById("directMappingsDescription"),
+      directMappingList: document.getElementById("directMappingList"),
+      windowsOnlyTitle: document.getElementById("windowsOnlyTitle"),
+      windowsOnlyDescription: document.getElementById("windowsOnlyDescription"),
+      windowsOnlyList: document.getElementById("windowsOnlyList"),
+      displayTitle: document.getElementById("displayTitle"),
+      displayIntro: document.getElementById("displayIntro"),
+      displayPoints: document.getElementById("displayPoints"),
+      browserTitle: document.getElementById("browserTitle"),
+      browserExplanationOne: document.getElementById("browserExplanationOne"),
+      browserExplanationTwo: document.getElementById("browserExplanationTwo"),
+      cssOnlyTitle: document.getElementById("cssOnlyTitle"),
+      cssOnlyDescription: document.getElementById("cssOnlyDescription"),
+      cssOnlyList: document.getElementById("cssOnlyList"),
+      troubleshootingTitle: document.getElementById("troubleshootingTitle"),
+      troubleshootingList: document.getElementById("troubleshootingList"),
+      designTitle: document.getElementById("designTitle"),
+      designIntro: document.getElementById("designIntro"),
+      designPoints: document.getElementById("designPoints"),
       languageButton: document.getElementById("languageButton"),
       languageMenu: document.getElementById("languageMenu"),
       themeButton: document.getElementById("themeButton"),
       themeMenu: document.getElementById("themeMenu"),
-      headerStatus: document.getElementById("headerStatus"),
-      statusLabels: [
-        document.getElementById("systemRolesLabel"),
-        document.getElementById("cssStatesLabel"),
-        document.getElementById("platformLabel")
-      ],
-      systemRoles: document.getElementById("systemRoles"),
-      cssStates: document.getElementById("cssStates"),
-      platform: document.getElementById("platformValue"),
       search: document.getElementById("searchInput"),
       tabs: document.getElementById("filterTabs"),
       groups: document.getElementById("cursorGroups"),
@@ -2504,6 +3810,14 @@
       return localeMessages[state.locale];
     }
 
+    function currentKnowledge() {
+      return {
+        ...knowledgeMessages[state.locale],
+        ...guideStructureMessages[state.locale],
+        ...guideFoundationMessages[state.locale]
+      };
+    }
+
     function currentCursors() {
       return cursorDefinitions.map((definition, index) => ({
         ...definition,
@@ -2511,11 +3825,6 @@
         name: currentMessages().cursors[index][0],
         description: currentMessages().cursors[index][1]
       }));
-    }
-
-    function platformName() {
-      const platform = navigator.userAgentData?.platform || navigator.platform || "";
-      return /^win/i.test(platform) ? "Windows" : platform || "—";
     }
 
     function setMeta(selector, content) {
@@ -2672,8 +3981,148 @@
       }
     }
 
+    async function recordPageView() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      try {
+        const response = await fetch(PAGE_VIEW_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          credentials: "omit",
+          cache: "no-store",
+          signal: controller.signal
+        });
+        if (!response.ok) throw new Error(`Page-view counter returned HTTP ${response.status}`);
+        const payload = await response.json();
+        if (!Number.isInteger(payload.totalPageViews) || payload.totalPageViews < 0) {
+          throw new Error("Page-view counter returned an invalid total");
+        }
+        state.totalPageViews = payload.totalPageViews;
+        updatePageViewText();
+      } catch {
+        loadTotalPageViews();
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    function renderKnowledge() {
+      const knowledge = currentKnowledge();
+      const localizedCursorByRole = new Map(currentCursors().map((cursor) => [cursor.role, cursor]));
+      const localizedCursorByCss = new Map(currentCursors().map((cursor) => [cursor.css, cursor]));
+      const entryName = (role) => localizedCursorByRole.get(role)?.name || knowledge.windowsOnlyNames[role] || role;
+      const translatedLabel = (label) => state.locale.startsWith("zh-") ? `（${label}）` : label;
+      const factCounts = [WINDOWS_CURSOR_COUNT, directCursorMappings.length, cssOnlyKeywords.length];
+      const topicTemplate = (title, body) => `
+        <article class="guide-topic">
+          <h4>${escapeHtml(title)}</h4>
+          <p>${escapeHtml(body)}</p>
+        </article>`;
+
+      elements.knowledgeTitle.textContent = knowledge.title;
+      elements.knowledgeIntro.textContent = knowledge.intro;
+      const guideSections = [
+        ["guide-foundation", knowledge.foundationTitle],
+        ["guide-journey", knowledge.chapters[0]],
+        ["guide-files", knowledge.chapters[1]],
+        ["guide-install", knowledge.chapters[2]],
+        ["guide-windows", knowledge.chapters[3]],
+        ["guide-display", knowledge.displayTitle],
+        ["guide-browser", knowledge.chapters[4]],
+        ["guide-design", knowledge.chapters[6]],
+        ["guide-troubleshooting", knowledge.chapters[5]]
+      ];
+      elements.guideNav.innerHTML = guideSections.map(([id, title], index) => `
+        <button type="button" data-guide-target="${id}" aria-current="${String(index === 0)}">${escapeHtml(title)}</button>`).join("");
+      elements.foundationTitle.textContent = knowledge.foundationTitle;
+      elements.foundationParagraphs.innerHTML = knowledge.foundationParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+      elements.conceptList.innerHTML = knowledge.concepts.map(([term, definition]) => `
+        <details class="concept-item" open>
+          <summary>${escapeHtml(term)}</summary>
+          <dd>${escapeHtml(definition)}</dd>
+        </details>`).join("");
+      elements.journeyTitle.textContent = knowledge.chapters[0];
+      elements.journeyIntro.textContent = knowledge.journeyIntro;
+      elements.pointerJourney.innerHTML = knowledge.journeySteps.map((step, index) => `
+        <li class="${index === 0 ? "is-active" : ""}" tabindex="0" role="button" aria-pressed="${String(index === 0)}" data-journey-step="${index}">${escapeHtml(step)}</li>`).join("");
+
+      elements.fileTitle.textContent = knowledge.chapters[1];
+      elements.fileTopics.innerHTML = [
+        topicTemplate(knowledge.topicLabels[0], knowledge.notes[2]),
+        topicTemplate(knowledge.topicLabels[1], knowledge.notes[3])
+      ].join("");
+
+      elements.installTitle.textContent = knowledge.chapters[2];
+      elements.installTopics.innerHTML = [
+        topicTemplate(knowledge.topicLabels[2], knowledge.notes[0]),
+        topicTemplate(knowledge.topicLabels[3], knowledge.notes[1])
+      ].join("");
+
+      elements.systemChapterTitle.textContent = knowledge.chapters[3];
+      elements.knowledgeFacts.innerHTML = knowledge.facts.map((label, index) => `
+        <div class="knowledge-fact">
+          <strong data-knowledge-count="${factCounts[index]}">${factCounts[index]}</strong>
+          <span>${escapeHtml(label)}</span>
+        </div>`).join("");
+
+      elements.windowsEntriesTitle.textContent = knowledge.windowsTitle;
+      elements.windowsEntriesDescription.textContent = knowledge.windowsDescription;
+      elements.windowsEntryList.innerHTML = windowsCursorEntries.map((role) => `
+        <li class="knowledge-entry">
+          <code>${role}</code>
+          <span title="${escapeHtml(entryName(role))}">${escapeHtml(translatedLabel(entryName(role)))}</span>
+        </li>`).join("");
+
+      elements.directMappingsTitle.textContent = knowledge.mappingTitle;
+      elements.directMappingsDescription.textContent = knowledge.mappingDescription;
+      elements.directMappingList.innerHTML = directCursorMappings.map((cursor) => `
+        <li class="knowledge-entry">
+          <code>${cursor.role}</code>
+          <span>${escapeHtml(translatedLabel(localizedCursorByRole.get(cursor.role)?.name || cursor.role))}</span>
+          <span class="knowledge-mapping-arrow" aria-hidden="true">→</span>
+          <code>${cursor.css}</code>
+          <span>${escapeHtml(translatedLabel(localizedCursorByCss.get(cursor.css)?.name || cursor.css))}</span>
+        </li>`).join("");
+
+      elements.windowsOnlyTitle.textContent = knowledge.windowsOnlyTitle;
+      elements.windowsOnlyDescription.textContent = knowledge.windowsOnlyDescription;
+      elements.windowsOnlyList.innerHTML = windowsOnlyEntries.map((role) => `
+        <span class="knowledge-keyword-pair">
+          <code>${role}</code>
+          <span>${escapeHtml(translatedLabel(knowledge.windowsOnlyNames[role]))}</span>
+        </span>`).join("");
+
+      elements.displayTitle.textContent = knowledge.displayTitle;
+      elements.displayIntro.textContent = knowledge.displayIntro;
+      elements.displayPoints.innerHTML = knowledge.displayPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("");
+
+      elements.browserTitle.textContent = knowledge.chapters[4];
+      elements.browserExplanationOne.textContent = knowledge.notes[4];
+      elements.browserExplanationTwo.textContent = knowledge.notes[5];
+      elements.cssOnlyTitle.textContent = knowledge.cssOnlyTitle;
+      elements.cssOnlyDescription.textContent = knowledge.cssOnlyDescription;
+      elements.cssOnlyList.innerHTML = cssOnlyKeywords.map((keyword) => `
+        <span class="knowledge-keyword-pair">
+          <code>${keyword}</code>
+          <span>${escapeHtml(translatedLabel(localizedCursorByCss.get(keyword)?.name || keyword))}</span>
+        </span>`).join("");
+
+      elements.troubleshootingTitle.textContent = knowledge.chapters[5];
+      const troubleshootingNoteIndexes = [1, 0, 4, 3, 2, 6];
+      elements.troubleshootingList.innerHTML = knowledge.troubleshootingQuestions.map((question, index) => `
+        <details>
+          <summary>${escapeHtml(question)}</summary>
+          <p>${escapeHtml(knowledge.notes[troubleshootingNoteIndexes[index]])}</p>
+        </details>`).join("");
+
+      elements.designTitle.textContent = knowledge.chapters[6];
+      elements.designIntro.textContent = knowledge.designIntro;
+      elements.designPoints.innerHTML = knowledge.designNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join("");
+    }
+
     function updateStaticText() {
       const { ui } = currentMessages();
+      const knowledge = currentKnowledge();
       const pageUrl = canonicalUrl();
       document.documentElement.lang = state.locale;
       document.title = ui.pageTitle;
@@ -2692,28 +4141,26 @@
 
       elements.title.textContent = ui.title;
       elements.subtitle.textContent = ui.subtitle;
+      elements.knowledgeButton.setAttribute("aria-label", knowledge.button);
+      elements.knowledgeButton.title = knowledge.button;
+      elements.knowledgeCloseButton.setAttribute("aria-label", knowledge.close);
+      elements.knowledgeCloseButton.title = knowledge.close;
       elements.languageButton.setAttribute("aria-label", ui.language);
       elements.languageButton.title = ui.language;
       elements.languageMenu.setAttribute("aria-label", ui.language);
       elements.themeButton.setAttribute("aria-label", ui.theme);
       elements.themeButton.title = ui.theme;
       elements.themeMenu.setAttribute("aria-label", ui.theme);
-      elements.headerStatus.setAttribute("aria-label", ui.statusAria);
-      elements.statusLabels.forEach((element, index) => {
-        element.textContent = ui.status[index];
-      });
-      elements.systemRoles.textContent = String(SYSTEM_ROLE_COUNT);
-      elements.cssStates.textContent = String(CSS_STATE_COUNT);
-      elements.platform.textContent = platformName();
       elements.search.placeholder = ui.searchPlaceholder;
       elements.search.setAttribute("aria-label", ui.searchAria);
       elements.tabs.setAttribute("aria-label", ui.filtersAria);
       elements.groups.setAttribute("aria-label", ui.groupsAria);
       elements.emptyMessage.textContent = ui.empty;
       elements.clear.textContent = ui.clear;
-      elements.footerCounts.textContent = format(ui.footerCounts, { system: SYSTEM_ROLE_COUNT, css: CSS_STATE_COUNT });
+      elements.footerCounts.textContent = format(ui.footerCounts, { system: SYSTEM_CURSOR_COUNT, css: CSS_STATE_COUNT });
       updateSpecText(ui.footerSpec);
       updatePageViewText();
+      renderKnowledge();
 
       elements.tabs.querySelectorAll("[data-category]").forEach((tab, index) => {
         tab.textContent = ui.tabs[index];
@@ -2751,7 +4198,7 @@
         : state.themePreference;
       document.documentElement.dataset.themePreference = state.themePreference;
       document.documentElement.dataset.theme = resolved;
-      setMeta('meta[name="theme-color"]', resolved === "dark" ? "#25262b" : "#ffffff");
+      setMeta('meta[name="theme-color"]', resolved === "dark" ? "#33343a" : "#ffffff");
       renderThemeMenu();
       if (persist) saveThemePreference(state.themePreference);
     }
@@ -2806,6 +4253,30 @@
       elements.groups.innerHTML = categoryIds.map((categoryId) => groupTemplate(categoryId, visible)).join("");
       elements.emptyState.classList.toggle("is-visible", visible.length === 0);
       elements.groups.hidden = visible.length === 0;
+    }
+
+    function getCursorCardFromPointerEvent(event) {
+      const target = event.target instanceof Element ? event.target.closest(".cursor-card") : null;
+      return target && elements.groups.contains(target) ? target : null;
+    }
+
+    function updateCursorCardTilt(card, event) {
+      if (reducedMotionMedia?.matches || (event.pointerType && event.pointerType !== "mouse")) return;
+      const bounds = card.getBoundingClientRect();
+      if (!bounds.width || !bounds.height) return;
+      const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+      const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+      const tiltY = (x - 0.5) * 14;
+      const tiltX = (0.5 - y) * 14;
+      card.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+      card.classList.add("is-tilting");
+    }
+
+    function resetCursorCardTilt(card) {
+      card.classList.remove("is-tilting");
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
     }
 
     function resetSearch() {
@@ -2869,6 +4340,177 @@
       options[nextIndex]?.focus();
     }
 
+    function activateJourneyStep(step) {
+      elements.pointerJourney.querySelectorAll("[data-journey-step]").forEach((item) => {
+        const active = item.dataset.journeyStep === String(step);
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+    }
+
+    function setGuideNavigation(sectionId, reveal = true) {
+      let activeButton = null;
+      elements.guideNav.querySelectorAll("[data-guide-target]").forEach((button) => {
+        const active = button.dataset.guideTarget === sectionId;
+        button.setAttribute("aria-current", String(active));
+        if (active) activeButton = button;
+      });
+      if (!reveal || !activeButton) return;
+      const left = activeButton.offsetLeft - (elements.guideNav.clientWidth - activeButton.offsetWidth) / 2;
+      elements.guideNav.scrollTo({
+        left: Math.max(0, left),
+        behavior: reducedMotionMedia?.matches ? "auto" : "smooth"
+      });
+    }
+
+    function syncGuideNavigation() {
+      guideNavigationFrame = null;
+      const buttons = [...elements.guideNav.querySelectorAll("[data-guide-target]")];
+      if (!buttons.length) return;
+      if (guideNavigationClickLock) {
+        setGuideNavigation(guideNavigationClickLock);
+        return;
+      }
+      const reachedEnd = Math.ceil(elements.knowledgeContent.scrollTop + elements.knowledgeContent.clientHeight)
+        >= elements.knowledgeContent.scrollHeight - 2;
+      if (reachedEnd) {
+        setGuideNavigation(buttons.at(-1).dataset.guideTarget);
+        return;
+      }
+      const marker = elements.knowledgeContent.getBoundingClientRect().top + elements.guideNav.offsetHeight + 18;
+      let currentSectionId = buttons[0].dataset.guideTarget;
+      for (const button of buttons) {
+        const section = document.getElementById(button.dataset.guideTarget);
+        if (!section || section.getBoundingClientRect().top > marker) break;
+        currentSectionId = button.dataset.guideTarget;
+      }
+      setGuideNavigation(currentSectionId);
+    }
+
+    function scrollGuideNavigation(event) {
+      const maxScroll = elements.guideNav.scrollWidth - elements.guideNav.clientWidth;
+      if (maxScroll <= 0) return;
+      const rawDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (!rawDelta) return;
+      const scale = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+        ? 16
+        : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+          ? elements.guideNav.clientWidth
+          : 1;
+      event.preventDefault();
+      event.stopPropagation();
+      elements.guideNav.scrollLeft = Math.max(0, Math.min(maxScroll, elements.guideNav.scrollLeft + rawDelta * scale));
+    }
+
+    function queueGuideNavigationSync() {
+      if (guideNavigationFrame !== null) return;
+      guideNavigationFrame = requestAnimationFrame(syncGuideNavigation);
+    }
+
+    function releaseGuideNavigationClickLock() {
+      if (!guideNavigationClickLock) return;
+      guideNavigationClickLock = null;
+      if (guideNavigationUnlockTimer !== null) {
+        clearTimeout(guideNavigationUnlockTimer);
+        guideNavigationUnlockTimer = null;
+      }
+      queueGuideNavigationSync();
+    }
+
+    function focusGuideSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      guideNavigationClickLock = sectionId;
+      if (guideNavigationUnlockTimer !== null) clearTimeout(guideNavigationUnlockTimer);
+      guideNavigationUnlockTimer = setTimeout(releaseGuideNavigationClickLock, GUIDE_NAVIGATION_LOCK_FALLBACK_MS);
+      setGuideNavigation(sectionId);
+      section.scrollIntoView({ behavior: reducedMotionMedia?.matches ? "auto" : "smooth", block: "start" });
+      if (reducedMotionMedia?.matches) requestAnimationFrame(releaseGuideNavigationClickLock);
+    }
+
+    function openKnowledgeDialog() {
+      if (elements.knowledgeDialog.open) return;
+      if (knowledgeDialogCloseTimer) clearTimeout(knowledgeDialogCloseTimer);
+      elements.knowledgeDialog.classList.remove("is-closing");
+      elements.knowledgeDialog.showModal();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (elements.knowledgeDialog.open && !elements.knowledgeDialog.classList.contains("is-closing")) {
+            elements.knowledgeDialog.classList.add("is-visible");
+            syncGuideNavigation();
+          }
+        });
+      });
+    }
+
+    function closeKnowledgeDialog() {
+      if (!elements.knowledgeDialog.open || elements.knowledgeDialog.classList.contains("is-closing")) return;
+      releaseGuideNavigationClickLock();
+      elements.knowledgeDialog.classList.remove("is-visible");
+      elements.knowledgeDialog.classList.add("is-closing");
+      const delay = reducedMotionMedia?.matches ? 0 : KNOWLEDGE_DIALOG_ANIMATION_MS;
+      knowledgeDialogCloseTimer = setTimeout(() => {
+        elements.knowledgeDialog.classList.remove("is-closing");
+        elements.knowledgeDialog.close();
+        knowledgeDialogCloseTimer = null;
+      }, delay);
+    }
+
+    elements.knowledgeButton.addEventListener("click", () => {
+      setMenuOpen("language", false);
+      setMenuOpen("theme", false);
+      openKnowledgeDialog();
+    });
+
+    elements.knowledgeCloseButton.addEventListener("click", closeKnowledgeDialog);
+
+    elements.guideNav.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-guide-target]");
+      if (!button) return;
+      focusGuideSection(button.dataset.guideTarget);
+    });
+
+    elements.guideNav.addEventListener("wheel", scrollGuideNavigation, { passive: false });
+
+    elements.knowledgeContent.addEventListener("scroll", queueGuideNavigationSync, { passive: true });
+    elements.knowledgeContent.addEventListener("scrollend", releaseGuideNavigationClickLock, { passive: true });
+
+    elements.pointerJourney.addEventListener("click", (event) => {
+      const step = event.target.closest("[data-journey-step]");
+      if (step) activateJourneyStep(step.dataset.journeyStep);
+    });
+
+    elements.pointerJourney.addEventListener("keydown", (event) => {
+      const step = event.target.closest("[data-journey-step]");
+      if (!step || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      activateJourneyStep(step.dataset.journeyStep);
+    });
+
+    elements.knowledgeDialog.addEventListener("click", (event) => {
+      if (event.target !== elements.knowledgeDialog) return;
+      const bounds = elements.knowledgeDialog.getBoundingClientRect();
+      const inside = event.clientX >= bounds.left && event.clientX <= bounds.right
+        && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+      if (!inside) closeKnowledgeDialog();
+    });
+
+    elements.knowledgeDialog.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      closeKnowledgeDialog();
+    });
+
+    elements.knowledgeDialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeKnowledgeDialog();
+    });
+
+    elements.knowledgeDialog.addEventListener("close", () => {
+      elements.knowledgeDialog.classList.remove("is-visible", "is-closing");
+      elements.knowledgeButton.focus();
+    });
+
     elements.languageButton.addEventListener("click", () => {
       setMenuOpen("language", elements.languageButton.getAttribute("aria-expanded") !== "true");
     });
@@ -2930,6 +4572,24 @@
       render();
     });
 
+    elements.groups.addEventListener("pointermove", (event) => {
+      const card = getCursorCardFromPointerEvent(event);
+      if (card) updateCursorCardTilt(card, event);
+    });
+
+    elements.groups.addEventListener("pointerout", (event) => {
+      const card = getCursorCardFromPointerEvent(event);
+      if (!card) return;
+      const relatedTarget = event.relatedTarget;
+      if (relatedTarget instanceof Node && card.contains(relatedTarget)) return;
+      resetCursorCardTilt(card);
+    });
+
+    elements.groups.addEventListener("pointercancel", (event) => {
+      const card = getCursorCardFromPointerEvent(event);
+      if (card) resetCursorCardTilt(card);
+    });
+
     elements.search.addEventListener("input", () => {
       state.query = elements.search.value.trim().toLocaleLowerCase(state.locale);
       render();
@@ -2972,10 +4632,14 @@
       applyPreference(localeFromPath() || "auto", true);
     });
 
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) recordPageView();
+    });
+
     const initialPreference = initialRouteLocale || readPreference();
     applyPreference(initialPreference, false);
     applyTheme(readThemePreference(), false);
-    loadTotalPageViews();
+    recordPageView();
     setInterval(loadTotalPageViews, STATS_REFRESH_INTERVAL_MS);
     if (!initialRouteLocale && initialPreference !== "auto") syncLocaleUrl("replace");
   </script>

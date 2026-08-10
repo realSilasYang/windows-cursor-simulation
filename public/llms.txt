@@ -9,10 +9,11 @@ Technical specification: https://www.w3.org/TR/css-ui-4/#cursor
 ## Core facts
 
 - The tool covers all 36 predefined `cursor` keywords in CSS Basic User Interface Module Level 4.
-- Thirteen keywords map to standard Windows cursor-scheme roles.
+- Windows exposes 17 standard configurable cursor-scheme entries. Thirteen CSS keywords map directly to 13 of them.
+- The four Windows-only entries without a dedicated CSS keyword are `NWPen`, `UpArrow`, `Pin`, and `Person`.
 - Twenty-three keywords have no dedicated standard Windows cursor-scheme slot and are rendered according to the browser and operating system.
 - The page does not load, embed, or simulate `.cur` or `.ani` cursor files.
-- `grab` and `grabbing` are CSS cursor states, not standard configurable Windows cursor-scheme roles.
+- `grab` and `grabbing` are CSS cursor states, not standard configurable Windows cursor-scheme entries.
 - Search, use-case filters, and every cursor card are localized.
 
 ## Localized pages
@@ -34,5 +35,5 @@ Technical specification: https://www.w3.org/TR/css-ui-4/#cursor
 
 ## Detailed reference
 
-- Full project facts and cursor-role mapping: https://realsilasyang.github.io/windows-cursor-simulation/llms-full.txt
+- Full project facts and cursor-scheme mapping: https://realsilasyang.github.io/windows-cursor-simulation/llms-full.txt
 - XML sitemap: https://realsilasyang.github.io/windows-cursor-simulation/sitemap.xml
