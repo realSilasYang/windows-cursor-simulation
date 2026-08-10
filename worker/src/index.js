@@ -1,5 +1,5 @@
 const CLOUDFLARE_GRAPHQL = "https://api.cloudflare.com/client/v4/graphql";
-const CACHE_TTL_SECONDS = 600;
+export const CACHE_TTL_SECONDS = 60;
 const STATS_START = "2026-08-09T00:00:00.000Z";
 
 export const STATS_QUERY = `
@@ -29,7 +29,7 @@ function responseHeaders(origin, cacheable = false) {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "no-referrer",
     "Cache-Control": cacheable
-      ? `public, max-age=300, s-maxage=${CACHE_TTL_SECONDS}, stale-while-revalidate=60`
+      ? `public, max-age=0, s-maxage=${CACHE_TTL_SECONDS}, must-revalidate`
       : "no-store"
   });
   if (origin) {
@@ -50,7 +50,7 @@ export function buildVariables(now, env) {
   return {
     accountTag: env.CF_ACCOUNT_ID,
     totalFilter: {
-      siteTag: env.CF_SITE_TAG,
+      siteTag: env.CF_RUM_SITE_TAG,
       datetime_geq: STATS_START,
       datetime_lt: now.toISOString()
     }
@@ -103,12 +103,12 @@ export default {
     }
     if (url.pathname !== "/stats") return json({ error: "Not found" }, 404, origin);
     if (request.method !== "GET") return json({ error: "Method not allowed" }, 405, origin);
-    if (!env.CF_ACCOUNT_ID || !env.CF_ANALYTICS_TOKEN || !env.CF_SITE_TAG) {
+    if (!env.CF_ACCOUNT_ID || !env.CF_ANALYTICS_TOKEN || !env.CF_RUM_SITE_TAG) {
       return json({ error: "Statistics are not configured" }, 503, origin);
     }
 
     const cache = caches.default;
-    const cacheKey = new Request(`${url.origin}/stats?pageviews=v1`, { method: "GET" });
+    const cacheKey = new Request(`${url.origin}/stats?pageviews=v3`, { method: "GET" });
     const cached = await cache.match(cacheKey);
     if (cached) {
       const response = new Response(cached.body, cached);

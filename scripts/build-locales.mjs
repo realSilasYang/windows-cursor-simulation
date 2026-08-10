@@ -9,7 +9,7 @@ const publicDirectory = join(projectRoot, "public");
 const outputDirectory = join(projectRoot, "dist");
 const rootPagePath = join(outputDirectory, "index.html");
 const siteUrl = "https://realsilasyang.github.io/windows-cursor-simulation/";
-const lastModified = "2026-08-09";
+const lastModified = "2026-08-10";
 const locales = [
   ["zh-CN", "zh-cn"],
   ["zh-HK", "zh-hk"],

@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { STATS_QUERY, buildVariables, normalizeStats } from "../src/index.js";
+import { CACHE_TTL_SECONDS, STATS_QUERY, buildVariables, normalizeStats } from "../src/index.js";
+
+test("shared statistics cache refreshes every minute", () => {
+  assert.equal(CACHE_TTL_SECONDS, 60);
+});
 
 test("query requests page views without visit totals", () => {
   assert.match(STATS_QUERY, /rumPageloadEventsAdaptiveGroups[\s\S]*\bcount\b/);
@@ -11,12 +15,12 @@ test("buildVariables creates a cumulative window from launch", () => {
   const now = new Date("2026-08-09T12:00:00.000Z");
   const variables = buildVariables(now, {
     CF_ACCOUNT_ID: "account-id",
-    CF_SITE_TAG: "site-tag"
+    CF_RUM_SITE_TAG: "rum-site-tag"
   });
 
   assert.equal(variables.accountTag, "account-id");
   assert.deepEqual(variables.totalFilter, {
-    siteTag: "site-tag",
+    siteTag: "rum-site-tag",
     datetime_geq: "2026-08-09T00:00:00.000Z",
     datetime_lt: "2026-08-09T12:00:00.000Z"
   });

@@ -34,6 +34,11 @@ for (const [locale, route, canonical] of pages) {
   if (document.querySelector(".results-bar")) throw new Error(`${label}: redundant results summary row is still present`);
   const groupHeadingStyles = styleText.match(/\.group-heading\s*\{([^}]*)\}/)?.[1] || "";
   if (/border-bottom/.test(groupHeadingStyles)) throw new Error(`${label}: group headings must not have bottom rules`);
+  if (!/margin-bottom:\s*16px/.test(groupHeadingStyles)) throw new Error(`${label}: group headings need breathing room above card grids`);
+  const cursorGridStyles = styleText.match(/\.cursor-grid\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/min\(100%,\s*192px\)/.test(cursorGridStyles)) throw new Error(`${label}: cursor cards must use the compact grid width`);
+  const pageViewStyles = styleText.match(/\.footer-page-views\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/color:\s*inherit/.test(pageViewStyles)) throw new Error(`${label}: page-view count must match adjacent footer text`);
   if (!styleText.includes("grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)")) {
     throw new Error(`${label}: overview card is not centered by the header grid`);
   }
@@ -81,6 +86,12 @@ for (const [locale, route, canonical] of pages) {
   }
   if (!appScript.includes("setInterval(loadTotalPageViews, STATS_REFRESH_INTERVAL_MS)")) {
     throw new Error(`${label}: missing periodic statistics refresh`);
+  }
+  if (!appScript.includes("const STATS_REFRESH_INTERVAL_MS = 60 * 1000")) {
+    throw new Error(`${label}: statistics must refresh once per minute`);
+  }
+  if (!appScript.includes('cache: "no-store"')) {
+    throw new Error(`${label}: statistics requests must bypass the browser cache`);
   }
   if (/url\([^)]*\.(?:cur|ani)/i.test(html)) throw new Error(`${label}: external cursor file reference found`);
 

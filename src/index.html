@@ -438,7 +438,7 @@
 
     .cursor-groups {
       display: grid;
-      gap: 24px;
+      gap: 32px;
     }
 
     .cursor-group {
@@ -450,7 +450,7 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
 
     .group-heading h2 {
@@ -469,7 +469,7 @@
 
     .cursor-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 192px), 1fr));
       gap: 10px;
     }
 
@@ -615,7 +615,7 @@
     }
 
     .footer-page-views {
-      color: var(--text);
+      color: inherit;
       font-variant-numeric: tabular-nums;
       justify-self: end;
       white-space: nowrap;
@@ -2357,10 +2357,10 @@
     const THEME_STORAGE_KEY = "windows-cursor-simulation.theme";
     const SITE_URL = "https://realsilasyang.github.io/windows-cursor-simulation/";
     const STATS_ENDPOINT = "https://windows-cursor-simulation-stats.realsilasyang.workers.dev/stats";
-    const STATS_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
+    const STATS_REFRESH_INTERVAL_MS = 60 * 1000;
     const SOURCE_URL = "https://github.com/realSilasYang/windows-cursor-simulation";
     const SPEC_URL = "https://www.w3.org/TR/css-ui-4/#cursor";
-    const LAST_MODIFIED = "2026-08-09";
+    const LAST_MODIFIED = "2026-08-10";
     const SPEC_NAME = "CSS Basic User Interface Module Level 4";
     const SYSTEM_ROLE_COUNT = cursorDefinitions.filter((cursor) => cursor.source === "system").length;
     const CSS_STATE_COUNT = cursorDefinitions.length - SYSTEM_ROLE_COUNT;
@@ -2654,6 +2654,7 @@
         const response = await fetch(STATS_ENDPOINT, {
           headers: { Accept: "application/json" },
           credentials: "omit",
+          cache: "no-store",
           signal: controller.signal
         });
         if (!response.ok) throw new Error(`Statistics returned HTTP ${response.status}`);

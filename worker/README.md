@@ -10,6 +10,8 @@ npx wrangler secret put CF_ANALYTICS_TOKEN
 
 Create `CF_ANALYTICS_TOKEN` with only `Account → Account Analytics → Read` access, restricted to the account that owns the Web Analytics site.
 
+`CF_RUM_SITE_TAG` is the `siteTag` dimension returned by `rumPageloadEventsAdaptiveGroups`. It is not the public beacon token embedded in the page.
+
 Deploy:
 
 ```powershell
@@ -18,4 +20,4 @@ npm test
 npm run deploy
 ```
 
-The public endpoint is `https://<worker-host>/stats`. Responses are cached for ten minutes and CORS is restricted to the production site and local preview origins.
+The public endpoint is `https://<worker-host>/stats`. Responses use a one-minute shared cache, are not retained by browsers, and restrict CORS to the production site and local preview origins. Cloudflare Web Analytics ingestion may add a short delay before a new page view appears.

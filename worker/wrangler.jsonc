@@ -8,7 +8,7 @@
   },
   "vars": {
     "CF_ACCOUNT_ID": "665544907ddd72a378d40bb9c1a23b4f",
-    "CF_SITE_TAG": "fe49643173e74721b452221aafe7d9be",
+    "CF_RUM_SITE_TAG": "a515b688f3fa477ca71304343e171f68",
     "ALLOWED_ORIGINS": "https://realsilasyang.github.io,http://127.0.0.1:8127,http://localhost:8127"
   }
 }
