@@ -92,7 +92,7 @@
       --clear-hover-border: #53736d;
       --radius: 7px;
       --content-width: 1540px;
-      --footer-height: 58px;
+      --footer-height: 38px;
     }
 
     :root[data-theme="light"] {
@@ -171,11 +171,11 @@
 
     .header-inner {
       display: grid;
-      min-height: 76px;
+      min-height: 96px;
       align-items: center;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       gap: 24px;
-      padding-block: 14px;
+      padding-block: 18px;
     }
 
     .title-block {
@@ -623,15 +623,15 @@
 
     @media (max-width: 760px) {
       :root {
-        --footer-height: 108px;
+        --footer-height: 76px;
       }
 
       .footer-inner {
         align-items: flex-start;
         grid-template-columns: 1fr;
         justify-content: center;
-        gap: 4px;
-        padding-block: 12px;
+        gap: 2px;
+        padding-block: 8px;
       }
     }
 

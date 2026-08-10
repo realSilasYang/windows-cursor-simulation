@@ -22,6 +22,11 @@ for (const [locale, route, canonical] of pages) {
   const label = route || "root";
   const styleText = document.querySelector("style")?.textContent || "";
 
+  if (!/--footer-height:\s*38px/.test(styleText)) throw new Error(`${label}: desktop footer must use the compact height`);
+  if (!/--footer-height:\s*76px/.test(styleText)) throw new Error(`${label}: mobile footer must use the compact height`);
+  const headerInnerStyles = styleText.match(/\.header-inner\s*\{([^}]*)\}/)?.[1] || "";
+  if (!/min-height:\s*96px/.test(headerInnerStyles)) throw new Error(`${label}: desktop title bar must use the taller header`);
+
   if (document.documentElement.lang !== locale) throw new Error(`${label}: incorrect html lang`);
   if (!document.title || document.title.length > 65) throw new Error(`${label}: invalid title length`);
   const description = document.querySelector('meta[name="description"]')?.content || "";
